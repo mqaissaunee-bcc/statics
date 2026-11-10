@@ -210,6 +210,62 @@ footer p{max-width:var(--measure)}
 }
 
 section[aria-labelledby=pages-h]{margin-bottom:var(--s3)}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tools{display:flex;flex-wrap:wrap;gap:.6rem;margin:0 0 var(--s2);position:relative}
+.tools .fs{margin-left:auto}
+.tools.big .btn{font-size:1.2rem;padding:.7rem 1.4rem;flex:1 1 9rem}
+.gq{font-family:var(--font-head);font-size:1.2rem;font-weight:600;max-width:none}
+.score{font-family:var(--font-head);font-weight:700;font-size:1.15rem;margin:.6rem 0 0}
+.score:empty{display:none}
+.stepper{border-left:3px solid var(--rule);padding-left:var(--s2);margin-bottom:var(--s2)}
+.stepper:empty{display:none}
+.widget:fullscreen,.widget.faux-fs{overflow:auto;display:flex;flex-direction:column;justify-content:center;border:0}
+.widget.faux-fs{position:fixed;inset:0;z-index:50}
+.widget:fullscreen svg,.widget.faux-fs svg{max-height:60vh;width:auto;max-width:100%;margin:0 auto}
+.widget:fullscreen .panel,.widget.faux-fs .panel{font-size:1.2rem}
+.widget:fullscreen .verdict,.widget.faux-fs .verdict{font-size:1.45rem}
+.widget:fullscreen .ctl label,.widget.faux-fs .ctl label{font-size:1.15rem}
+.tb-lecture{flex:0 0 auto;padding:0;border-right:0}
+.tb-lecture .btn{border:0;min-height:44px;height:100%;font-size:.95rem;background:transparent;color:var(--ink)}
+.tb-lecture .btn[aria-pressed="true"]{background:var(--ink);color:var(--sheet)}
+html.lecture{font-size:125%}
+html.lecture .wrap{max-width:1500px}
+html.lecture .verdict{font-size:1.25rem}
+html.lecture figure .widget,html.lecture .sheet>.widget{max-width:1100px}
+@media print{.tools{display:none!important}.stepper>*{display:block!important}}
+/* In-class problems */
+.prob{border:1.5px solid var(--ink);border-left:10px solid var(--hi);background:var(--sheet);padding:var(--s2) var(--s3);margin:var(--s3) 0;scroll-margin-top:1rem}
+.prob h3{margin:0 0 var(--s2);font-size:1.3rem}
+.prob-grid{display:grid;gap:var(--s2) var(--s3);align-items:start;margin-bottom:var(--s2)}
+@media (min-width:820px){.prob-grid{grid-template-columns:minmax(0,1fr) minmax(0,26rem)}}
+.prob .ask{font-weight:700;font-family:var(--font-head);font-size:1.1rem}
+.pfig{background:#fff;border:1px solid var(--rule-soft);padding:.4rem}
+.pfig img{display:block;width:100%;height:auto}
+@media (prefers-color-scheme:dark){.pfig{background:transparent}.pfig img{filter:invert(1);mix-blend-mode:screen}}
+.plabel{font-family:var(--font-head);font-weight:700;margin:0 .5rem .3rem 0}
+.pans{font-size:1.35rem;background:var(--ok-bg);border-left:5px solid var(--ok);padding:.5rem .8rem;max-width:none}
+.psteps-w,.pfull{border-top:1px solid var(--rule-soft);padding-top:.75rem;margin-top:.75rem}
+.psteps li{margin-bottom:.6rem;max-width:none}
+.pfull p{max-width:none}
+.prob .tools{margin-bottom:.75rem}
+math{font-size:1.1em;font-family:"Cambria Math","STIX Two Math","Latin Modern Math","Noto Sans Math",math,serif}
+.mblock{display:block;margin:.5rem 0;overflow-x:auto;overflow-y:hidden;max-width:100%;padding:.2rem 0}
+.mblock math{text-align:left;width:max-content}
+.prob p,.prob li{min-width:0}
+.prob-grid>div{min-width:0}
+.prob:fullscreen,.prob.faux-fs{overflow:auto;padding:2rem 3rem;font-size:1.3rem;border:0;margin:0}
+.prob.faux-fs{position:fixed;inset:0;z-index:50}
+.prob:fullscreen .prob-grid,.prob.faux-fs .prob-grid{grid-template-columns:1fr 1fr}
+.prob:fullscreen p,.prob:fullscreen li{max-width:none}
+html.lecture .prob-grid{grid-template-columns:minmax(0,1fr) minmax(0,34rem)}
+.pindex{columns:2 22rem;padding-left:2.2rem}
+.pindex li{max-width:none;break-inside:avoid;margin-bottom:.3rem}
+.pindex a{display:inline-block;min-height:1.6rem}
+@media print{.prob [hidden]{display:block!important}}
+.btn:disabled{opacity:.55;cursor:default}
+.prob .katex{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:bottom}
+.prob .katex.mblock{display:block}
 </style>
 </head>
 <body>
@@ -221,6 +277,7 @@ section[aria-labelledby=pages-h]{margin-bottom:var(--s3)}
       <div class="tb-cell">Statics</div>
       <div class="tb-cell">Lesson 1: Friction</div>
       <div class="tb-cell tb-sheet">Sheet 3 of 4</div>
+      <div class="tb-cell tb-lecture"><button type="button" class="btn" id="lecture" aria-pressed="false">Lecture view: off</button></div>
     </div>
     <nav class="sheets" aria-label="Lesson pages"><ul><li><a href="index.html"><span class="n" aria-hidden="true">1</span>Overview</a></li><li><a href="lesson01.html"><span class="n" aria-hidden="true">2</span>Lesson</a></li><li><a href="activity01.html" aria-current="page"><span class="n" aria-hidden="true">3</span>Activity</a></li><li><a href="lab01.html"><span class="n" aria-hidden="true">4</span>Lab</a></li></ul></nav>
   </div>
@@ -247,6 +304,12 @@ section[aria-labelledby=pages-h]{margin-bottom:var(--s3)}
     <div><span><var>g</var></span><b>9.81 m/s²</b></div>
   </div>
 </div>
+
+<section class="sheet" aria-labelledby="t0">
+  <h2 id="t0">Warm-up: call it</h2>
+  <p>Play a few rounds before you start. Each round deals a different crate. Decide what happens first as the push grows, then watch.</p>
+  <div class="widget" data-widget="game"></div>
+</section>
 
 <section class="sheet" aria-labelledby="t1">
   <h2 id="t1">Part 1: bare floor</h2>
@@ -439,8 +502,62 @@ window.STATICS_ACTIVITY = [
   }
   var uid = 0;
 
-  /* ---------- Ramp widget: block on an incline, slip or tip ---------- */
-  var BLOCKS = { low: { b: 70, H: 35, name: 'Low block' }, tall: { b: 34, H: 102, name: 'Tall block' } };
+  /* ---------- Animation helpers ---------- */
+  var REDUCED = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  function tween(ms, step, done) {
+    if (REDUCED) { step(1); if (done) done(); return { stop: function () {} }; }
+    var t0 = null, live = true;
+    function fr(t) { if (!live) return; if (t0 === null) t0 = t; var k = Math.min(1, (t - t0) / ms); step(k); if (k < 1) requestAnimationFrame(fr); else if (done) done(); }
+    requestAnimationFrame(fr);
+    return { stop: function () { live = false; } };
+  }
+  function ticker(fn) {
+    var last = null, live = true;
+    function fr(t) { if (!live) return; if (last === null) last = t; var dt = Math.min(0.05, (t - last) / 1000); last = t; if (fn(dt) === false) { live = false; return; } requestAnimationFrame(fr); }
+    requestAnimationFrame(fr);
+    return { stop: function () { live = false; }, live: function () { return live; } };
+  }
+  function tools(box, html) {
+    var row = document.createElement('div'); row.className = 'tools';
+    row.innerHTML = html + '<button type="button" class="btn alt fs">Full screen</button>';
+    $('.panel', box).insertBefore(row, $('.panel', box).firstChild);
+    var b = $('.fs', row);
+    function on() { return document.fullscreenElement === box || box.classList.contains('faux-fs'); }
+    function label() { b.textContent = on() ? 'Exit full screen' : 'Full screen'; }
+    b.addEventListener('click', function () {
+      if (on()) { if (document.fullscreenElement) document.exitFullscreen(); box.classList.remove('faux-fs'); label(); return; }
+      var p = box.requestFullscreen ? box.requestFullscreen() : null;
+      if (p && p.catch) p.catch(function () { box.classList.add('faux-fs'); label(); });
+      else if (!p) { box.classList.add('faux-fs'); label(); }
+    });
+    document.addEventListener('fullscreenchange', label);
+    return row;
+  }
+  function rnd() { return (Math.random() + Math.random() + Math.random()) / 1.5 - 1; } /* roughly bell-shaped, -1 to 1 */
+
+  /* ---------- Ramp scene (shared by the ramp demo and the on-screen lab) ---------- */
+  var BLOCKS = { low: { b: 70, H: 35 }, tall: { b: 34, H: 102 } };
+  function rampScene(scene, th, blk, state, f, lines) {
+    clear(scene);
+    var px0 = 70, py0 = 290, L = 340, c = Math.cos(th * DEG), s = Math.sin(th * DEG);
+    hatch(scene, 30, 530, py0);
+    var ex = px0 + L * c, ey = py0 - L * s;
+    el('line', { x1: ex, y1: ey, x2: ex, y2: py0, 'class': 'faint' }, scene);
+    el('line', { x1: px0, y1: py0, x2: ex, y2: ey, 'class': 'ground', 'stroke-width': 5 }, scene);
+    if (th > 2) el('path', { d: 'M' + (px0 + 64) + ',' + py0 + ' A64,64 0 0 0 ' + (px0 + 64 * c) + ',' + (py0 - 64 * s), 'class': 'faint' }, scene);
+    txt(scene, px0 + 4, py0 + 30, 'θ = ' + th.toFixed(1) + '°', 't-weight');
+    var d = state === 'slip' ? 225 - f * f * (225 - 70 - blk.b / 2) : 225;
+    var bx = px0 + d * c, by = py0 - d * s;
+    var g = el('g', { transform: 'translate(' + bx + ',' + by + ') rotate(' + (-th) + ')' }, scene);
+    var g2 = el('g', state === 'tip' ? { transform: 'rotate(' + (-90 * f * f) + ',' + (-blk.b / 2) + ',0)' } : {}, g);
+    el('rect', { x: -blk.b / 2, y: -blk.H, width: blk.b, height: blk.H, 'class': 'body' }, g2);
+    el('circle', { cx: 0, cy: -blk.H / 2, r: 4, fill: 'currentColor' }, g2);
+    if (state === 'hold') {
+      var gx = bx - (blk.H / 2) * s, gy = by - (blk.H / 2) * c;
+      arrow(scene, gx, gy, gx, gy + 78, 'f-weight'); txt(scene, gx + 8, gy + 74, 'W', 't-weight');
+    }
+    (lines || []).forEach(function (t, i) { txt(scene, 548, 28 + 20 * i, t, 'small', 'end'); });
+  }
   function rampWidget(box) {
     var id = 'ramp' + (++uid);
     box.innerHTML =
@@ -450,66 +567,112 @@ window.STATICS_ACTIVITY = [
       '<div><label for="' + id + '-b">Block</label><select id="' + id + '-b"><option value="low">Low block (base is twice the height)</option><option value="tall">Tall block (height is three times the base)</option></select></div>' +
       '<div><label for="' + id + '-s">Ramp surface</label><select id="' + id + '-s"><option value="0.3">Smooth board, μs = 0.30</option><option value="0.5">Felt, μs = 0.50</option><option value="0.9">Sandpaper, μs = 0.90</option></select></div>' +
       '</div><p class="verdict" aria-live="polite"></p></div>';
+    tools(box, '<button type="button" class="btn go">Raise the ramp</button><button type="button" class="btn alt reset">Reset</button>');
     var scene = $('.scene', box), a = $('#' + id + '-a'), ao = $('#' + id + '-a-o'), bs = $('#' + id + '-b'), ss = $('#' + id + '-s'), v = $('.verdict', box);
-    function draw() {
-      var th = +a.value, mu = +ss.value, blk = BLOCKS[bs.value];
-      var slipA = Math.atan(mu) / DEG, tipA = Math.atan(blk.b / blk.H) / DEG;
-      var state = 'hold';
-      if (th > Math.min(slipA, tipA) + 1e-9) state = slipA <= tipA ? 'slip' : 'tip';
-      ao.textContent = th.toFixed(1);
-      clear(scene);
-      var px0 = 70, py0 = 290, L = 340, c = Math.cos(th * DEG), s = Math.sin(th * DEG);
-      hatch(scene, 30, 530, py0);
-      var ex = px0 + L * c, ey = py0 - L * s;
-      el('line', { x1: ex, y1: ey, x2: ex, y2: py0, 'class': 'faint' }, scene);
-      el('line', { x1: px0, y1: py0, x2: ex, y2: ey, 'class': 'ground', 'stroke-width': 5 }, scene);
-      if (th > 2) {
-        el('path', { d: 'M' + (px0 + 64) + ',' + py0 + ' A64,64 0 0 0 ' + (px0 + 64 * c) + ',' + (py0 - 64 * s), 'class': 'faint' }, scene);
-      }
-      txt(scene, px0 + 4, py0 + 30, 'θ = ' + th.toFixed(1) + '°', 't-weight');
-      var d = state === 'slip' ? 70 + blk.b / 2 : 225;
-      var bx = px0 + d * c, by = py0 - d * s;
-      var g = el('g', { transform: 'translate(' + bx + ',' + by + ') rotate(' + (-th) + ')' }, scene);
-      var g2 = el('g', state === 'tip' ? { transform: 'rotate(-20,' + (-blk.b / 2) + ',0)' } : {}, g);
-      el('rect', { x: -blk.b / 2, y: -blk.H, width: blk.b, height: blk.H, 'class': 'body' }, g2);
-      el('circle', { cx: 0, cy: -blk.H / 2, r: 4, fill: 'currentColor' }, g2);
-      if (state === 'hold') {
-        var gx = bx - (blk.H / 2) * s, gy = by - (blk.H / 2) * c;
-        arrow(scene, gx, gy, gx, gy + 78, 'f-weight');
-        txt(scene, gx + 8, gy + 74, 'W', 't-weight');
-      }
-      if (state === 'slip') {
-        for (var k = 0; k < 3; k++) {
-          var m = d + blk.b / 2 + 16 + k * 16;
-          el('line', { x1: px0 + m * c - 8 * s, y1: py0 - m * s - 8 * c, x2: px0 + m * c - 24 * s, y2: py0 - m * s - 24 * c, 'class': 'hatch' }, scene);
-        }
-      }
-      txt(scene, 548, 28, 'Slips when tan θ reaches μs: ' + slipA.toFixed(1) + '°', 'small', 'end');
-      txt(scene, 548, 48, 'Tips when tan θ reaches base ÷ height: ' + tipA.toFixed(1) + '°', 'small', 'end');
-      v.setAttribute('data-state', state);
-      var first = slipA <= tipA ? 'slipping' : 'tipping';
-      if (state === 'hold') v.textContent = 'Holds. The weight’s line of action still lands inside the base, and friction still has room to grow. At this rate ' + first + ' comes first, at ' + Math.min(slipA, tipA).toFixed(1) + '°.';
-      else if (state === 'slip') v.textContent = 'Slips. The block needed more friction than the surface can supply (tan θ is greater than μs = ' + mu.toFixed(2) + '). It would have tipped at ' + tipA.toFixed(1) + '°.';
-      else v.textContent = 'Tips. The weight’s line of action passed the downhill edge of the base before friction ran out. It would have slipped at ' + slipA.toFixed(1) + '°.';
+    var cur = 'hold', f = 0, tw = null, run = null;
+    function limits() { var blk = BLOCKS[bs.value]; return { slip: Math.atan(+ss.value) / DEG, tip: Math.atan(blk.b / blk.H) / DEG }; }
+    function paint() {
+      var th = +a.value, lim = limits();
+      rampScene(scene, th, BLOCKS[bs.value], cur, f, ['Slips when tan θ reaches μs: ' + lim.slip.toFixed(1) + '°', 'Tips when tan θ reaches base ÷ height: ' + lim.tip.toFixed(1) + '°']);
     }
-    [a, bs, ss].forEach(function (n) { n.addEventListener('input', draw); n.addEventListener('change', draw); });
+    function draw() {
+      var th = +a.value, mu = +ss.value, lim = limits(), state = 'hold';
+      if (th > Math.min(lim.slip, lim.tip) + 1e-9) state = lim.slip <= lim.tip ? 'slip' : 'tip';
+      ao.textContent = th.toFixed(1);
+      if (state !== cur) {
+        if (tw) tw.stop(); cur = state;
+        if (state === 'hold') f = 0; else { f = 0; tw = tween(700, function (k) { f = k; paint(); }); }
+      }
+      paint();
+      v.setAttribute('data-state', state);
+      var first = lim.slip <= lim.tip ? 'slipping' : 'tipping';
+      if (state === 'hold') v.textContent = 'Holds. The weight’s line of action still lands inside the base, and friction still has room to grow. ' + first.charAt(0).toUpperCase() + first.slice(1) + ' comes first, at ' + Math.min(lim.slip, lim.tip).toFixed(1) + '°.';
+      else if (state === 'slip') v.textContent = 'Slips. The block needed more friction than the surface can supply (tan θ is greater than μs = ' + mu.toFixed(2) + '). It would have tipped at ' + lim.tip.toFixed(1) + '°.';
+      else v.textContent = 'Tips. The weight’s line of action passed the downhill edge of the base before friction ran out. It would have slipped at ' + lim.slip.toFixed(1) + '°.';
+    }
+    function stop() { if (run) run.stop(); run = null; }
+    $('.go', box).addEventListener('click', function () {
+      stop(); var lim = limits(), crit = Math.min(lim.slip, lim.tip);
+      if (+a.value > crit) { a.value = 0; draw(); }
+      if (REDUCED) { a.value = Math.min(50, Math.ceil(crit * 2 + 0.01) / 2); draw(); return; }
+      var th = +a.value;
+      run = ticker(function (dt) { th += 7 * dt; a.value = Math.min(50, th); draw(); if (cur !== 'hold' || th >= 50) return false; });
+    });
+    $('.reset', box).addEventListener('click', function () { stop(); a.value = 0; draw(); });
+    [a, bs, ss].forEach(function (n) { n.addEventListener('input', function () { stop(); draw(); }); n.addEventListener('change', draw); });
     draw();
   }
 
-  /* ---------- Friction graph widget ---------- */
+  /* ---------- On-screen lab: noisy trials that log themselves into the data sheet ---------- */
+  var SURF = [{ n: 'Smooth board', mu: 0.27 }, { n: 'Felt', mu: 0.52 }, { n: 'Sandpaper', mu: 0.84 }];
+  function labRig(box) {
+    var id = 'rig' + (++uid);
+    box.innerHTML =
+      '<svg viewBox="0 0 560 330" role="img" aria-labelledby="' + id + '-t"><title id="' + id + '-t">On-screen ramp for the lab. Each trial raises the ramp until the block moves, then records the angle.</title><g class="scene"></g></svg>' +
+      '<div class="panel"><div class="ctl">' +
+      '<div><label for="' + id + '-s">Ramp surface</label><select id="' + id + '-s"><option value="0">Surface 1: smooth board</option><option value="1">Surface 2: felt</option><option value="2">Surface 3: sandpaper</option></select></div>' +
+      '<div><label for="' + id + '-b">Block</label><select id="' + id + '-b"><option value="low">Low block (fills Table 1)</option><option value="tall">Tall block, 30 mm by 90 mm (fills Table 2)</option></select></div>' +
+      '</div><p class="verdict" aria-live="polite" data-state="hold">Choose a surface and run a trial. The ramp rises until the block moves, and the angle is written into the data sheet.</p></div>';
+    tools(box, '<button type="button" class="btn one">Run one trial</button><button type="button" class="btn alt five">Run five trials</button>');
+    var scene = $('.scene', box), ss = $('#' + id + '-s'), bs = $('#' + id + '-b'), v = $('.verdict', box), busy = false;
+    function put(sel, val) { var n = $(sel); if (!n) return; n.value = val; n.dispatchEvent(new Event('input', { bubbles: true })); }
+    function prefill() {
+      SURF.forEach(function (s, i) { var n = $('#s' + (i + 1) + 'n'); if (n && !n.value) put('#s' + (i + 1) + 'n', s.n); });
+      if ($('#tb') && !$('#tb').value) put('#tb', 30); if ($('#tH') && !$('#tH').value) put('#tH', 90);
+    }
+    function trial(left) {
+      busy = true; prefill();
+      var k = +ss.value, blk = BLOCKS[bs.value], kind = bs.value;
+      var slipA = Math.atan(SURF[k].mu * (1 + 0.07 * rnd())) / DEG, tipA = Math.atan(blk.b / blk.H) / DEG + 0.5 * rnd();
+      var crit = Math.min(slipA, tipA), how = slipA <= tipA ? 'slip' : 'tip', th = 0;
+      function finish() {
+        var msg = (how === 'slip' ? 'Slipped' : 'Tipped') + ' at ' + crit.toFixed(1) + '°. ';
+        if (kind === 'low') {
+          var slot = 0; for (var t = 1; t <= 5 && !slot; t++) if (!$('#s' + (k + 1) + 't' + t).value) slot = t;
+          if (slot) { put('#s' + (k + 1) + 't' + slot, crit.toFixed(1)); msg += 'Recorded as ' + SURF[k].n.toLowerCase() + ', trial ' + slot + ' of 5.'; }
+          else { msg += 'Table 1 already has five trials for this surface, so this one was not recorded.'; left = 1; }
+        } else {
+          var ob = $('#p' + (k + 1) + 'ob'), now = how === 'slip' ? 'Slipped first' : 'Tipped first';
+          put('#p' + (k + 1) + 'ob', ob.value && ob.value !== now ? 'Mixed across trials' : now);
+          msg += 'Recorded in Table 2.';
+        }
+        v.setAttribute('data-state', how); v.textContent = msg;
+        if (left > 1) setTimeout(function () { trial(left - 1); }, REDUCED ? 0 : 700); else busy = false;
+      }
+      v.setAttribute('data-state', 'hold'); v.textContent = 'Raising the ramp…';
+      if (REDUCED) { rampScene(scene, crit, blk, how, 1); finish(); return; }
+      ticker(function (dt) {
+        th += 10 * dt;
+        if (th < crit) { rampScene(scene, th, blk, 'hold', 0, ['θ = ' + th.toFixed(1) + '°']); return; }
+        tween(600, function (q) { rampScene(scene, crit, blk, how, q, [(how === 'slip' ? 'Slipped' : 'Tipped') + ' at ' + crit.toFixed(1) + '°']); }, finish);
+        return false;
+      });
+    }
+    $('.one', box).addEventListener('click', function () { if (!busy) trial(1); });
+    $('.five', box).addEventListener('click', function () { if (!busy) trial(5); });
+    rampScene(scene, 0, BLOCKS.low, 'hold', 0);
+    bs.addEventListener('change', function () { if (!busy) rampScene(scene, 0, BLOCKS[bs.value], 'hold', 0); });
+  }
+
+  /* ---------- Friction graph with a crate that actually moves ---------- */
   function graphWidget(box) {
     var id = 'graph' + (++uid), m = 20, mus = 0.4, muk = 0.3, N = m * G, Fs = mus * N, Fk = muk * N;
     box.innerHTML =
-      '<svg viewBox="0 0 560 310" role="img" aria-labelledby="' + id + '-t"><title id="' + id + '-t">Graph of friction force against applied force. Friction rises in a straight line equal to the applied force up to 78.5 newtons, then drops to a constant 58.9 newtons once the crate slides.</title><g class="scene"></g></svg>' +
+      '<svg viewBox="0 0 560 390" role="img" aria-labelledby="' + id + '-t"><title id="' + id + '-t">A crate pulled by a force P, above a graph of friction force against applied force. Friction rises in a straight line equal to the applied force up to 78.5 newtons, then drops to a constant 58.9 newtons once the crate slides.</title><g class="scene"></g></svg>' +
       '<div class="panel"><div class="ctl">' + slider(id + '-p', 'Applied force <var>P</var>', 0, 150, 0.5, 30, 'N') + '</div><p class="verdict" aria-live="polite"></p></div>';
+    tools(box, '<button type="button" class="btn go">Pull harder and harder</button><button type="button" class="btn alt reset">Reset</button>');
     var scene = $('.scene', box), p = $('#' + id + '-p'), po = $('#' + id + '-p-o'), v = $('.verdict', box);
-    var ox = 70, oy = 255, sx = 3, sy = 2.2;
+    var ox = 70, oy = 335, sx = 3, sy = 2.2, slide = 0, vel = 0, mover = null, run = null, last = '';
     function X(P) { return ox + P * sx; } function Y(F) { return oy - F * sy; }
-    function draw() {
-      var P = +p.value, state, F;
-      if (P < Fs - 0.26) { state = 'hold'; F = P; } else if (P <= Fs + 0.26) { state = 'edge'; F = Fs; } else { state = 'slip'; F = Fk; }
-      po.textContent = P.toFixed(1);
+    function status(P) { return P < Fs - 0.26 ? 'hold' : (P <= Fs + 0.26 ? 'edge' : 'slip'); }
+    function paint() {
+      var P = +p.value, state = status(P), F = state === 'hold' ? P : (state === 'edge' ? Fs : Fk);
       clear(scene);
+      hatch(scene, 30, 530, 78);
+      var cxr = 90 + slide, g = el('g', {}, scene);
+      el('rect', { x: cxr, y: 34, width: 62, height: 44, 'class': 'body' }, g);
+      arrow(g, cxr + 62, 56, cxr + 62 + 14 + P * 0.5, 56, 'f-applied'); txt(g, cxr + 62 + 22 + P * 0.5, 61, 'P', 't-applied');
+      if (F > 1) { arrow(g, cxr + 31, 90, cxr + 31 - 10 - F * 0.5, 90, 'f-friction'); txt(g, cxr + 40, 96, 'F', 't-friction'); }
       el('line', { x1: ox, y1: oy, x2: X(155), y2: oy, 'class': 'axis' }, scene);
       el('line', { x1: ox, y1: oy, x2: ox, y2: Y(100), 'class': 'axis' }, scene);
       [0, 50, 100, 150].forEach(function (t) { txt(scene, X(t), oy + 20, String(t), 'small', 'middle'); el('line', { x1: X(t), y1: oy, x2: X(t), y2: oy + 5, 'class': 'axis' }, scene); });
@@ -524,17 +687,79 @@ window.STATICS_ACTIVITY = [
       txt(scene, X(Fs) + 8, Y(Fs) - 8, 'Impending motion: F = μsN = ' + Fs.toFixed(1) + ' N', 't-friction');
       txt(scene, X(150), Y(Fk) + 22, 'Kinetic: F = μkN = ' + Fk.toFixed(1) + ' N', 't-friction', 'end');
       el('circle', { cx: X(P), cy: Y(F), r: 8, 'class': 'dot' }, scene);
-      v.setAttribute('data-state', state);
-      if (state === 'hold') v.textContent = 'Static. The crate does not move. Friction is ' + F.toFixed(1) + ' N, exactly equal to the push, and well short of the ' + Fs.toFixed(1) + ' N limit.';
-      else if (state === 'edge') v.textContent = 'Impending motion. Friction has reached its maximum, μsN = ' + Fs.toFixed(1) + ' N. Any larger push starts the crate sliding.';
-      else v.textContent = 'Sliding. Friction has dropped to the kinetic value, μkN = ' + Fk.toFixed(1) + ' N. The other ' + (P - Fk).toFixed(1) + ' N of the push is unbalanced, so the crate accelerates and statics no longer applies.';
+      return { P: P, F: F, state: state };
     }
-    p.addEventListener('input', draw); draw();
+    function draw() {
+      var r = paint(); po.textContent = r.P.toFixed(1);
+      if (r.state === 'slip' && !REDUCED) {
+        if (!mover || !mover.live()) mover = ticker(function (dt) {
+          var P = +p.value; if (status(P) !== 'slip') { vel = 0; return false; }
+          vel += (P - Fk) / m * dt; slide += vel * 40 * dt; if (slide > 420) { slide = 0; vel = 0; } paint();
+        });
+      } else if (r.state !== 'slip') { slide = 0; vel = 0; }
+      if (r.state === last && r.state !== 'hold') return; last = r.state;
+      v.setAttribute('data-state', r.state);
+      if (r.state === 'hold') v.textContent = 'Static. The crate does not move. Friction is ' + r.F.toFixed(1) + ' N, exactly equal to the pull, and short of the ' + Fs.toFixed(1) + ' N limit.';
+      else if (r.state === 'edge') v.textContent = 'Impending motion. Friction has reached its maximum, μsN = ' + Fs.toFixed(1) + ' N. Any larger pull starts the crate sliding.';
+      else v.textContent = 'Sliding. Friction has dropped to the kinetic value, μkN = ' + Fk.toFixed(1) + ' N. The rest of the pull is unbalanced, so the crate accelerates and statics no longer applies.';
+    }
+    function stop() { if (run) run.stop(); run = null; }
+    $('.go', box).addEventListener('click', function () {
+      stop(); var P = 0; p.value = 0; draw();
+      if (REDUCED) { p.value = 100; draw(); return; }
+      run = ticker(function (dt) { P += 16 * dt; p.value = Math.min(150, P); draw(); if (P >= 150) return false; });
+    });
+    $('.reset', box).addEventListener('click', function () { stop(); p.value = 0; draw(); });
+    p.addEventListener('input', function () { stop(); draw(); });
+    draw();
   }
 
-  /* ---------- Pushed crate widget: slip or tip, with normal force location ---------- */
+  /* ---------- Pushed crate scene (shared by the free-body diagram and the game) ---------- */
+  var CR = { H: 1.6, sc: 105, W: 60 * G };
+  function crateLimits(q) { return { slip: q.mu * CR.W, tip: CR.W * q.a / (2 * q.h) }; }
+  function crateScene(scene, q, P, state, f, opt) {
+    clear(scene);
+    var W = CR.W, lim = crateLimits(q), gy = 285, cx = 300 - (opt.game ? 60 : 0), aw = q.a * CR.sc, hh = CR.H * CR.sc, left = cx - aw / 2, right = cx + aw / 2;
+    var F = state === 'hold' ? P : (state === 'tip' ? lim.tip : lim.slip), x = state === 'hold' ? P * q.h / W : (state === 'tip' ? q.a / 2 : lim.slip * q.h / W);
+    hatch(scene, 30, 530, gy);
+    var dx = state === 'slip' ? 34 + 150 * f * f : 0;
+    var g = el('g', state === 'slip' ? { transform: 'translate(' + dx + ',0)' } : (state === 'tip' ? { transform: 'rotate(' + (90 * f * f) + ',' + right + ',' + gy + ')' } : {}), scene);
+    el('rect', { x: left, y: gy - hh, width: aw, height: hh, 'class': 'body' }, g);
+    el('line', { x1: cx, y1: gy - hh, x2: cx, y2: gy, 'class': 'faint' }, g);
+    el('circle', { cx: cx, cy: gy - hh / 2, r: 4.5, fill: 'currentColor' }, g);
+    var yP = gy - q.h * CR.sc, Lp = 22 + P * 0.2;
+    var fg = el('g', state === 'slip' ? { transform: 'translate(' + dx + ',0)' } : {}, scene);
+    if (!(state === 'tip' && f > 0.25)) {
+      arrow(fg, left - Lp, yP, left, yP, 'f-applied');
+      txt(fg, left - Lp - 8, yP + 5, 'P = ' + P.toFixed(0) + ' N', 't-applied', 'end');
+    }
+    if (state === 'tip') {
+      el('circle', { cx: right, cy: gy, r: 7, 'class': 'dot' }, scene);
+      txt(scene, right - 10, gy + 32, 'Rotating about this edge', 't-weight', 'end');
+    } else if (opt.forces) {
+      el('line', { x1: left - 12, y1: yP + 8, x2: left - 12, y2: gy, 'class': 'faint' }, fg);
+      txt(fg, left - 20, (yP + gy) / 2 + 12, 'h', 'small', 'end');
+      arrow(fg, cx, gy - hh / 2, cx, gy - hh / 2 + 72, 'f-weight');
+      txt(fg, right + 10, gy - hh / 2 + 40, 'W = ' + W.toFixed(0) + ' N', 't-weight');
+      var nx = cx + x * CR.sc;
+      arrow(fg, nx, gy + 72, nx, gy + 2, 'f-normal'); txt(fg, nx + 9, gy + 68, 'N = ' + W.toFixed(0) + ' N', 't-normal');
+      var Lf = 22 + F * 0.2;
+      arrow(fg, cx - 10, gy + 14, cx - 10 - Lf, gy + 14, 'f-friction'); txt(fg, cx - 14 - Lf, gy + 36, 'F = ' + F.toFixed(0) + ' N', 't-friction', 'end');
+      if (x * CR.sc > 6) {
+        el('line', { x1: cx, y1: gy + 52, x2: nx, y2: gy + 52, 'class': 'axis' }, fg);
+        el('line', { x1: cx, y1: gy + 46, x2: cx, y2: gy + 58, 'class': 'axis' }, fg);
+        txt(fg, cx - 6, gy + 57, 'x', 'small', 'end');
+      }
+    }
+    if (opt.game) {
+      txt(scene, 548, 60, 'Base a = ' + q.a.toFixed(2) + ' m', 't-weight', 'end');
+      txt(scene, 548, 84, 'Push height h = ' + q.h.toFixed(2) + ' m', 't-weight', 'end');
+      txt(scene, 548, 108, 'μs = ' + q.mu.toFixed(2), 't-weight', 'end');
+      if (opt.reveal) { txt(scene, 548, 140, 'a ÷ 2h = ' + (q.a / (2 * q.h)).toFixed(2), 't-normal', 'end'); }
+    } else txt(scene, 548, 26, 'x = ' + x.toFixed(3) + ' m of ' + (q.a / 2).toFixed(3) + ' m available', 'small', 'end');
+  }
   function pushWidget(box) {
-    var id = 'push' + (++uid), m = 60, W = m * G, Hc = 1.6, sc = 105;
+    var id = 'push' + (++uid);
     box.innerHTML =
       '<svg viewBox="0 0 560 370" role="img" aria-labelledby="' + id + '-t"><title id="' + id + '-t">Free-body diagram of a crate pushed by a horizontal force P at height h. Weight W acts down at the center, friction F acts along the floor against the push, and the normal force N acts up at a distance x from the centerline. The status line below gives the current values.</title><g class="scene"></g></svg>' +
       '<div class="panel"><div class="ctl">' +
@@ -546,61 +771,210 @@ window.STATICS_ACTIVITY = [
       '<div class="lane"><span class="l1"></span><div class="track"><div class="fill fr"></div></div></div>' +
       '<div class="lane"><span class="l2"></span><div class="track"><div class="fill nm"></div></div></div></div>' +
       '<p class="verdict" aria-live="polite"></p></div>';
+    tools(box, '<button type="button" class="btn go">Push harder and harder</button><button type="button" class="btn alt reset">Reset</button>');
     var scene = $('.scene', box), v = $('.verdict', box);
     var ip = $('#' + id + '-p'), ih = $('#' + id + '-h'), ia = $('#' + id + '-a'), im = $('#' + id + '-m');
-    var l1 = $('.l1', box), l2 = $('.l2', box), f1 = $('.fr', box), f2 = $('.nm', box);
+    var l1 = $('.l1', box), l2 = $('.l2', box), f1 = $('.fr', box), f2 = $('.nm', box), cur = 'hold', f = 0, tw = null, run = null;
+    function q() { return { a: +ia.value, h: +ih.value, mu: +im.value }; }
+    function paint() { crateScene(scene, q(), +ip.value, cur, f, { forces: true }); }
     function draw() {
-      var P = +ip.value, h = +ih.value, a = +ia.value, mu = +im.value;
-      $('#' + id + '-p-o').textContent = P.toFixed(0); $('#' + id + '-h-o').textContent = h.toFixed(2);
-      $('#' + id + '-a-o').textContent = a.toFixed(2); $('#' + id + '-m-o').textContent = mu.toFixed(2);
-      var Pslip = mu * W, Ptip = W * a / (2 * h), Pcrit = Math.min(Pslip, Ptip), state = 'hold';
-      if (P > Pcrit + 1e-9) state = Pslip <= Ptip ? 'slip' : 'tip';
-      var F = state === 'hold' ? P : (state === 'tip' ? Ptip : Pslip), x = state === 'hold' ? P * h / W : (state === 'tip' ? a / 2 : Pslip * h / W);
-      clear(scene);
-      var gy = 285, cx = 300, aw = a * sc, hh = Hc * sc, left = cx - aw / 2;
-      hatch(scene, 30, 530, gy);
-      var tf = state === 'slip' ? 'translate(34,0)' : (state === 'tip' ? 'rotate(11,' + (cx + aw / 2) + ',' + gy + ')' : '');
-      var g = el('g', tf ? { transform: tf } : {}, scene);
-      el('rect', { x: left, y: gy - hh, width: aw, height: hh, 'class': 'body' }, g);
-      el('line', { x1: cx, y1: gy - hh, x2: cx, y2: gy, 'class': 'faint' }, g);
-      el('circle', { cx: cx, cy: gy - hh / 2, r: 4.5, fill: 'currentColor' }, g);
-      var yP = gy - h * sc, Lp = 22 + P * 0.2, right = cx + aw / 2;
-      var fg = el('g', state === 'slip' ? { transform: 'translate(34,0)' } : {}, scene);
-      arrow(fg, left - Lp, yP, left, yP, 'f-applied');
-      txt(fg, left - Lp - 8, yP + 5, 'P = ' + P.toFixed(0) + ' N', 't-applied', 'end');
-      if (state === 'tip') {
-        el('circle', { cx: right, cy: gy, r: 7, 'class': 'dot' }, scene);
-        txt(scene, right + 14, gy + 30, 'Rotating about this edge', 't-weight');
-      } else {
-        el('line', { x1: left - 12, y1: yP + 8, x2: left - 12, y2: gy, 'class': 'faint' }, fg);
-        txt(fg, left - 20, (yP + gy) / 2 + 12, 'h', 'small', 'end');
-        arrow(fg, cx, gy - hh / 2, cx, gy - hh / 2 + 72, 'f-weight');
-        txt(fg, right + 10, gy - hh / 2 + 40, 'W = ' + W.toFixed(0) + ' N', 't-weight');
-        var nx = cx + x * sc;
-        arrow(fg, nx, gy + 72, nx, gy + 2, 'f-normal');
-        txt(fg, nx + 9, gy + 68, 'N = ' + W.toFixed(0) + ' N', 't-normal');
-        var Lf = 22 + F * 0.2;
-        arrow(fg, cx - 10, gy + 14, cx - 10 - Lf, gy + 14, 'f-friction');
-        txt(fg, cx - 14 - Lf, gy + 36, 'F = ' + F.toFixed(0) + ' N', 't-friction', 'end');
-        if (x * sc > 6) {
-          el('line', { x1: cx, y1: gy + 52, x2: nx, y2: gy + 52, 'class': 'axis' }, fg);
-          el('line', { x1: cx, y1: gy + 46, x2: cx, y2: gy + 58, 'class': 'axis' }, fg);
-          txt(fg, cx - 6, gy + 57, 'x', 'small', 'end');
-        }
-      }
-      txt(scene, 548, 26, 'x = ' + x.toFixed(3) + ' m of ' + (a / 2).toFixed(3) + ' m available', 'small', 'end');
-      var r1 = Math.min(1, P / Pslip), r2 = Math.min(1, P / Ptip);
-      l1.textContent = 'Friction used: F is ' + Math.round(r1 * 100) + '% of μsN (slips at P = ' + Pslip.toFixed(0) + ' N)';
-      l2.textContent = 'Base used: x is ' + Math.round(r2 * 100) + '% of a/2 (tips at P = ' + Ptip.toFixed(0) + ' N)';
+      var P = +ip.value, k = q(), lim = crateLimits(k), crit = Math.min(lim.slip, lim.tip), state = 'hold';
+      $('#' + id + '-p-o').textContent = P.toFixed(0); $('#' + id + '-h-o').textContent = k.h.toFixed(2);
+      $('#' + id + '-a-o').textContent = k.a.toFixed(2); $('#' + id + '-m-o').textContent = k.mu.toFixed(2);
+      if (P > crit + 1e-9) state = lim.slip <= lim.tip ? 'slip' : 'tip';
+      if (state !== cur) { if (tw) tw.stop(); cur = state; f = 0; if (state !== 'hold') tw = tween(state === 'tip' ? 900 : 700, function (t) { f = t; paint(); }); }
+      paint();
+      var r1 = Math.min(1, P / lim.slip), r2 = Math.min(1, P / lim.tip);
+      l1.textContent = 'Friction used: ' + Math.round(r1 * 100) + '% of μsN (slips at P = ' + lim.slip.toFixed(0) + ' N)';
+      l2.textContent = 'Base used: ' + Math.round(r2 * 100) + '% of a/2 (tips at P = ' + lim.tip.toFixed(0) + ' N)';
       f1.style.width = (r1 * 100) + '%'; f2.style.width = (r2 * 100) + '%';
       v.setAttribute('data-state', state);
-      var which = Pslip <= Ptip ? 'Slipping' : 'Tipping';
-      if (state === 'hold') v.textContent = 'Equilibrium. F = ' + F.toFixed(0) + ' N is within μsN = ' + Pslip.toFixed(0) + ' N, and N sits ' + x.toFixed(3) + ' m from the centerline, inside the base. ' + which + ' governs: it happens first, at P = ' + Pcrit.toFixed(0) + ' N.';
-      else if (state === 'slip') v.textContent = 'Slips. The push passed μsN = ' + Pslip.toFixed(0) + ' N while N was still inside the base. Tipping would have needed ' + Ptip.toFixed(0) + ' N.';
-      else v.textContent = 'Tips. N reached the edge of the base (x = a/2) at P = ' + Ptip.toFixed(0) + ' N, before friction reached its ' + Pslip.toFixed(0) + ' N limit.';
+      var which = lim.slip <= lim.tip ? 'Slipping' : 'Tipping';
+      if (state === 'hold') v.textContent = 'Equilibrium. F = ' + P.toFixed(0) + ' N is within μsN = ' + lim.slip.toFixed(0) + ' N, and N sits ' + (P * k.h / CR.W).toFixed(3) + ' m from the centerline, inside the base. ' + which + ' governs: it happens first, at P = ' + crit.toFixed(0) + ' N.';
+      else if (state === 'slip') v.textContent = 'Slips. The push passed μsN = ' + lim.slip.toFixed(0) + ' N while N was still inside the base. Tipping would have needed ' + lim.tip.toFixed(0) + ' N.';
+      else v.textContent = 'Tips. N reached the edge of the base (x = a/2) at P = ' + lim.tip.toFixed(0) + ' N, before friction reached its ' + lim.slip.toFixed(0) + ' N limit.';
     }
-    [ip, ih, ia, im].forEach(function (n) { n.addEventListener('input', draw); });
+    function stop() { if (run) run.stop(); run = null; }
+    $('.go', box).addEventListener('click', function () {
+      stop(); var lim = crateLimits(q()), crit = Math.min(lim.slip, lim.tip);
+      if (+ip.value > crit) { ip.value = 0; draw(); }
+      if (REDUCED) { ip.value = Math.min(400, Math.ceil(crit + 0.01)); draw(); return; }
+      var P = +ip.value;
+      run = ticker(function (dt) { P += 45 * dt; ip.value = Math.min(400, P); draw(); if (cur !== 'hold' || P >= 400) return false; });
+    });
+    $('.reset', box).addEventListener('click', function () { stop(); ip.value = 0; draw(); });
+    [ip, ih, ia, im].forEach(function (n) { n.addEventListener('input', function () { stop(); draw(); }); });
     draw();
+  }
+
+  /* ---------- Slip or tip? A call-it-as-a-class game ---------- */
+  function gameWidget(box) {
+    var id = 'game' + (++uid);
+    box.innerHTML =
+      '<svg viewBox="0 0 560 370" role="img" aria-labelledby="' + id + '-t"><title id="' + id + '-t">A crate about to be pushed. Its base width, push height, and coefficient of static friction are listed in the prompt below.</title><g class="scene"></g></svg>' +
+      '<div class="panel"><p class="gq" id="' + id + '-q"></p><div class="tools big"><button type="button" class="btn slip">It will slip</button><button type="button" class="btn tip">It will tip</button><button type="button" class="btn alt next" hidden>Next crate</button></div>' +
+      '<p class="verdict" aria-live="polite" data-state="hold"></p><p class="score" aria-live="polite"></p></div>';
+    tools(box, '');
+    var scene = $('.scene', box), gq = $('.gq', box), v = $('.verdict', box), sc = $('.score', box), bS = $('.slip', box), bT = $('.tip', box), bN = $('.next', box);
+    var q, n = 0, right = 0, busy = false;
+    function deal() {
+      do { q = { a: 0.4 + 0.1 * Math.floor(Math.random() * 9), h: 0.4 + 0.1 * Math.floor(Math.random() * 13), mu: 0.2 + 0.05 * Math.floor(Math.random() * 13) }; }
+      while (Math.abs(q.mu - q.a / (2 * q.h)) < 0.07);
+      n++; busy = false; bS.hidden = bT.hidden = false; bN.hidden = true;
+      gq.textContent = 'Crate ' + n + '. Base ' + q.a.toFixed(2) + ' m wide, pushed ' + q.h.toFixed(2) + ' m above the floor, μs = ' + q.mu.toFixed(2) + '. As the push grows, what happens first?';
+      v.setAttribute('data-state', 'hold'); v.textContent = 'Take a vote, then choose.';
+      crateScene(scene, q, 0, 'hold', 0, { game: true });
+    }
+    function call(guess) {
+      if (busy) return; busy = true; bS.hidden = bT.hidden = true;
+      var lim = crateLimits(q), crit = Math.min(lim.slip, lim.tip), how = lim.slip <= lim.tip ? 'slip' : 'tip', P = 0;
+      v.textContent = 'You called “' + (guess === 'slip' ? 'slips' : 'tips') + '.” Pushing…';
+      function end() {
+        var ok = guess === how; if (ok) right++;
+        v.setAttribute('data-state', ok ? 'hold' : how);
+        v.textContent = (ok ? 'Correct. ' : 'Not this time. ') + 'It ' + (how === 'slip' ? 'slips' : 'tips') + ' at P = ' + crit.toFixed(0) + ' N. Compare μs = ' + q.mu.toFixed(2) + ' with a ÷ 2h = ' + (q.a / (2 * q.h)).toFixed(2) + ': ' +
+          (how === 'slip' ? 'μs is smaller, so friction runs out first.' : 'a ÷ 2h is smaller, so the normal force reaches the edge first.');
+        sc.textContent = 'Score: ' + right + ' of ' + n;
+        bN.hidden = false; if (document.activeElement === document.body || document.activeElement === bS || document.activeElement === bT) bN.focus();
+      }
+      function fail() { tween(how === 'tip' ? 900 : 700, function (t) { crateScene(scene, q, crit, how, t, { game: true, reveal: true }); }, end); }
+      if (REDUCED) { fail(); return; }
+      ticker(function (dt) { P += Math.max(60, crit / 2.5) * dt; if (P < crit) { crateScene(scene, q, P, 'hold', 0, { game: true }); return; } fail(); return false; });
+    }
+    bS.addEventListener('click', function () { call('slip'); }); bT.addEventListener('click', function () { call('tip'); }); bN.addEventListener('click', deal);
+    deal();
+  }
+
+  /* ---------- Ladder: how high can the painter climb? ---------- */
+  function ladderWidget(box) {
+    var id = 'lad' + (++uid), L = 5, Wl = 20 * G, Wp = 75 * G, Wt = Wl + Wp, sc = 48;
+    box.innerHTML =
+      '<svg viewBox="0 0 560 360" role="img" aria-labelledby="' + id + '-t"><title id="' + id + '-t">A ladder leaning against a wall with a painter standing on it. The status line below says whether the ladder holds and how far the painter can climb.</title><g class="scene"></g></svg>' +
+      '<div class="panel"><div class="ctl">' +
+      slider(id + '-s', 'Painter’s position along the ladder', 0, 5, 0.05, 1, 'm') +
+      slider(id + '-a', 'Ladder angle <var>θ</var>', 35, 80, 0.5, 62, 'degrees') +
+      slider(id + '-f', 'Floor friction <var>μ</var><sub>A</sub>', 0.1, 0.8, 0.01, 0.35, '') +
+      slider(id + '-w', 'Wall friction <var>μ</var><sub>B</sub> (0 is a smooth wall)', 0, 0.6, 0.01, 0, '') +
+      '</div><div class="race" aria-hidden="true"><div class="lane"><span class="l1"></span><div class="track"><div class="fill fr"></div></div></div></div>' +
+      '<p class="verdict" aria-live="polite"></p></div>';
+    tools(box, '<button type="button" class="btn go">Send the painter up</button><button type="button" class="btn alt reset">Reset</button>');
+    var scene = $('.scene', box), v = $('.verdict', box), is = $('#' + id + '-s'), ia = $('#' + id + '-a'), iff = $('#' + id + '-f'), iw = $('#' + id + '-w');
+    var l1 = $('.l1', box), f1 = $('.fr', box), cur = 'hold', f = 0, tw = null, run = null;
+    function solve(s, th, mA, mB) {
+      var c = Math.cos(th * DEG), sn = Math.sin(th * DEG), M = Wl * L / 2 + Wp * s;
+      function at(t) { var NB = M * c / (L * (sn + t * c)), NA = Wt - t * NB; return { NA: NA, NB: NB, FA: NB, FB: t * NB, ratio: NB / (mA * NA) }; }
+      var r0 = at(0), r1 = at(mB), r = r1.ratio <= r0.ratio ? r1 : r0;
+      var t = r === r1 ? mB : 0, Mmax = mA * Wt * L * (sn + t * c) / (c * (1 + mA * t));
+      r.smax = (Mmax - Wl * L / 2) / Wp; return r;
+    }
+    function paint() {
+      var s = +is.value, th0 = +ia.value, r = solve(s, th0, +iff.value, +iw.value), th = th0 * (1 - f * f);
+      clear(scene);
+      var wx = 450, gy = 300, c = Math.cos(th * DEG), sn = Math.sin(th * DEG), Ax = wx - L * sc * c, By = gy - L * sc * sn;
+      hatch(scene, 30, wx, gy);
+      el('line', { x1: wx, y1: 30, x2: wx, y2: gy, 'class': 'ground' }, scene);
+      for (var y = 40; y < gy; y += 16) el('line', { x1: wx, y1: y, x2: wx + 9, y2: y - 9, 'class': 'hatch' }, scene);
+      el('line', { x1: Ax, y1: gy, x2: wx, y2: By, 'class': 'ground', 'stroke-width': 6 }, scene);
+      for (var k = 0.5; k < L; k += 0.5) { var rx = Ax + k * sc * c, ry = gy - k * sc * sn; el('line', { x1: rx - 7 * sn, y1: ry - 7 * c, x2: rx + 7 * sn, y2: ry + 7 * c, 'class': 'hatch', 'stroke-width': 2 }, scene); }
+      var pxp = Ax + s * sc * c, pyp = gy - s * sc * sn;
+      el('circle', { cx: pxp - 12 * sn, cy: pyp - 12 * c - 4, r: 12, 'class': 'dot' }, scene);
+      if (cur === 'hold') {
+        arrow(scene, pxp, pyp, pxp, pyp + 58, 'f-weight'); txt(scene, pxp - 10, pyp + 30, Wp.toFixed(0) + ' N', 't-weight', 'end');
+        var mx = Ax + L / 2 * sc * c, my = gy - L / 2 * sc * sn;
+        arrow(scene, mx, my, mx, my + 34, 'f-weight'); txt(scene, mx + 8, my + 34, Wl.toFixed(0) + ' N', 'small');
+        arrow(scene, Ax, gy + 58, Ax, gy + 3, 'f-normal'); txt(scene, Ax - 8, gy + 54, 'NA = ' + r.NA.toFixed(0) + ' N', 't-normal', 'end');
+        arrow(scene, Ax - 16 - r.FA * 0.12, gy + 14, Ax - 6, gy + 14, 'f-friction'); txt(scene, Ax - 20 - r.FA * 0.12, gy + 19, 'FA = ' + r.FA.toFixed(0) + ' N', 't-friction', 'end');
+        arrow(scene, wx + 16 + r.NB * 0.12, By, wx + 3, By, 'f-normal'); txt(scene, wx + 12, By - 10, 'NB = ' + r.NB.toFixed(0) + ' N', 't-normal');
+        if (r.FB > 1) { arrow(scene, wx - 12, By + 40, wx - 12, By - 6 - r.FB * 0.1, 'f-friction'); txt(scene, wx - 20, By - 8, 'FB = ' + r.FB.toFixed(0) + ' N', 't-friction', 'end'); }
+      }
+      txt(scene, 40, 28, 'θ = ' + th0.toFixed(1) + '°', 't-weight');
+      return r;
+    }
+    function draw() {
+      var s = +is.value, r = solve(s, +ia.value, +iff.value, +iw.value), state = r.ratio > 1 + 1e-9 ? 'slip' : 'hold';
+      $('#' + id + '-s-o').textContent = s.toFixed(2); $('#' + id + '-a-o').textContent = (+ia.value).toFixed(1);
+      $('#' + id + '-f-o').textContent = (+iff.value).toFixed(2); $('#' + id + '-w-o').textContent = (+iw.value).toFixed(2);
+      if (state !== cur) { if (tw) tw.stop(); cur = state; f = 0; if (state === 'slip') tw = tween(900, function (t) { f = t; paint(); }); }
+      paint();
+      var pct = Math.min(1, r.ratio); l1.textContent = 'Floor friction used: ' + Math.round(pct * 100) + '% of μANA'; f1.style.width = (pct * 100) + '%';
+      v.setAttribute('data-state', state);
+      var reach = r.smax >= L ? 'The painter can climb all the way to the top.' : (r.smax <= 0 ? 'It cannot carry the painter at all.' : 'The painter can climb ' + r.smax.toFixed(2) + ' m along the ladder before it slips.');
+      if (state === 'hold') v.textContent = 'Holds. The floor must supply ' + r.FA.toFixed(0) + ' N of friction and can supply up to ' + (+iff.value * r.NA).toFixed(0) + ' N. ' + reach;
+      else v.textContent = 'The ladder slides out. With the painter ' + s.toFixed(2) + ' m up, the floor would need more friction than μANA can supply. ' + reach;
+    }
+    function stop() { if (run) run.stop(); run = null; }
+    $('.go', box).addEventListener('click', function () {
+      stop(); is.value = 0; draw(); if (cur !== 'hold') return;
+      var r = solve(0, +ia.value, +iff.value, +iw.value);
+      if (REDUCED) { is.value = Math.min(L, Math.max(0, r.smax) + 0.05); draw(); return; }
+      var s = 0; run = ticker(function (dt) { s += 0.7 * dt; is.value = Math.min(L, s); draw(); if (cur !== 'hold' || s >= L) return false; });
+    });
+    $('.reset', box).addEventListener('click', function () { stop(); is.value = 0; draw(); });
+    [is, ia, iff, iw].forEach(function (n) { n.addEventListener('input', function () { stop(); draw(); }); });
+    draw();
+  }
+
+  /* ---------- Step-by-step reveal for worked solutions ---------- */
+  function stepper(box) {
+    var steps = $$(':scope > *', box), shown = 0, bar = document.createElement('div');
+    bar.className = 'tools'; bar.innerHTML = '<button type="button" class="btn nx"></button><button type="button" class="btn alt all">Show all</button><button type="button" class="btn alt hide">Hide</button>';
+    box.parentNode.insertBefore(bar, box);
+    var nx = $('.nx', bar), live = document.createElement('p'); live.className = 'sr'; live.setAttribute('role', 'status'); bar.appendChild(live);
+    function show() {
+      steps.forEach(function (s, i) { s.hidden = i >= shown; });
+      nx.textContent = shown === 0 ? 'Show the first step' : 'Show the next step (' + shown + ' of ' + steps.length + ' shown)';
+      nx.hidden = shown >= steps.length; $('.hide', bar).hidden = shown === 0; $('.all', bar).hidden = shown >= steps.length;
+      live.textContent = shown ? 'Step ' + shown + ' of ' + steps.length + ' shown.' : '';
+    }
+    nx.addEventListener('click', function () { shown++; show(); });
+    $('.all', bar).addEventListener('click', function () { shown = steps.length; show(); });
+    $('.hide', bar).addEventListener('click', function () { shown = 0; show(); });
+    show();
+  }
+
+  /* ---------- Lecture view: larger type and wider figures for a projector ---------- */
+  function lectureView() {
+    var b = $('#lecture'); if (!b) return;
+    var KEY = 'statics-l1-lecture-v1', on = load(KEY).on === 1;
+    function apply() { document.documentElement.classList.toggle('lecture', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); b.textContent = on ? 'Lecture view: on' : 'Lecture view: off'; }
+    b.addEventListener('click', function () { on = !on; save(KEY, { on: on ? 1 : 0 }); apply(); });
+    apply();
+  }
+
+  /* ---------- In-class problems: answer, step-by-step, full solution ---------- */
+  function fullscreenButton(box, b) {
+    function on() { return document.fullscreenElement === box || box.classList.contains('faux-fs'); }
+    function label() { b.textContent = on() ? 'Exit full screen' : 'Full screen'; }
+    b.addEventListener('click', function () {
+      if (on()) { if (document.fullscreenElement) document.exitFullscreen(); box.classList.remove('faux-fs'); label(); return; }
+      var p = box.requestFullscreen ? box.requestFullscreen() : null;
+      if (p && p.catch) p.catch(function () { box.classList.add('faux-fs'); label(); });
+      else if (!p) { box.classList.add('faux-fs'); label(); }
+    });
+    document.addEventListener('fullscreenchange', label);
+  }
+  function problem(box) {
+    var ans = $('.pans', box), sw = $('.psteps-w', box), steps = $$('.psteps > li', box), full = $('.pfull', box), A = false, F = false, shown = 0;
+    var bar = document.createElement('div'); bar.className = 'tools';
+    bar.innerHTML = '<button type="button" class="btn a"></button><button type="button" class="btn n"></button><button type="button" class="btn alt f"></button><button type="button" class="btn alt h">Hide all</button><button type="button" class="btn alt fs">Full screen</button><p class="sr" role="status"></p>';
+    box.insertBefore(bar, ans);
+    var ba = $('.a', bar), bn = $('.n', bar), bf = $('.f', bar), bh = $('.h', bar), live = $('.sr', bar);
+    function show(say) {
+      ans.hidden = !A; sw.hidden = shown === 0; full.hidden = !F;
+      steps.forEach(function (s, i) { s.hidden = i >= shown; });
+      ba.textContent = A ? 'Hide answer' : 'Show answer'; ba.setAttribute('aria-expanded', A ? 'true' : 'false');
+      bn.textContent = shown >= steps.length ? 'All ' + steps.length + ' steps shown' : (shown === 0 ? 'Show first step' : 'Show next step (' + shown + ' of ' + steps.length + ')');
+      bn.disabled = shown >= steps.length;
+      bf.textContent = F ? 'Hide full solution' : 'Show full solution'; bf.setAttribute('aria-expanded', F ? 'true' : 'false');
+      bh.hidden = !(A || F || shown);
+      live.textContent = say || '';
+    }
+    ba.addEventListener('click', function () { A = !A; show(A ? 'Answer shown.' : 'Answer hidden.'); });
+    bn.addEventListener('click', function () { shown++; show('Step ' + shown + ' of ' + steps.length + ' shown.'); });
+    bf.addEventListener('click', function () { F = !F; show(F ? 'Full solution shown.' : 'Full solution hidden.'); });
+    bh.addEventListener('click', function () { A = F = false; shown = 0; show('Solution hidden.'); });
+    fullscreenButton(box, $('.fs', bar));
+    show();
   }
 
   /* ---------- Knowledge checks ---------- */
@@ -726,6 +1100,12 @@ window.STATICS_ACTIVITY = [
   $$('[data-widget="ramp"]').forEach(rampWidget);
   $$('[data-widget="graph"]').forEach(graphWidget);
   $$('[data-widget="push"]').forEach(pushWidget);
+  $$('[data-widget="game"]').forEach(gameWidget);
+  $$('[data-widget="ladder"]').forEach(ladderWidget);
+  $$('[data-widget="rig"]').forEach(labRig);
+  $$('.stepper').forEach(stepper);
+  $$('.prob').forEach(problem);
+  lectureView();
   $$('[data-quiz]').forEach(quiz);
   $$('[data-sort]').forEach(sortTask);
   updateProgress(); activity(); lab();
