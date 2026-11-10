@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 1: Friction | Statics</title>
+<meta name="description" content="Interactive lesson on dry friction for Statics: static, impending, and kinetic friction, free-body diagrams, and deciding whether a body slips or tips.">
+<style>
+:root{
+  --pad:#E9EFDA; --sheet:#F7F9EE; --grid:#C9D9B4; --ink:#1B2521; --ink-2:#44524B;
+  --rule:#4F7F41; --rule-soft:#A9C296;
+  --applied:#A8231C; --friction:#1B4B9B; --normal:#1B6A43; --weight:#1B2521;
+  --hi:#F4C430; --hi-ink:#2E2500; --ok:#1B6A43; --no:#A8231C; --link:#1B4B9B;
+  --ok-bg:#DDEFD9; --no-bg:#F6DEDA; --note-bg:#FBF0C4;
+  --font-head:"Gill Sans","Gill Sans MT","Trebuchet MS",Calibri,"Segoe UI",sans-serif;
+  --font-body:Charter,"Bitstream Charter","Iowan Old Style",Cambria,Georgia,serif;
+  --s1:.5rem; --s2:1rem; --s3:1.5rem; --s4:2.5rem; --s5:4rem;
+  --measure:68ch; --cell:24px;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --pad:#121C19; --sheet:#1A2823; --grid:#263B34; --ink:#EAF0E5; --ink-2:#B7C5B9;
+    --rule:#86BB70; --rule-soft:#3F5E4C;
+    --applied:#FF9A90; --friction:#9CC0FA; --normal:#84D8A6; --weight:#EAF0E5;
+    --hi:#F4C430; --hi-ink:#2E2500; --ok:#84D8A6; --no:#FF9A90; --link:#9CC0FA;
+    --ok-bg:#1D3A2B; --no-bg:#40221F; --note-bg:#3A3212;
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;color:var(--ink);font-family:var(--font-body);font-size:1.0625rem;line-height:1.65;
+  background-color:var(--pad);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:var(--cell) var(--cell);}
+.skip-link{position:absolute;left:-999px;top:0;background:var(--hi);color:var(--hi-ink);padding:.75rem 1rem;z-index:10;font-family:var(--font-head)}
+.skip-link:focus{left:0}
+a{color:var(--link);text-underline-offset:.18em;overflow-wrap:anywhere}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--hi);outline-offset:2px;box-shadow:0 0 0 5px var(--ink)}
+h1,h2,h3,h4{font-family:var(--font-head);line-height:1.15;font-weight:600;margin:0 0 var(--s2)}
+h1{font-size:clamp(2.6rem,9vw,5.5rem);letter-spacing:-.02em;font-weight:700}
+h2{font-size:clamp(1.5rem,3.4vw,2.1rem);margin-top:var(--s4)}
+h3{font-size:1.25rem;margin-top:var(--s3)}
+p,ul,ol,dl,table,figure{margin:0 0 var(--s2)}
+p,li,dd{max-width:var(--measure)}
+var{font-style:italic;font-family:var(--font-body)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 var(--s2)}
+
+/* Title block: the header strip of an engineering computation pad */
+.titleblock{background:var(--sheet);border-bottom:3px double var(--rule);font-family:var(--font-head)}
+.titleblock .wrap{display:grid;grid-template-columns:1fr;padding:0}
+.tb-row{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--rule-soft)}
+.tb-cell{padding:.55rem var(--s2);border-right:1px solid var(--rule-soft);font-size:.95rem;flex:1 1 auto}
+.tb-cell:last-child{border-right:0}
+.tb-cell b{font-weight:600}
+.tb-sheet{flex:0 0 auto;font-weight:600}
+.sheets ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap}
+.sheets li{flex:1 1 8rem;max-width:none}
+.sheets a{display:flex;align-items:center;gap:.5rem;min-height:44px;padding:.4rem var(--s2);text-decoration:none;color:var(--ink);border-right:1px solid var(--rule-soft)}
+.sheets a:hover{background:var(--pad)}
+.sheets a[aria-current="page"]{background:var(--hi);color:var(--hi-ink);font-weight:600}
+.sheets .n{display:inline-grid;place-items:center;width:1.6rem;height:1.6rem;border:1.5px solid currentColor;border-radius:50%;font-size:.85rem}
+
+main{padding:var(--s3) 0 var(--s5)}
+.sheet{background:var(--sheet);border:1px solid var(--rule-soft);border-top:3px solid var(--rule);padding:var(--s3) clamp(1rem,4vw,2.5rem);margin-bottom:var(--s3)}
+.sheet>h2:first-child{margin-top:0}
+.lede{font-size:1.2rem;line-height:1.55}
+.kicker{font-family:var(--font-head);font-size:1.05rem;color:var(--ink-2);margin-bottom:.25rem}
+.meta{font-family:var(--font-head);color:var(--ink-2);font-size:.98rem}
+.hi{background:var(--hi);color:var(--hi-ink);padding:0 .25em}
+
+.hero{display:grid;gap:var(--s3);align-items:start}
+@media (min-width:860px){.hero{grid-template-columns:5fr 6fr}}
+
+.eq{font-size:1.15rem;padding:.6rem 1rem;border-left:3px solid var(--rule);background:var(--pad);overflow-x:auto;max-width:var(--measure);white-space:nowrap}
+.eq .why{font-family:var(--font-head);font-size:.92rem;color:var(--ink-2);margin-left:1.2rem;white-space:normal}
+.note{background:var(--note-bg);border-left:5px solid var(--hi);padding:var(--s2);max-width:var(--measure)}
+.note h3,.note h4{margin-top:0}
+.safety{background:var(--no-bg);border-left:5px solid var(--no);padding:var(--s2);max-width:var(--measure)}
+.safety h3{margin-top:0}
+
+/* Widgets drawn "on the pad" */
+.widget{border:1.5px solid var(--rule);background-color:var(--pad);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:var(--cell) var(--cell);margin:0 0 var(--s2)}
+.widget svg{display:block;width:100%;height:auto}
+.widget svg text{font-family:var(--font-head);font-size:15px;fill:var(--ink)}
+.widget svg .small{font-size:13px;fill:var(--ink-2)}
+.widget .panel{background:var(--sheet);border-top:1.5px solid var(--rule);padding:var(--s2)}
+.ctl{display:grid;gap:.5rem var(--s2)}
+@media (min-width:560px){.ctl{grid-template-columns:1fr 1fr}}
+.ctl label{font-family:var(--font-head);font-size:.98rem;display:block}
+.ctl output{font-weight:600}
+.ctl input[type=range]{width:100%;min-height:44px;accent-color:var(--rule)}
+.ctl select{width:100%;min-height:44px;font:inherit;font-family:var(--font-head);background:var(--sheet);color:var(--ink);border:1.5px solid var(--ink-2);padding:0 .5rem}
+.verdict{font-family:var(--font-head);font-size:1.1rem;margin:var(--s2) 0 0;padding:.6rem .8rem;border:1.5px solid var(--ink);max-width:none}
+.verdict[data-state="hold"]{background:var(--ok-bg)}
+.verdict[data-state="edge"]{background:var(--note-bg)}
+.verdict[data-state="slip"],.verdict[data-state="tip"]{background:var(--no-bg)}
+.race{margin-top:var(--s2);font-family:var(--font-head);font-size:.95rem}
+.race .lane{display:grid;grid-template-columns:1fr;gap:.15rem;margin-bottom:.5rem}
+.race .track{height:14px;border:1.5px solid var(--ink);background:var(--sheet);position:relative}
+.race .fill{position:absolute;inset:0 auto 0 0;width:0}
+.race .fill.fr{background:var(--friction)} .race .fill.nm{background:var(--normal)}
+.ground{stroke:var(--ink);stroke-width:2.5}
+.hatch{stroke:var(--ink-2);stroke-width:1}
+.body{fill:var(--sheet);stroke:var(--ink);stroke-width:2.5}
+.faint{stroke:var(--ink-2);stroke-width:1;stroke-dasharray:5 4;fill:none}
+.arrow line{stroke-width:3.5;stroke-linecap:round}
+.f-applied line{stroke:var(--applied)} .f-applied polygon{fill:var(--applied)}
+.f-friction line{stroke:var(--friction)} .f-friction polygon{fill:var(--friction)}
+.f-normal line{stroke:var(--normal)} .f-normal polygon{fill:var(--normal)}
+.f-weight line{stroke:var(--weight)} .f-weight polygon{fill:var(--weight)}
+.widget svg text.t-applied{fill:var(--applied);font-weight:600}
+.widget svg text.t-friction{fill:var(--friction);font-weight:600}
+.widget svg text.t-normal{fill:var(--normal);font-weight:600}
+.widget svg text.t-weight{font-weight:600}
+.curve{fill:none;stroke:var(--friction);stroke-width:3.5}
+.axis{stroke:var(--ink);stroke-width:1.5}
+.dot{fill:var(--hi);stroke:var(--ink);stroke-width:2.5}
+
+figure{margin:var(--s3) 0}
+figcaption .fig-n{font-family:var(--font-head);font-weight:700;display:block}
+figcaption .fig-t{font-style:italic;display:block;margin-bottom:.5rem}
+.fig-note{font-size:.95rem;color:var(--ink-2);margin-top:.5rem}
+
+/* Knowledge checks */
+.check,.sort{border:1.5px solid var(--ink);background:var(--sheet);padding:var(--s2);margin:var(--s3) 0;max-width:calc(var(--measure) + 2rem)}
+.check fieldset,.sort fieldset{border:0;padding:0;margin:0 0 .75rem;min-width:0}
+.check legend{font-family:var(--font-head);font-size:1.08rem;font-weight:600;padding:0;margin-bottom:.5rem}
+.tag{display:inline-block;background:var(--ink);color:var(--sheet);font-family:var(--font-head);font-size:.82rem;font-weight:600;padding:.05rem .5rem;margin-right:.4rem;vertical-align:.1em}
+.opt{display:flex;gap:.6rem;align-items:flex-start;min-height:44px;padding:.5rem .6rem;border:1px solid var(--rule-soft);margin-bottom:.4rem;cursor:pointer}
+.opt:hover{background:var(--pad)}
+.opt input{margin-top:.35rem;width:1.1rem;height:1.1rem;accent-color:var(--rule);flex:0 0 auto}
+.btn{font:inherit;font-family:var(--font-head);font-weight:600;min-height:44px;min-width:44px;padding:.5rem 1.1rem;background:var(--ink);color:var(--sheet);border:2px solid var(--ink);cursor:pointer}
+.btn:hover{background:var(--rule);border-color:var(--rule)}
+.btn.alt{background:transparent;color:var(--ink)}
+.btn.alt:hover{background:var(--pad);border-color:var(--ink)}
+.fb{margin:.75rem 0 0;padding:.6rem .8rem;min-height:1px}
+.fb:empty{display:none}
+.fb.ok{background:var(--ok-bg);border-left:5px solid var(--ok)}
+.fb.no{background:var(--no-bg);border-left:5px solid var(--no)}
+.sort-row{display:grid;gap:.25rem .75rem;padding:.6rem 0;border-bottom:1px solid var(--rule-soft)}
+@media (min-width:640px){.sort-row{grid-template-columns:1fr auto}}
+.sort-row .q{font-weight:600;font-family:var(--font-head)}
+.sort-row .choices{display:flex;gap:.5rem;flex-wrap:wrap}
+.sort-row .choices label{display:flex;align-items:center;gap:.4rem;min-height:44px;padding:0 .7rem;border:1px solid var(--rule-soft);cursor:pointer;font-family:var(--font-head)}
+.sort-row .rfb{grid-column:1/-1;font-size:.97rem}
+.sort-row .rfb:empty{display:none}
+.progress{font-family:var(--font-head);display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;margin-bottom:var(--s2)}
+progress{width:min(100%,16rem);height:14px;accent-color:var(--rule)}
+
+/* Index cards */
+.cards{display:grid;gap:var(--s3);list-style:none;padding:0;margin:0}
+@media (min-width:760px){.cards{grid-template-columns:1fr 1fr}.cards .lead{grid-column:1/-1}}
+.cards li{max-width:none}
+.card{position:relative;background:var(--sheet);border:1px solid var(--rule-soft);border-top:3px solid var(--rule);padding:var(--s3);height:100%;display:grid;grid-template-columns:auto 1fr;gap:var(--s2) var(--s3);align-items:start}
+.card:hover{border-color:var(--ink)}
+.card svg{width:72px;height:72px}
+.lead .card svg{width:104px;height:104px}
+.card h3{margin:0 0 .4rem;font-size:1.45rem}
+.lead .card h3{font-size:1.9rem}
+.card h3 a{color:var(--ink);text-decoration-thickness:2px}
+.card h3 a::after{content:"";position:absolute;inset:0}
+.card p{margin-bottom:.4rem}
+.card .ico{stroke:var(--ink);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.card .ico-f{fill:var(--hi);stroke:var(--ink);stroke-width:2.5}
+
+table{border-collapse:collapse;width:100%;font-size:1rem}
+.tablewrap{overflow-x:auto;margin-bottom:var(--s2)}
+caption{text-align:left;margin-bottom:.4rem}
+caption b{font-family:var(--font-head);display:block}
+caption i{display:block}
+th,td{text-align:left;vertical-align:top;padding:.5rem .65rem;border-bottom:1px solid var(--rule-soft)}
+thead th{font-family:var(--font-head);border-bottom:2px solid var(--rule);border-top:2px solid var(--rule)}
+tbody th{font-family:var(--font-head);font-weight:600}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+dl.terms dt{font-family:var(--font-head);font-weight:700;margin-top:.8rem}
+dl.terms dd{margin:0}
+ol.steps{padding-left:1.3rem} ol.steps li{margin-bottom:.4rem;padding-left:.3rem}
+details{border:1.5px solid var(--rule-soft);background:var(--sheet);margin-bottom:var(--s2);max-width:calc(var(--measure) + 2rem)}
+summary{font-family:var(--font-head);font-weight:600;cursor:pointer;padding:.7rem 1rem;min-height:44px}
+details>div{padding:0 1rem 1rem}
+.given{display:grid;gap:0;max-width:34rem;font-family:var(--font-head)}
+.given div{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px solid var(--rule-soft);padding:.4rem 0}
+.given b{font-weight:600}
+.field{display:grid;gap:.25rem;margin-bottom:.75rem;max-width:22rem}
+.field label,.radios legend{font-family:var(--font-head);font-weight:600}
+input[type=number],input[type=text]{font:inherit;min-height:44px;padding:.3rem .5rem;background:var(--sheet);color:var(--ink);border:1.5px solid var(--ink-2);width:100%}
+.radios{border:0;padding:0;margin:0 0 .75rem}
+.radios label{display:inline-flex;align-items:center;gap:.4rem;min-height:44px;margin-right:1rem;font-family:var(--font-head)}
+.datatable input[type=number]{width:5.2rem}
+.datatable input[type=text]{min-width:9rem}
+.datatable select{min-height:44px;font:inherit;background:var(--sheet);color:var(--ink);border:1.5px solid var(--ink-2)}
+.btnrow{display:flex;flex-wrap:wrap;gap:.75rem;margin:var(--s2) 0}
+.next{display:grid;gap:var(--s2)}
+@media (min-width:640px){.next{grid-template-columns:1fr 1fr}}
+.next a{display:block;padding:var(--s2);border:1.5px solid var(--ink);color:var(--ink);font-family:var(--font-head);font-weight:600;font-size:1.15rem;min-height:44px;background:var(--sheet)}
+.next a:hover{background:var(--hi);color:var(--hi-ink)}
+.next a span{display:block;font-weight:400;font-size:.95rem}
+.refs p{padding-left:2em;text-indent:-2em;max-width:var(--measure)}
+footer{border-top:3px double var(--rule);background:var(--sheet);padding:var(--s3) 0;font-size:.95rem;color:var(--ink-2)}
+footer p{max-width:var(--measure)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+@media print{
+  body{background:#fff;color:#000;font-size:11pt}
+  .titleblock nav,.btnrow,.widget,.skip-link,.no-print{display:none!important}
+  .sheet{border:0;padding:0;background:#fff}
+  input{border:0;border-bottom:1px solid #000!important}
+}
+
+section[aria-labelledby=pages-h]{margin-bottom:var(--s3)}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<header class="titleblock">
+  <div class="wrap">
+    <div class="tb-row">
+      <div class="tb-cell"><b>Brookdale Community College</b></div>
+      <div class="tb-cell">Statics</div>
+      <div class="tb-cell">Lesson 1: Friction</div>
+      <div class="tb-cell tb-sheet">Sheet 2 of 4</div>
+    </div>
+    <nav class="sheets" aria-label="Lesson pages"><ul><li><a href="index.html"><span class="n" aria-hidden="true">1</span>Overview</a></li><li><a href="lesson01.html" aria-current="page"><span class="n" aria-hidden="true">2</span>Lesson</a></li><li><a href="activity01.html"><span class="n" aria-hidden="true">3</span>Activity</a></li><li><a href="lab01.html"><span class="n" aria-hidden="true">4</span>Lab</a></li></ul></nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+<div class="sheet">
+  <p class="kicker">Statics, Lesson 1</p>
+  <h1>Friction</h1>
+  <p class="lede">Until now, most of our problems came with supports that held firm. This lesson asks a different question: will the body stay where it is at all? The answer depends on friction, and on something a particle model hides, which is where the floor pushes back.</p>
+  <div class="progress no-print"><progress id="prog" value="0" max="1" aria-describedby="prog-t"></progress><span id="prog-t"></span></div>
+  <p class="meta">About 50 minutes, plus the 25-minute activity. Your progress on the checks is saved on this device.</p>
+
+  <h2>Before you start</h2>
+  <p>Two questions on ideas this lesson leans on. If either one is shaky, review moments and rigid-body equilibrium before going on.</p>
+  <div class="check" data-quiz="pre1"></div>
+  <div class="check" data-quiz="pre2"></div>
+</div>
+
+<section class="sheet" aria-labelledby="s1">
+  <h2 id="s1">1. Why friction matters</h2>
+  <p>It is tempting to think of friction as waste: heat, wear, and lost energy. Sometimes it is. But take friction away and you cannot walk, a car cannot brake or steer, a ladder slides out from the wall, and every bolted joint in a steel building comes loose. Engineers spend as much effort getting <em>enough</em> friction as they do getting rid of it.</p>
+  <div class="sort" data-sort="sort1"></div>
+  <p>The friction in this lesson is <b>dry friction</b>, also called Coulomb friction: the friction between solid surfaces with no lubricant between them (Hibbeler, 2022).</p>
+</section>
+
+<section class="sheet" aria-labelledby="s2">
+  <h2 id="s2">2. Three states of friction</h2>
+  <p>Push gently on a heavy desk and it does not move. You are not weak; the floor is pushing back on the desk with a friction force exactly as large as your push. Push harder and friction grows to match. This is <b>static friction</b>, and the key fact about it is that it is a <em>reaction</em>. It takes whatever value equilibrium requires, up to a limit:</p>
+  <p class="eq"><var>F</var> ≤ <var>μ</var><sub>s</sub><var>N</var></p>
+  <p>Here <var>F</var> is the friction force, <var>N</var> is the normal force, and <var>μ</var><sub>s</sub> is the <b>coefficient of static friction</b>, a number with no units that depends on the two surfaces in contact.</p>
+  <p>At the limit, the body is on the verge of slipping. This state is called <b>impending motion</b>, and it is the only time you may write the friction force as an equation:</p>
+  <p class="eq"><var>F</var><sub>max</sub> = <var>μ</var><sub>s</sub><var>N</var> <span class="why">only at impending motion</span></p>
+  <p>Push past the limit and the body slides. Friction drops to the <b>kinetic friction</b> force, <var>F</var><sub>k</sub> = <var>μ</var><sub>k</sub><var>N</var>, where <var>μ</var><sub>k</sub> is the <b>coefficient of kinetic friction</b>. For most pairs of surfaces <var>μ</var><sub>s</sub> is larger than <var>μ</var><sub>k</sub>, which is why a heavy garbage bag is harder to start dragging than to keep dragging (Beer et al., 2019).</p>
+
+  <figure>
+    <figcaption><span class="fig-n">Figure 1</span><span class="fig-t">Friction Force Versus Applied Force for a Crate on a Rough Horizontal Floor</span></figcaption>
+    <div class="widget" data-widget="graph"></div>
+    <p class="fig-note"><i>Note.</i> Interactive figure. A 20-kg crate rests on a floor with <var>μ</var><sub>s</sub> = 0.40 and <var>μ</var><sub>k</sub> = 0.30, so <var>N</var> = (20 kg)(9.81 m/s²) = 196.2 N. Move the slider to change the horizontal push. Original figure; concept as presented in Hibbeler (2022).</p>
+  </figure>
+
+  <div class="check" data-quiz="q1"></div>
+
+  <h3>Two details people get wrong</h3>
+  <p><b>The coefficient is not a force.</b> <var>μ</var><sub>s</sub> is a ratio. The force needed to start a body sliding on a level floor is <var>μ</var><sub>s</sub><var>N</var>, which depends on how hard the surfaces are pressed together.</p>
+  <p><b>Friction does not always oppose the motion of the object.</b> It opposes <em>sliding between the two surfaces</em>, or the tendency to slide. When you walk, your shoe pushes backward on the floor. Friction on your shoe points forward, the same direction you are moving. To find the direction, ask which way the surface would slide if friction vanished, and point friction the other way.</p>
+  <div class="check" data-quiz="q2"></div>
+  <div class="check" data-quiz="q3"></div>
+</section>
+
+<section class="sheet" aria-labelledby="s3">
+  <h2 id="s3">3. Free-body diagrams with friction</h2>
+  <p>In a physics course a crate is usually a particle, and the normal force is drawn through its center. A real crate is a rigid body, and the floor’s push is spread across the whole base. We replace that spread-out push with a single resultant <var>N</var>, and its location is one of the unknowns.</p>
+  <p>Consider a crate of weight <var>W</var> and base width <var>a</var>, pushed by a horizontal force <var>P</var> at height <var>h</var>. Four forces act on it: <var>P</var>, <var>W</var> straight down through the center of gravity, friction <var>F</var> along the floor, and <var>N</var> at some distance <var>x</var> from the centerline. Equilibrium gives:</p>
+  <p class="eq">Σ<var>F</var><sub>x</sub> = 0: &nbsp; <var>P</var> − <var>F</var> = 0 <span class="why">so F = P</span></p>
+  <p class="eq">Σ<var>F</var><sub>y</sub> = 0: &nbsp; <var>N</var> − <var>W</var> = 0 <span class="why">so N = W</span></p>
+  <p class="eq">Σ<var>M</var><sub>O</sub> = 0: &nbsp; <var>N</var><var>x</var> − <var>P</var><var>h</var> = 0 <span class="why">so x = Ph/W, taking moments about O, the middle of the base</span></p>
+  <p>The push tries to rotate the crate forward. The only thing that can resist is <var>N</var> moving toward the front edge. The harder or higher you push, the farther it moves. But <var>N</var> cannot act outside the base. When <var>x</var> reaches <var>a</var>/2 the crate is about to <b>tip</b>.</p>
+  <p>So equilibrium needs two conditions at once:</p>
+  <ul>
+    <li><b>No slipping:</b> <var>F</var> ≤ <var>μ</var><sub>s</sub><var>N</var></li>
+    <li><b>No tipping:</b> <var>x</var> ≤ <var>a</var>/2</li>
+  </ul>
+
+  <figure>
+    <figcaption><span class="fig-n">Figure 2</span><span class="fig-t">Free-Body Diagram of a Pushed Crate With the Normal Force Offset by Distance x</span></figcaption>
+    <div class="widget" data-widget="push"></div>
+    <p class="fig-note"><i>Note.</i> Interactive figure. The crate has a mass of 60 kg and a height of 1.6 m. The two bars show how much of each limit the push has used; whichever bar fills first decides how the crate fails. Original figure.</p>
+  </figure>
+
+  <p>Use Figure 2 to try three things. Raise <var>P</var> slowly and watch <var>N</var> walk toward the edge. Lower the push height and see the tipping limit move away. Then raise <var>μ</var><sub>s</sub> and watch a crate that used to slide start to tip instead.</p>
+  <div class="check" data-quiz="q4"></div>
+
+  <div class="note">
+    <h3>More grip is not always better</h3>
+    <p>It is easy to assume the stronger material, or the grippier surface, is always the better choice. A crate that slides when it is pushed too hard gives a warning and stays upright. Put it on a high-friction mat and the same push may tip it over instead. Tires, brake pads, and bearings are all chosen as trade-offs among grip, wear, heat, and cost. The right amount of friction depends on what the design has to do.</p>
+  </div>
+</section>
+
+<section class="sheet" aria-labelledby="s4">
+  <h2 id="s4">4. Slip or tip? A procedure</h2>
+  <p>When you do not know which failure comes first, assume one, solve, and check the other.</p>
+  <ol class="steps">
+    <li>Draw the free-body diagram. Show <var>F</var> opposing the tendency to slide and <var>N</var> at an unknown distance <var>x</var>.</li>
+    <li>Assume one kind of impending motion. For slipping, add <var>F</var> = <var>μ</var><sub>s</sub><var>N</var>. For tipping, set <var>x</var> = <var>a</var>/2.</li>
+    <li>Solve the three equilibrium equations with that one extra condition.</li>
+    <li>Check the other condition. If you assumed slipping, is <var>x</var> ≤ <var>a</var>/2? If you assumed tipping, is <var>F</var> ≤ <var>μ</var><sub>s</sub><var>N</var>?</li>
+    <li>If the check fails, your assumption was wrong. Switch and solve again. The motion that needs the smaller force governs.</li>
+  </ol>
+  <p class="note">Notice how little of this is arithmetic. The equations take a few lines. The engineering is in the diagram, the assumption, and the check, and that is where your work is graded.</p>
+
+  <h3>Worked Example A: horizontal push, US customary units</h3>
+  <p>A crate weighs <var>W</var> = 250 lb and has a base 3 ft wide. A worker pushes horizontally at a height of 5 ft. The coefficient of static friction is 0.40. What is the largest push that causes no motion?</p>
+  <details>
+    <summary>Show the solution</summary>
+    <div>
+      <p><b>Assume slipping.</b> <var>N</var> = <var>W</var> = 250 lb, so</p>
+      <p class="eq"><var>P</var> = <var>F</var> = <var>μ</var><sub>s</sub><var>N</var> = (0.40)(250 lb) = 100 lb</p>
+      <p><b>Check tipping.</b></p>
+      <p class="eq"><var>x</var> = <var>P</var><var>h</var>/<var>W</var> = (100 lb)(5 ft)/(250 lb) = 2.0 ft</p>
+      <p>But <var>a</var>/2 = 1.5 ft. The normal force would have to act outside the base, which is impossible. The assumption fails: the crate tips before it slips.</p>
+      <p><b>Assume tipping.</b> Set <var>x</var> = 1.5 ft.</p>
+      <p class="eq"><var>P</var> = <var>W</var><var>x</var>/<var>h</var> = (250 lb)(1.5 ft)/(5 ft) = 75 lb</p>
+      <p><b>Check slipping.</b> <var>F</var> = <var>P</var> = 75 lb, which is less than <var>μ</var><sub>s</sub><var>N</var> = 100 lb. The check passes.</p>
+      <p><b>Answer.</b> The largest push is 75 lb, and tipping governs.</p>
+    </div>
+  </details>
+
+  <h3>Worked Example B: angled push, SI units</h3>
+  <p>A uniform crate has a mass of 20 kg and a base 0.8 m wide. A force <var>P</var> = 80 N pushes on it at 30° below the horizontal. The force is applied 0.4 m to the left of the crate’s centerline and 0.2 m above the floor. The coefficient of static friction is 0.3. Does the crate stay in equilibrium? (After Hibbeler, 2022, Example 8.1.)</p>
+  <details>
+    <summary>Show the solution</summary>
+    <div>
+      <p>Here nothing says motion is impending, so there are three unknowns (<var>F</var>, <var>N</var>, <var>x</var>) and three equilibrium equations. Solve first, then check both limits. <var>W</var> = (20 kg)(9.81 m/s²) = 196.2 N.</p>
+      <p class="eq">Σ<var>F</var><sub>x</sub> = 0: &nbsp; (80 N) cos 30° − <var>F</var> = 0, &nbsp; <var>F</var> = 69.3 N</p>
+      <p class="eq">Σ<var>F</var><sub>y</sub> = 0: &nbsp; <var>N</var> − (80 N) sin 30° − 196.2 N = 0, &nbsp; <var>N</var> = 236.2 N</p>
+      <p class="eq">Σ<var>M</var><sub>O</sub> = 0: &nbsp; (40 N)(0.4 m) − (69.3 N)(0.2 m) + <var>N</var><var>x</var> = 0, &nbsp; <var>x</var> = −0.00908 m</p>
+      <p><b>Check tipping.</b> The negative sign means <var>N</var> acts about 9 mm to the left of the centerline. That is far inside the 0.4 m half-width, so the crate does not tip.</p>
+      <p><b>Check slipping.</b> <var>F</var><sub>max</sub> = <var>μ</var><sub>s</sub><var>N</var> = (0.3)(236.2 N) = 70.9 N. The 69.3 N required is less than that, so the crate does not slip.</p>
+      <p><b>Answer.</b> The crate stays in equilibrium, though it is close to slipping. Notice that pushing downward raised <var>N</var>, and with it the available friction.</p>
+    </div>
+  </details>
+  <div class="check" data-quiz="q5"></div>
+</section>
+
+<section class="sheet" aria-labelledby="s5">
+  <h2 id="s5">5. Three types of friction problems</h2>
+  <p>Once the free-body diagrams are drawn, count the unknowns and compare them with the equations you have: three equilibrium equations per rigid body, plus one friction equation for each contact where slipping is impending (Hibbeler, 2022).</p>
+  <div class="tablewrap">
+  <table>
+    <caption><b>Table 1</b><i>Types of Dry-Friction Problems</i></caption>
+    <thead><tr><th scope="col">Type</th><th scope="col">Count</th><th scope="col">What you do</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">No apparent impending motion</th><td>Unknowns = equilibrium equations</td><td>Solve with equilibrium alone, then check <var>F</var> ≤ <var>μ</var><sub>s</sub><var>N</var> at every contact. Worked Example B is this type.</td></tr>
+      <tr><th scope="row">Impending motion at all points of contact</th><td>Unknowns = equilibrium equations + friction equations</td><td>Use <var>F</var> = <var>μ</var><sub>s</sub><var>N</var> at every contact and solve everything together.</td></tr>
+      <tr><th scope="row">Impending motion at some points of contact</th><td>Unknowns &lt; equilibrium equations + possible friction or tipping equations</td><td>Several motions are possible. Assume one, solve, and check, as in the slip-or-tip procedure. Worked Example A is this type.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="check" data-quiz="q6"></div>
+
+  <h3>Practice: a bar against a wall</h3>
+  <p>A uniform bar weighing 100 N leans against a wall. The coefficient of static friction is 0.3 at the floor (point A) and 0.4 at the wall (point B). Find the smallest angle <var>θ</var> between the bar and the floor at which the bar will not slip. Work it on paper before opening the solution.</p>
+  <details>
+    <summary>Show the solution</summary>
+    <div>
+      <p>Slipping is impending at both contacts, so this is the second type: five unknowns (<var>N</var><sub>A</sub>, <var>F</var><sub>A</sub>, <var>N</var><sub>B</sub>, <var>F</var><sub>B</sub>, <var>θ</var>), three equilibrium equations, and two friction equations. The bottom of the bar tends to slide away from the wall, so <var>F</var><sub>A</sub> points toward the wall. The top tends to slide down, so <var>F</var><sub>B</sub> points up.</p>
+      <p class="eq"><var>F</var><sub>A</sub> = 0.3<var>N</var><sub>A</sub>, &nbsp; <var>F</var><sub>B</sub> = 0.4<var>N</var><sub>B</sub></p>
+      <p class="eq">Σ<var>F</var><sub>x</sub> = 0: &nbsp; <var>N</var><sub>B</sub> = <var>F</var><sub>A</sub> = 0.3<var>N</var><sub>A</sub></p>
+      <p class="eq">Σ<var>F</var><sub>y</sub> = 0: &nbsp; <var>N</var><sub>A</sub> + 0.4(0.3<var>N</var><sub>A</sub>) = 100 N, &nbsp; <var>N</var><sub>A</sub> = 89.3 N</p>
+      <p>So <var>N</var><sub>B</sub> = 26.8 N and <var>F</var><sub>B</sub> = 10.7 N. Taking moments about A for a bar of length <var>L</var>:</p>
+      <p class="eq">(100 N)(<var>L</var>/2) cos <var>θ</var> = (26.8 N)<var>L</var> sin <var>θ</var> + (10.7 N)<var>L</var> cos <var>θ</var></p>
+      <p class="eq">tan <var>θ</var> = (50 − 10.7)/26.8 = 1.467, &nbsp; <var>θ</var> = 55.7°</p>
+      <p>The length cancels. At any angle steeper than 55.7° the bar stays put.</p>
+    </div>
+  </details>
+</section>
+
+<section class="sheet" aria-labelledby="s6">
+  <h2 id="s6">Summary</h2>
+  <ul>
+    <li>Static friction is a reaction. It equals whatever equilibrium requires, up to <var>μ</var><sub>s</sub><var>N</var>.</li>
+    <li>Write <var>F</var> = <var>μ</var><sub>s</sub><var>N</var> only when motion is impending. Otherwise, solve for <var>F</var> and check it.</li>
+    <li>Friction opposes sliding between surfaces, which is not always the direction opposite the body’s motion.</li>
+    <li>On a rigid body, <var>N</var> shifts toward the edge the body would tip about. Tipping is impending when <var>N</var> reaches that edge.</li>
+    <li>When slipping and tipping are both possible, assume one, solve, and check the other.</li>
+  </ul>
+
+  <h2>Key terms</h2>
+  <dl class="terms">
+    <dt>Dry (Coulomb) friction</dt><dd>Friction between unlubricated solid surfaces.</dd>
+    <dt>Normal force, <var>N</var></dt><dd>The resultant contact force perpendicular to the surface.</dd>
+    <dt>Static friction force, <var>F</var></dt><dd>The tangential force that prevents sliding. It takes whatever value equilibrium requires, up to a limit: <var>F</var> ≤ <var>μ</var><sub>s</sub><var>N</var>.</dd>
+    <dt>Maximum static friction, <var>F</var><sub>max</sub></dt><dd><var>μ</var><sub>s</sub><var>N</var>, reached only at impending motion.</dd>
+    <dt>Impending motion</dt><dd>The state in which a body is on the verge of slipping.</dd>
+    <dt>Kinetic friction force, <var>F</var><sub>k</sub></dt><dd><var>μ</var><sub>k</sub><var>N</var>, acting while surfaces slide.</dd>
+    <dt>Coefficients of static and kinetic friction, <var>μ</var><sub>s</sub> and <var>μ</var><sub>k</sub></dt><dd>Dimensionless ratios that depend on the pair of surfaces. Typically <var>μ</var><sub>s</sub> is greater than <var>μ</var><sub>k</sub>.</dd>
+    <dt>Slipping</dt><dd>Sliding at the contact surface.</dd>
+    <dt>Tipping</dt><dd>Rotation about an edge, which begins when the normal force reaches that edge (<var>x</var> = <var>a</var>/2 for a base of width <var>a</var>).</dd>
+    <dt>Angle of static friction, <var>φ</var><sub>s</sub></dt><dd>The incline angle at impending slip, where tan <var>φ</var><sub>s</sub> = <var>μ</var><sub>s</sub>. You will use this in the lab.</dd>
+  </dl>
+
+  <h2>Next</h2>
+  <div class="next">
+    <a href="activity01.html">Do the activity<span>Slip or Tip? Crate Stability Check, about 25 minutes, before class</span></a>
+    <a href="lab01.html">Preview the lab<span>Measuring Static Friction and Predicting Slip or Tip on an Incline</span></a>
+  </div>
+
+  <h2>References</h2>
+  <div class="refs">
+    <p>Beer, F. P., Johnston, E. R., Jr., &amp; Mazurek, D. F. (2019). <i>Vector mechanics for engineers: Statics</i> (12th ed.). McGraw-Hill Education.</p>
+    <p>Hibbeler, R. C. (2022). <i>Engineering mechanics: Statics</i> (15th ed.). Pearson.</p>
+    <p>Ling, S. J., Sanny, J., &amp; Moebs, W. (2016). <i>University physics</i> (Vol. 1). OpenStax. <a href="https://openstax.org/details/books/university-physics-volume-1">https://openstax.org/details/books/university-physics-volume-1</a></p>
+  </div>
+  <p class="meta">This lesson adapts and corrects the Chapter 8 class slides by Professor Cooperman, Brookdale Community College. For a review of friction from a physics course, see Ling et al. (2016), Chapter 6.</p>
+</section>
+
+</main>
+<footer>
+  <div class="wrap">
+    <p>Built for <span class="program">Statics</span> · Brookdale Community College · <span class="year">2026</span></p>
+    <p>This page was drafted with assistance from a generative AI tool and should be reviewed by the instructor before use. Anthropic. (2026). <i>Claude Fable 5.2</i> [Large language model]. <a href="https://claude.ai">https://claude.ai</a></p>
+  </div>
+</footer>
+<script>
+window.STATICS_QUIZ = {
+  pre1: { p: 'A 50 N horizontal force acts on a body at a point 2 m above point O. What is the magnitude of its moment about O?', o: [
+    ['100 N·m', 1, 'Moment is force times perpendicular distance: (50 N)(2 m) = 100 N·m.'],
+    ['25 N·m', 0, 'That divides force by distance. Moment is force times perpendicular distance.'],
+    ['50 N·m', 0, 'That leaves out the distance. Multiply the force by its perpendicular distance from O.'],
+    ['0 N·m', 0, 'The moment is zero only if the force’s line of action passes through O. This one passes 2 m above it.']] },
+  pre2: { p: 'How many independent equilibrium equations can you write for one rigid body in two dimensions?', o: [
+    ['Three', 1, 'Two force equations and one moment equation. The moment equation is what lets us find where N acts.'],
+    ['Two', 0, 'Two is the count for a particle. A rigid body can also rotate, so it needs a moment equation as well.'],
+    ['Six', 0, 'Six is the count for a rigid body in three dimensions. In two dimensions there are three.']] },
+  q1: { p: 'It takes 20 lb of horizontal force to start a table sliding. You push on it with 1 lb. What is the friction force on the table?', o: [
+    ['1 lb', 1, 'The table is in equilibrium, so friction equals the push. Static friction is a reaction; it supplies only what is needed.'],
+    ['20 lb', 0, 'Twenty pounds is the most the floor can supply. If it supplied that against a 1 lb push, the table would accelerate toward you.'],
+    ['0 lb', 0, 'If friction were zero, your 1 lb push would be unbalanced and the table would move.'],
+    ['19 lb', 0, 'Nineteen pounds is the reserve that is left, not the force acting. Friction equals the push.']] },
+  q2: { p: 'You are walking forward across a floor. While your back foot is planted and pushing off, which way does friction from the floor act on your shoe?', o: [
+    ['Forward', 1, 'Your shoe pushes backward on the floor and would slide backward without friction. Friction opposes that sliding, so it points forward. It is the force that moves you.'],
+    ['Backward', 0, 'That would be true if friction opposed the motion of your body. It opposes sliding between the surfaces. Which way would your shoe slide on ice?'],
+    ['There is none, because the shoe is not sliding', 0, 'No sliding means the friction is static, not that it is absent. Without it your foot would slip backward.']] },
+  q3: { p: 'A 20-kg crate rests on a level floor with a coefficient of static friction of 0.40. Nobody is pushing on it. What is the friction force?', o: [
+    ['0 N', 1, 'Nothing is trying to slide the crate, so equilibrium needs no friction. The 78.5 N figure is only the amount available.'],
+    ['78.5 N', 0, 'That is μsN, the maximum available. Friction equals μsN only at impending motion. With no push, what does ΣFx = 0 require?'],
+    ['196.2 N', 0, 'That is the weight, which the normal force balances. Friction acts along the floor, and nothing along the floor needs balancing.'],
+    ['58.9 N', 0, 'That is the kinetic friction force, which applies only while the crate slides.']] },
+  q4: { p: 'A crate is pushed to the right, near its top, and stays in equilibrium. Where does the resultant normal force act?', o: [
+    ['To the right of the centerline', 1, 'The push tries to rotate the crate clockwise about its lower right edge. N shifts toward that edge to supply the balancing moment: x = Ph/W.'],
+    ['At the centerline', 0, 'If N stayed at the centerline, it and W would share a line of action and nothing would balance the moment of P. The crate would rotate.'],
+    ['To the left of the centerline', 0, 'Moving N left would add to the tipping moment of P instead of opposing it.']] },
+  q5: { p: 'A crate has a base 0.80 m wide. You assume slipping, solve, and find x = 0.45 m. What do you do next?', o: [
+    ['Reject the slipping assumption and solve again for tipping', 1, 'N cannot act outside the base, and 0.45 m is more than a/2 = 0.40 m. The crate tips before it reaches that push. Set x = 0.40 m and solve again.'],
+    ['Report the slipping answer', 0, 'Check the result first. Half the base is 0.40 m, so x = 0.45 m puts N in thin air.'],
+    ['Conclude that the crate slips and tips at the same moment', 0, 'That happens only if both limits give exactly the same force. Here the check failed, so tipping comes first.'],
+    ['Average the slipping and tipping forces', 0, 'The limits do not combine. Whichever one is reached at the smaller force governs.']] },
+  q6: { p: 'A problem gives a crate, a push of 100 N, and a coefficient of static friction, then asks whether the crate remains in equilibrium. Which type is it?', o: [
+    ['No apparent impending motion', 1, 'Nothing says the crate is on the verge of moving. Solve F, N, and x from equilibrium, then check both limits.'],
+    ['Impending motion at all points of contact', 0, 'You may write F = μsN only if the problem says, or you assume, that slipping is impending. Here you are asked to find out.'],
+    ['Impending motion at some points of contact', 0, 'That type asks for the force or angle at which motion begins, with more than one motion possible. Here the load is given and you only need to check it.']] }
+};
+window.STATICS_SORT = { sort1: [
+  ['Shoe soles on a floor', 1, 'Walking depends on it. Friction on the shoe is what pushes you forward.'],
+  ['Brake pads on a rotor', 1, 'Brakes exist to create friction and turn motion into heat.'],
+  ['Rubber feet on a ladder', 1, 'Friction at the floor is what keeps the base from sliding out.'],
+  ['Plates clamped by a tightened bolt', 1, 'In many joints the bolt squeezes the plates together and friction between them carries the load.'],
+  ['A wheel bearing', 0, 'Here friction wastes energy and makes heat, so bearings use rolling elements and lubricant to reduce it.'],
+  ['A piston in an engine cylinder', 0, 'Sliding friction here causes wear and lost power, which is why engines need oil.']
+] };
+window.STATICS_ACTIVITY = [
+  { id: 'a1', ans: 147.15, tol: 3, mode: 'slip', other: 160.53,
+    okMsg: 'Slipping governs on the bare floor: μsW is smaller than the push needed to bring N to the edge. Make sure your page shows the tipping check, x ≤ a/2.',
+    otherMsg: 'That is the push that would tip the crate. Now find the push that would slip it and compare. The smaller one governs.',
+    hint: 'Find W = mg first. Then find two candidate forces: one from F = μsN, one from x = a/2. Which is smaller?' },
+  { id: 'a2', ans: 160.53, tol: 3, mode: 'tip', other: 353.16,
+    okMsg: 'On the mat the crate tips before it slides, and the largest safe push went up by less than 10 percent. What the mat mainly changed is how the crate fails.',
+    otherMsg: 'That is the push that would slip the crate on the mat. Check x for that push. Is it inside the base?',
+    hint: 'The tipping limit does not depend on μs. Compare it with the new slipping limit.' },
+  { id: 'a3', ans: 0.5, tol: 0.011,
+    okMsg: 'Below 0.50 m the slipping limit is reached first. Pushing low is the standard advice for moving tall loads, and this is the reason.',
+    hint: 'Set the slipping force equal to the tipping force, μsW = Wa/(2h), and solve for h. The weight cancels.' }
+];
+
+(function () {
+  'use strict';
+  var G = 9.81, NS = 'http://www.w3.org/2000/svg', DEG = Math.PI / 180;
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function el(name, attrs, parent) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) { if (Object.prototype.hasOwnProperty.call(attrs, k)) e.setAttribute(k, attrs[k]); }
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function txt(parent, x, y, str, cls, anchor) {
+    var t = el('text', { x: x, y: y, 'class': cls || '', 'text-anchor': anchor || 'start' }, parent);
+    t.textContent = str; return t;
+  }
+  function arrow(parent, x1, y1, x2, y2, cls) {
+    var g = el('g', { 'class': 'arrow ' + cls }, parent);
+    var dx = x2 - x1, dy = y2 - y1, len = Math.sqrt(dx * dx + dy * dy);
+    if (len < 3) return g;
+    var ux = dx / len, uy = dy / len, h = Math.min(13, len), bx = x2 - ux * h, by = y2 - uy * h;
+    el('line', { x1: x1, y1: y1, x2: bx, y2: by }, g);
+    el('polygon', { points: [x2, y2, bx - uy * 6, by + ux * 6, bx + uy * 6, by - ux * 6].join(',') }, g);
+    return g;
+  }
+  function clear(n) { while (n.firstChild) n.removeChild(n.firstChild); }
+  function hatch(parent, x1, x2, y) {
+    el('line', { x1: x1, y1: y, x2: x2, y2: y, 'class': 'ground' }, parent);
+    for (var x = x1 + 6; x < x2; x += 16) el('line', { x1: x, y1: y, x2: x - 9, y2: y + 9, 'class': 'hatch' }, parent);
+  }
+  function shuffle(array) {
+    var a = array.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+  function load(key) { try { return JSON.parse(localStorage.getItem(key)) || {}; } catch (e) { return {}; } }
+  function save(key, v) { try { localStorage.setItem(key, JSON.stringify(v)); } catch (e) { /* storage unavailable */ } }
+  function slider(id, label, min, max, step, val, unit) {
+    return '<div><label for="' + id + '">' + label + ': <output id="' + id + '-o" for="' + id + '"></output>' + (unit ? ' ' + unit : '') +
+      '</label><input type="range" id="' + id + '" min="' + min + '" max="' + max + '" step="' + step + '" value="' + val + '"></div>';
+  }
+  var uid = 0;
+
+  /* ---------- Ramp widget: block on an incline, slip or tip ---------- */
+  var BLOCKS = { low: { b: 70, H: 35, name: 'Low block' }, tall: { b: 34, H: 102, name: 'Tall block' } };
+  function rampWidget(box) {
+    var id = 'ramp' + (++uid);
+    box.innerHTML =
+      '<svg viewBox="0 0 560 330" role="img" aria-labelledby="' + id + '-t"><title id="' + id + '-t">A block resting on a ramp that can be raised. The status line below the controls says whether the block holds, slips, or tips.</title><g class="scene"></g></svg>' +
+      '<div class="panel"><div class="ctl">' +
+      slider(id + '-a', 'Ramp angle <var>θ</var>', 0, 50, 0.5, 8, 'degrees') +
+      '<div><label for="' + id + '-b">Block</label><select id="' + id + '-b"><option value="low">Low block (base is twice the height)</option><option value="tall">Tall block (height is three times the base)</option></select></div>' +
+      '<div><label for="' + id + '-s">Ramp surface</label><select id="' + id + '-s"><option value="0.3">Smooth board, μs = 0.30</option><option value="0.5">Felt, μs = 0.50</option><option value="0.9">Sandpaper, μs = 0.90</option></select></div>' +
+      '</div><p class="verdict" aria-live="polite"></p></div>';
+    var scene = $('.scene', box), a = $('#' + id + '-a'), ao = $('#' + id + '-a-o'), bs = $('#' + id + '-b'), ss = $('#' + id + '-s'), v = $('.verdict', box);
+    function draw() {
+      var th = +a.value, mu = +ss.value, blk = BLOCKS[bs.value];
+      var slipA = Math.atan(mu) / DEG, tipA = Math.atan(blk.b / blk.H) / DEG;
+      var state = 'hold';
+      if (th > Math.min(slipA, tipA) + 1e-9) state = slipA <= tipA ? 'slip' : 'tip';
+      ao.textContent = th.toFixed(1);
+      clear(scene);
+      var px0 = 70, py0 = 290, L = 340, c = Math.cos(th * DEG), s = Math.sin(th * DEG);
+      hatch(scene, 30, 530, py0);
+      var ex = px0 + L * c, ey = py0 - L * s;
+      el('line', { x1: ex, y1: ey, x2: ex, y2: py0, 'class': 'faint' }, scene);
+      el('line', { x1: px0, y1: py0, x2: ex, y2: ey, 'class': 'ground', 'stroke-width': 5 }, scene);
+      if (th > 2) {
+        el('path', { d: 'M' + (px0 + 64) + ',' + py0 + ' A64,64 0 0 0 ' + (px0 + 64 * c) + ',' + (py0 - 64 * s), 'class': 'faint' }, scene);
+      }
+      txt(scene, px0 + 4, py0 + 30, 'θ = ' + th.toFixed(1) + '°', 't-weight');
+      var d = state === 'slip' ? 70 + blk.b / 2 : 225;
+      var bx = px0 + d * c, by = py0 - d * s;
+      var g = el('g', { transform: 'translate(' + bx + ',' + by + ') rotate(' + (-th) + ')' }, scene);
+      var g2 = el('g', state === 'tip' ? { transform: 'rotate(-20,' + (-blk.b / 2) + ',0)' } : {}, g);
+      el('rect', { x: -blk.b / 2, y: -blk.H, width: blk.b, height: blk.H, 'class': 'body' }, g2);
+      el('circle', { cx: 0, cy: -blk.H / 2, r: 4, fill: 'currentColor' }, g2);
+      if (state === 'hold') {
+        var gx = bx - (blk.H / 2) * s, gy = by - (blk.H / 2) * c;
+        arrow(scene, gx, gy, gx, gy + 78, 'f-weight');
+        txt(scene, gx + 8, gy + 74, 'W', 't-weight');
+      }
+      if (state === 'slip') {
+        for (var k = 0; k < 3; k++) {
+          var m = d + blk.b / 2 + 16 + k * 16;
+          el('line', { x1: px0 + m * c - 8 * s, y1: py0 - m * s - 8 * c, x2: px0 + m * c - 24 * s, y2: py0 - m * s - 24 * c, 'class': 'hatch' }, scene);
+        }
+      }
+      txt(scene, 548, 28, 'Slips when tan θ reaches μs: ' + slipA.toFixed(1) + '°', 'small', 'end');
+      txt(scene, 548, 48, 'Tips when tan θ reaches base ÷ height: ' + tipA.toFixed(1) + '°', 'small', 'end');
+      v.setAttribute('data-state', state);
+      var first = slipA <= tipA ? 'slipping' : 'tipping';
+      if (state === 'hold') v.textContent = 'Holds. The weight’s line of action still lands inside the base, and friction still has room to grow. At this rate ' + first + ' comes first, at ' + Math.min(slipA, tipA).toFixed(1) + '°.';
+      else if (state === 'slip') v.textContent = 'Slips. The block needed more friction than the surface can supply (tan θ is greater than μs = ' + mu.toFixed(2) + '). It would have tipped at ' + tipA.toFixed(1) + '°.';
+      else v.textContent = 'Tips. The weight’s line of action passed the downhill edge of the base before friction ran out. It would have slipped at ' + slipA.toFixed(1) + '°.';
+    }
+    [a, bs, ss].forEach(function (n) { n.addEventListener('input', draw); n.addEventListener('change', draw); });
+    draw();
+  }
+
+  /* ---------- Friction graph widget ---------- */
+  function graphWidget(box) {
+    var id = 'graph' + (++uid), m = 20, mus = 0.4, muk = 0.3, N = m * G, Fs = mus * N, Fk = muk * N;
+    box.innerHTML =
+      '<svg viewBox="0 0 560 310" role="img" aria-labelledby="' + id + '-t"><title id="' + id + '-t">Graph of friction force against applied force. Friction rises in a straight line equal to the applied force up to 78.5 newtons, then drops to a constant 58.9 newtons once the crate slides.</title><g class="scene"></g></svg>' +
+      '<div class="panel"><div class="ctl">' + slider(id + '-p', 'Applied force <var>P</var>', 0, 150, 0.5, 30, 'N') + '</div><p class="verdict" aria-live="polite"></p></div>';
+    var scene = $('.scene', box), p = $('#' + id + '-p'), po = $('#' + id + '-p-o'), v = $('.verdict', box);
+    var ox = 70, oy = 255, sx = 3, sy = 2.2;
+    function X(P) { return ox + P * sx; } function Y(F) { return oy - F * sy; }
+    function draw() {
+      var P = +p.value, state, F;
+      if (P < Fs - 0.26) { state = 'hold'; F = P; } else if (P <= Fs + 0.26) { state = 'edge'; F = Fs; } else { state = 'slip'; F = Fk; }
+      po.textContent = P.toFixed(1);
+      clear(scene);
+      el('line', { x1: ox, y1: oy, x2: X(155), y2: oy, 'class': 'axis' }, scene);
+      el('line', { x1: ox, y1: oy, x2: ox, y2: Y(100), 'class': 'axis' }, scene);
+      [0, 50, 100, 150].forEach(function (t) { txt(scene, X(t), oy + 20, String(t), 'small', 'middle'); el('line', { x1: X(t), y1: oy, x2: X(t), y2: oy + 5, 'class': 'axis' }, scene); });
+      [50, 100].forEach(function (t) { txt(scene, ox - 10, Y(t) + 5, String(t), 'small', 'end'); el('line', { x1: ox - 5, y1: Y(t), x2: ox, y2: Y(t), 'class': 'axis' }, scene); });
+      txt(scene, X(77), oy + 42, 'Applied force P (N)', '', 'middle');
+      var yl = txt(scene, 0, 0, 'Friction force F (N)', '', 'middle'); yl.setAttribute('transform', 'translate(22,' + Y(50) + ') rotate(-90)');
+      el('line', { x1: ox, y1: Y(Fs), x2: X(Fs), y2: Y(Fs), 'class': 'faint' }, scene);
+      el('line', { x1: X(Fs), y1: Y(Fs), x2: X(Fs), y2: Y(Fk), 'class': 'faint' }, scene);
+      el('polyline', { points: [X(0), Y(0), X(Fs), Y(Fs)].join(' '), 'class': 'curve' }, scene);
+      el('polyline', { points: [X(Fs), Y(Fk), X(150), Y(Fk)].join(' '), 'class': 'curve' }, scene);
+      txt(scene, X(46), Y(20), 'Static: F = P', 't-friction');
+      txt(scene, X(Fs) + 8, Y(Fs) - 8, 'Impending motion: F = μsN = ' + Fs.toFixed(1) + ' N', 't-friction');
+      txt(scene, X(150), Y(Fk) + 22, 'Kinetic: F = μkN = ' + Fk.toFixed(1) + ' N', 't-friction', 'end');
+      el('circle', { cx: X(P), cy: Y(F), r: 8, 'class': 'dot' }, scene);
+      v.setAttribute('data-state', state);
+      if (state === 'hold') v.textContent = 'Static. The crate does not move. Friction is ' + F.toFixed(1) + ' N, exactly equal to the push, and well short of the ' + Fs.toFixed(1) + ' N limit.';
+      else if (state === 'edge') v.textContent = 'Impending motion. Friction has reached its maximum, μsN = ' + Fs.toFixed(1) + ' N. Any larger push starts the crate sliding.';
+      else v.textContent = 'Sliding. Friction has dropped to the kinetic value, μkN = ' + Fk.toFixed(1) + ' N. The other ' + (P - Fk).toFixed(1) + ' N of the push is unbalanced, so the crate accelerates and statics no longer applies.';
+    }
+    p.addEventListener('input', draw); draw();
+  }
+
+  /* ---------- Pushed crate widget: slip or tip, with normal force location ---------- */
+  function pushWidget(box) {
+    var id = 'push' + (++uid), m = 60, W = m * G, Hc = 1.6, sc = 105;
+    box.innerHTML =
+      '<svg viewBox="0 0 560 370" role="img" aria-labelledby="' + id + '-t"><title id="' + id + '-t">Free-body diagram of a crate pushed by a horizontal force P at height h. Weight W acts down at the center, friction F acts along the floor against the push, and the normal force N acts up at a distance x from the centerline. The status line below gives the current values.</title><g class="scene"></g></svg>' +
+      '<div class="panel"><div class="ctl">' +
+      slider(id + '-p', 'Push <var>P</var>', 0, 400, 1, 80, 'N') +
+      slider(id + '-h', 'Push height <var>h</var>', 0.2, 1.6, 0.05, 1.1, 'm') +
+      slider(id + '-a', 'Base width <var>a</var>', 0.4, 1.4, 0.05, 0.6, 'm') +
+      slider(id + '-m', 'Coefficient of static friction <var>μ</var><sub>s</sub>', 0.1, 0.9, 0.01, 0.35, '') +
+      '</div><div class="race" aria-hidden="true">' +
+      '<div class="lane"><span class="l1"></span><div class="track"><div class="fill fr"></div></div></div>' +
+      '<div class="lane"><span class="l2"></span><div class="track"><div class="fill nm"></div></div></div></div>' +
+      '<p class="verdict" aria-live="polite"></p></div>';
+    var scene = $('.scene', box), v = $('.verdict', box);
+    var ip = $('#' + id + '-p'), ih = $('#' + id + '-h'), ia = $('#' + id + '-a'), im = $('#' + id + '-m');
+    var l1 = $('.l1', box), l2 = $('.l2', box), f1 = $('.fr', box), f2 = $('.nm', box);
+    function draw() {
+      var P = +ip.value, h = +ih.value, a = +ia.value, mu = +im.value;
+      $('#' + id + '-p-o').textContent = P.toFixed(0); $('#' + id + '-h-o').textContent = h.toFixed(2);
+      $('#' + id + '-a-o').textContent = a.toFixed(2); $('#' + id + '-m-o').textContent = mu.toFixed(2);
+      var Pslip = mu * W, Ptip = W * a / (2 * h), Pcrit = Math.min(Pslip, Ptip), state = 'hold';
+      if (P > Pcrit + 1e-9) state = Pslip <= Ptip ? 'slip' : 'tip';
+      var F = state === 'hold' ? P : (state === 'tip' ? Ptip : Pslip), x = state === 'hold' ? P * h / W : (state === 'tip' ? a / 2 : Pslip * h / W);
+      clear(scene);
+      var gy = 285, cx = 300, aw = a * sc, hh = Hc * sc, left = cx - aw / 2;
+      hatch(scene, 30, 530, gy);
+      var tf = state === 'slip' ? 'translate(34,0)' : (state === 'tip' ? 'rotate(11,' + (cx + aw / 2) + ',' + gy + ')' : '');
+      var g = el('g', tf ? { transform: tf } : {}, scene);
+      el('rect', { x: left, y: gy - hh, width: aw, height: hh, 'class': 'body' }, g);
+      el('line', { x1: cx, y1: gy - hh, x2: cx, y2: gy, 'class': 'faint' }, g);
+      el('circle', { cx: cx, cy: gy - hh / 2, r: 4.5, fill: 'currentColor' }, g);
+      var yP = gy - h * sc, Lp = 22 + P * 0.2, right = cx + aw / 2;
+      var fg = el('g', state === 'slip' ? { transform: 'translate(34,0)' } : {}, scene);
+      arrow(fg, left - Lp, yP, left, yP, 'f-applied');
+      txt(fg, left - Lp - 8, yP + 5, 'P = ' + P.toFixed(0) + ' N', 't-applied', 'end');
+      if (state === 'tip') {
+        el('circle', { cx: right, cy: gy, r: 7, 'class': 'dot' }, scene);
+        txt(scene, right + 14, gy + 30, 'Rotating about this edge', 't-weight');
+      } else {
+        el('line', { x1: left - 12, y1: yP + 8, x2: left - 12, y2: gy, 'class': 'faint' }, fg);
+        txt(fg, left - 20, (yP + gy) / 2 + 12, 'h', 'small', 'end');
+        arrow(fg, cx, gy - hh / 2, cx, gy - hh / 2 + 72, 'f-weight');
+        txt(fg, right + 10, gy - hh / 2 + 40, 'W = ' + W.toFixed(0) + ' N', 't-weight');
+        var nx = cx + x * sc;
+        arrow(fg, nx, gy + 72, nx, gy + 2, 'f-normal');
+        txt(fg, nx + 9, gy + 68, 'N = ' + W.toFixed(0) + ' N', 't-normal');
+        var Lf = 22 + F * 0.2;
+        arrow(fg, cx - 10, gy + 14, cx - 10 - Lf, gy + 14, 'f-friction');
+        txt(fg, cx - 14 - Lf, gy + 36, 'F = ' + F.toFixed(0) + ' N', 't-friction', 'end');
+        if (x * sc > 6) {
+          el('line', { x1: cx, y1: gy + 52, x2: nx, y2: gy + 52, 'class': 'axis' }, fg);
+          el('line', { x1: cx, y1: gy + 46, x2: cx, y2: gy + 58, 'class': 'axis' }, fg);
+          txt(fg, cx - 6, gy + 57, 'x', 'small', 'end');
+        }
+      }
+      txt(scene, 548, 26, 'x = ' + x.toFixed(3) + ' m of ' + (a / 2).toFixed(3) + ' m available', 'small', 'end');
+      var r1 = Math.min(1, P / Pslip), r2 = Math.min(1, P / Ptip);
+      l1.textContent = 'Friction used: F is ' + Math.round(r1 * 100) + '% of μsN (slips at P = ' + Pslip.toFixed(0) + ' N)';
+      l2.textContent = 'Base used: x is ' + Math.round(r2 * 100) + '% of a/2 (tips at P = ' + Ptip.toFixed(0) + ' N)';
+      f1.style.width = (r1 * 100) + '%'; f2.style.width = (r2 * 100) + '%';
+      v.setAttribute('data-state', state);
+      var which = Pslip <= Ptip ? 'Slipping' : 'Tipping';
+      if (state === 'hold') v.textContent = 'Equilibrium. F = ' + F.toFixed(0) + ' N is within μsN = ' + Pslip.toFixed(0) + ' N, and N sits ' + x.toFixed(3) + ' m from the centerline, inside the base. ' + which + ' governs: it happens first, at P = ' + Pcrit.toFixed(0) + ' N.';
+      else if (state === 'slip') v.textContent = 'Slips. The push passed μsN = ' + Pslip.toFixed(0) + ' N while N was still inside the base. Tipping would have needed ' + Ptip.toFixed(0) + ' N.';
+      else v.textContent = 'Tips. N reached the edge of the base (x = a/2) at P = ' + Ptip.toFixed(0) + ' N, before friction reached its ' + Pslip.toFixed(0) + ' N limit.';
+    }
+    [ip, ih, ia, im].forEach(function (n) { n.addEventListener('input', draw); });
+    draw();
+  }
+
+  /* ---------- Knowledge checks ---------- */
+  var QUIZ = window.STATICS_QUIZ || {}, PKEY = 'statics-l1-checks-v1', done = load(PKEY);
+  function updateProgress() {
+    var bar = $('#prog'); if (!bar) return;
+    var ids = $$('[data-quiz],[data-sort]').map(function (n) { return n.getAttribute('data-quiz') || n.getAttribute('data-sort'); });
+    var n = ids.filter(function (i) { return done[i]; }).length;
+    bar.max = ids.length; bar.value = n;
+    $('#prog-t').textContent = n + ' of ' + ids.length + ' checks answered correctly';
+  }
+  function quiz(box) {
+    var id = box.getAttribute('data-quiz'), q = QUIZ[id]; if (!q) return;
+    var opts = shuffle(q.o.map(function (o) { return { t: o[0], ok: o[1] === 1, why: o[2] }; }));
+    var h = '<fieldset><legend><span class="tag">Check</span>' + q.p + '</legend>';
+    opts.forEach(function (o, k) {
+      h += '<label class="opt" for="' + id + '-' + k + '"><input type="radio" name="' + id + '" id="' + id + '-' + k + '" value="' + k + '"><span>' + o.t + '</span></label>';
+    });
+    h += '</fieldset><button type="button" class="btn">Check answer</button><p class="fb" role="status"></p>';
+    box.innerHTML = h;
+    $('button', box).addEventListener('click', function () {
+      var sel = $('input:checked', box), fb = $('.fb', box);
+      if (!sel) { fb.className = 'fb no'; fb.textContent = 'Choose an answer, then check it.'; return; }
+      var o = opts[+sel.value];
+      fb.className = 'fb ' + (o.ok ? 'ok' : 'no');
+      fb.innerHTML = '<strong>' + (o.ok ? 'Correct.' : 'Not yet.') + '</strong> ' + o.why;
+      if (o.ok) { done[id] = 1; save(PKEY, done); updateProgress(); }
+    });
+  }
+  function sortTask(box) {
+    var id = box.getAttribute('data-sort'), items = (window.STATICS_SORT || {})[id]; if (!items) return;
+    var h = '<p><span class="tag">Check</span><strong>For each case, does the design rely on friction or fight it?</strong></p>';
+    items.forEach(function (it, k) {
+      h += '<fieldset class="sort-row"><legend class="q">' + it[0] + '</legend><div class="choices">' +
+        '<label><input type="radio" name="' + id + k + '" value="1"> Relies on friction</label>' +
+        '<label><input type="radio" name="' + id + k + '" value="0"> Fights friction</label></div><p class="rfb" role="status"></p></fieldset>';
+    });
+    h += '<button type="button" class="btn">Check my sorting</button><p class="fb" role="status"></p>';
+    box.innerHTML = h;
+    $('button.btn', box).addEventListener('click', function () {
+      var right = 0;
+      $$('.sort-row', box).forEach(function (row, k) {
+        var sel = $('input:checked', row), r = $('.rfb', row);
+        if (!sel) { r.textContent = 'No answer yet.'; return; }
+        var ok = +sel.value === items[k][1]; if (ok) right++;
+        r.innerHTML = '<strong>' + (ok ? 'Correct.' : 'Not yet.') + '</strong> ' + items[k][2];
+      });
+      var fb = $(':scope > .fb', box); fb.className = 'fb ' + (right === items.length ? 'ok' : 'no');
+      fb.textContent = right + ' of ' + items.length + ' correct.' + (right === items.length ? ' Four of the six designs fail without friction.' : ' Change the ones marked “Not yet” and check again.');
+      if (right === items.length) { done[id] = 1; save(PKEY, done); updateProgress(); }
+    });
+  }
+
+  /* ---------- Activity answer checker ---------- */
+  function activity() {
+    var parts = window.STATICS_ACTIVITY; if (!parts) return;
+    parts.forEach(function (pt) {
+      var btn = $('#' + pt.id + '-btn'); if (!btn) return;
+      btn.addEventListener('click', function () {
+        var fb = $('#' + pt.id + '-fb'), val = parseFloat($('#' + pt.id + '-val').value), mode = $('input[name="' + pt.id + '-mode"]:checked');
+        if (isNaN(val) || (pt.mode && !mode)) { fb.className = 'fb no'; fb.textContent = 'Enter a number' + (pt.mode ? ' and choose slips or tips' : '') + ', then check.'; return; }
+        var close = Math.abs(val - pt.ans) <= pt.tol, modeOk = !pt.mode || mode.value === pt.mode, msg;
+        if (close && modeOk) { fb.className = 'fb ok'; fb.innerHTML = '<strong>Correct.</strong> ' + pt.okMsg; return; }
+        fb.className = 'fb no';
+        if (pt.other != null && Math.abs(val - pt.other) <= pt.tol) msg = pt.otherMsg;
+        else if (close && !modeOk) msg = 'Your force is right, but the failure mode is not. Which limit did that force come from?';
+        else if (!close && modeOk) msg = 'The failure mode is right, but the force is off. ' + pt.hint;
+        else msg = pt.hint;
+        fb.innerHTML = '<strong>Not yet.</strong> ' + msg;
+      });
+    });
+  }
+
+  /* ---------- Lab data sheet ---------- */
+  function lab() {
+    var host = $('#lab-rows'); if (!host) return;
+    var LKEY = 'statics-l1-lab-v1', data = load(LKEY), S = 3, T = 5, h = '';
+    for (var s = 1; s <= S; s++) {
+      h += '<tr><th scope="row"><label for="s' + s + 'n">Surface ' + s + '</label><input type="text" id="s' + s + 'n" data-save placeholder="for example, felt"></th>';
+      for (var t = 1; t <= T; t++) h += '<td><input type="number" id="s' + s + 't' + t + '" data-save min="0" max="89" step="0.5" inputmode="decimal" aria-label="Surface ' + s + ', trial ' + t + ', slip angle in degrees"></td>';
+      h += '<td class="num" id="s' + s + 'mu">–</td><td class="num" id="s' + s + 'rg">–</td></tr>';
+    }
+    host.innerHTML = h;
+    var ph = '';
+    for (s = 1; s <= S; s++) {
+      ph += '<tr><th scope="row" id="p' + s + 'n">Surface ' + s + '</th><td class="num" id="p' + s + 'sa">–</td><td class="num" id="p' + s + 'ta">–</td><td id="p' + s + 'pr">–</td>' +
+        '<td><select id="p' + s + 'ob" data-save aria-label="Surface ' + s + ', what the tall block did"><option value="">Choose</option><option>Slipped first</option><option>Tipped first</option><option>Mixed across trials</option></select></td></tr>';
+    }
+    $('#lab-pred').innerHTML = ph;
+    $$('[data-save]').forEach(function (n) { if (data[n.id] != null) n.value = data[n.id]; });
+    function calc() {
+      var b = parseFloat($('#tb').value), H = parseFloat($('#tH').value), tipA = (b > 0 && H > 0) ? Math.atan(b / H) / DEG : null;
+      $('#tipangle').textContent = tipA == null ? 'Enter the tall block’s base and height.' : 'Predicted tip angle: ' + tipA.toFixed(1) + '° (tan θ = ' + (b / H).toFixed(3) + ').';
+      for (var s = 1; s <= S; s++) {
+        var mus = [];
+        for (var t = 1; t <= T; t++) { var a = parseFloat($('#s' + s + 't' + t).value); if (!isNaN(a) && a > 0 && a < 90) mus.push(Math.tan(a * DEG)); }
+        var name = $('#s' + s + 'n').value || 'Surface ' + s;
+        $('#p' + s + 'n').textContent = name;
+        if (!mus.length) { ['mu', 'rg'].forEach(function (k) { $('#s' + s + k).textContent = '–'; }); ['sa', 'ta', 'pr'].forEach(function (k) { $('#p' + s + k).textContent = '–'; }); continue; }
+        var mean = mus.reduce(function (x, y) { return x + y; }, 0) / mus.length, lo = Math.min.apply(null, mus), hi = Math.max.apply(null, mus);
+        $('#s' + s + 'mu').textContent = mean.toFixed(2) + ' (n = ' + mus.length + ')';
+        $('#s' + s + 'rg').textContent = lo.toFixed(2) + ' to ' + hi.toFixed(2);
+        var slipA = Math.atan(mean) / DEG;
+        $('#p' + s + 'sa').textContent = slipA.toFixed(1) + '°';
+        $('#p' + s + 'ta').textContent = tipA == null ? '–' : tipA.toFixed(1) + '°';
+        $('#p' + s + 'pr').textContent = tipA == null ? '–' : (Math.abs(slipA - tipA) < 2 ? 'Too close to call (within 2°)' : (slipA < tipA ? 'Slips first' : 'Tips first'));
+      }
+    }
+    document.addEventListener('input', function (e) {
+      if (!e.target.hasAttribute || !e.target.hasAttribute('data-save')) return;
+      data[e.target.id] = e.target.value; save(LKEY, data); calc();
+    });
+    $('#lab-print').addEventListener('click', function () { window.print(); });
+    $('#lab-clear').addEventListener('click', function () {
+      var st = $('#lab-status');
+      if (this.getAttribute('data-armed') !== '1') { this.setAttribute('data-armed', '1'); this.textContent = 'Select again to erase all entries'; st.textContent = 'Nothing erased yet.'; return; }
+      $$('[data-save]').forEach(function (n) { n.value = ''; }); data = {}; save(LKEY, data); calc();
+      this.removeAttribute('data-armed'); this.textContent = 'Erase all entries'; st.textContent = 'All entries erased.';
+    });
+    calc();
+  }
+
+  $$('[data-widget="ramp"]').forEach(rampWidget);
+  $$('[data-widget="graph"]').forEach(graphWidget);
+  $$('[data-widget="push"]').forEach(pushWidget);
+  $$('[data-quiz]').forEach(quiz);
+  $$('[data-sort]').forEach(sortTask);
+  updateProgress(); activity(); lab();
+})();
+</script>
+</body>
+</html>
