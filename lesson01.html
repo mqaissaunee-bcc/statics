@@ -346,7 +346,7 @@ html.lecture .calc{width:min(24rem,calc(100vw - 1rem))}
   <h1>Friction</h1>
   <p class="lede">Until now, most of our problems came with supports that held firm. This lesson asks a different question: will the body stay where it is at all? The answer depends on friction, and on something a particle model hides, which is where the floor pushes back.</p>
   <div class="progress no-print"><progress id="prog" value="0" max="1" aria-describedby="prog-t"></progress><span id="prog-t"></span></div>
-  <p class="meta">Seven sections, 17 interactive activities, and 50 in-class problems in two sets, placed where each topic comes up. Both are listed at the end of the page, so you can jump straight to any one. A scientific calculator opens from the Calculator button at the top of the page and on every in-class problem; you can drag it anywhere. Wherever you see a “Need a refresher?” button, it opens a short review of an earlier idea without leaving your place. Your progress on the checks is saved on this device.</p>
+  <p class="meta">Eight sections, 20 interactive activities, and 50 in-class problems in two sets, placed where each topic comes up. Both are listed at the end of the page, so you can jump straight to any one. A scientific calculator opens from the Calculator button at the top of the page and on every in-class problem; you can drag it anywhere. Wherever you see a “Need a refresher?” button, it opens a short review of an earlier idea without leaving your place. Your progress on the checks is saved on this device.</p>
 
   <h2>Before you start</h2>
   <p>Two questions on ideas this lesson leans on. If either one is shaky, open the matching review below before going on.</p>
@@ -1091,6 +1091,34 @@ html.lecture .calc{width:min(24rem,calc(100vw - 1rem))}
 </article>
 </section>
 
+<section class="sheet" aria-labelledby="s8">
+  <h2 id="s8">8. Friction in unexpected places</h2>
+  <p>Crates and ladders are where friction problems start. These three are where the same two ideas, <var>F</var> ≤ <var>μ</var><sub>s</sub><var>N</var> and the angle of static friction, turn up in the world, and each one behaves in a way most people do not expect.</p>
+
+  <h3>A rope around a post: holding a ship with one hand</h3>
+  <p>A dock worker takes a few turns of rope around a bollard and holds back a ship. A climber’s belay device, a sailor’s winch, and a cowboy’s turn around the saddle horn all work the same way. Each small length of rope presses on the post, the friction there carries part of the tension, and what is left presses the next length a little less hard. The tension falls off like compound interest in reverse:</p>
+  <p class="eq"><var>T</var><sub>hold</sub> = <var>T</var><sub>load</sub> <var>e</var><sup>−<var>μ</var><sub>s</sub><var>β</var></sup> <span class="why">β is the angle of wrap in radians; one full turn is 2π</span></p>
+  <p>Notice what is missing. The size of the post does not appear, and neither does the length of rope in contact. Only the angle of wrap and the coefficient of friction matter (Hibbeler, 2022). With <var>μ</var><sub>s</sub> = 0.30, three turns reduce a 20 kN pull to (20 000 N)<var>e</var><sup>−(0.30)(6π)</sup> = 70 N, about the weight of a 7-kg bag.</p>
+  <div data-chips="impending"></div>
+  <div class="widget" id="act-capstan" data-widget="capstan"></div>
+  <p>Predict before you try it: does going from two turns to four halve the holding force, or do something much more drastic?</p>
+
+  <h3>A wedge that cannot be squeezed out</h3>
+  <p>A doorstop, a shim under a machine, and the taper on a drill chuck all stay put under load with nothing holding them. So does every screw and bolt, because a thread is a wedge wrapped around a cylinder. The reason is the angle of static friction from Section 7. The contact force on each face of the wedge can lean away from the normal by at most <var>φ</var><sub>s</sub>, where tan <var>φ</var><sub>s</sub> = <var>μ</var><sub>s</sub>. For a light wedge with the same friction on both faces, the forces on its two faces can balance each other only if</p>
+  <p class="eq"><var>α</var> ≤ 2<var>φ</var><sub>s</sub> <span class="why">α is the wedge angle; a wedge that meets this is called self-locking</span></p>
+  <p>The load does not appear in that condition. A heavier load pushes the wedge sideways harder, and presses its faces together harder by exactly the same proportion. A self-locking wedge holds any load; a wedge that is too steep holds none. With <var>μ</var><sub>s</sub> = 0.25, <var>φ</var><sub>s</sub> = 14.0°, so a wedge up to 28.1° locks.</p>
+  <div data-chips="trig result"></div>
+  <div class="widget" id="act-wedge" data-widget="wedge"></div>
+
+  <h3>A climber in a chimney: held up by pushing sideways</h3>
+  <p>A climber can rest in a vertical crack with nothing underneath, back against one wall and feet against the other. Nothing pushes up on the climber except friction, and friction exists only because the climber pushes <em>outward</em>. Summing vertical forces, the two friction forces must carry the weight, and each is limited by its own coefficient:</p>
+  <p class="eq"><var>W</var> ≤ (<var>μ</var><sub>1</sub> + <var>μ</var><sub>2</sub>)<var>N</var>, &nbsp; so &nbsp; <var>N</var> ≥ <var>W</var>/(<var>μ</var><sub>1</sub> + <var>μ</var><sub>2</sub>)</p>
+  <p>The same equation describes lifting a stack of books by pressing on its ends, ice tongs, and a brake caliper squeezing a rotor. For a 70-kg climber with <var>μ</var><sub>1</sub> = 0.60 at the shoes and <var>μ</var><sub>2</sub> = 0.40 at the back, <var>N</var> ≥ (687 N)/(1.00) = 687 N: the climber must push sideways with a force equal to their own weight. On wet rock the coefficients might halve, and the push needed doubles.</p>
+  <div data-chips="fbd equil weight"></div>
+  <div class="widget" id="act-chimney" data-widget="chimney"></div>
+  <p class="fig-note"><i>Note.</i> The three figures in this section are interactive and original. The chimney model treats the climber as a rigid body in vertical force balance and does not show how the friction is shared between the two walls before slipping, which equilibrium alone cannot determine.</p>
+</section>
+
 <section class="sheet" aria-labelledby="s6">
   <h2 id="s6">Summary</h2>
   <ul>
@@ -1101,11 +1129,12 @@ html.lecture .calc{width:min(24rem,calc(100vw - 1rem))}
     <li>When slipping and tipping are both possible, assume one, solve, and check the other.</li>
     <li>Get <var>N</var> from equilibrium every time. An angled force or a slope changes it.</li>
     <li>On an incline with no other forces, slipping is impending when tan <var>θ</var> = <var>μ</var><sub>s</sub>.</li>
+    <li>A rope wrapped around a post loses tension exponentially with the angle of wrap, and a wedge thinner than twice the angle of static friction locks under any load.</li>
     <li>For a crate pushed horizontally, the comparison comes down to <var>μ</var><sub>s</sub> against <var>a</var>/(2<var>h</var>). The smaller one is reached first.</li>
   </ul>
 
   <h2 id="alist">All interactive activities</h2>
-  <ol class="pindex"><li><a href="#act-nofric">Switch friction off</a> <span class="meta">(Section 1)</span></li><li><a href="#act-sort">Relies on friction or fights it?</a> <span class="meta">(Section 1)</span></li><li><a href="#act-graph">Friction force versus applied force</a> <span class="meta">(Section 2)</span></li><li><a href="#act-quick">Quick fire: what is the friction force?</a> <span class="meta">(Section 2)</span></li><li><a href="#act-dir">Which way does friction act?</a> <span class="meta">(Section 2)</span></li><li><a href="#act-angle">Angled push or pull</a> <span class="meta">(Section 2)</span></li><li><a href="#act-fbd">Build the free-body diagram</a> <span class="meta">(Section 3)</span></li><li><a href="#act-balance">Balance the crate</a> <span class="meta">(Section 3)</span></li><li><a href="#act-push">Pushed crate: slip or tip, with floor buttons</a> <span class="meta">(Section 3)</span></li><li><a href="#act-game">Call it: slip or tip?</a> <span class="meta">(Section 4)</span></li><li><a href="#act-error">Spot the error</a> <span class="meta">(Section 4)</span></li><li><a href="#act-practice">Unlimited slip-or-tip practice</a> <span class="meta">(Section 4)</span></li><li><a href="#act-classify">Name the type</a> <span class="meta">(Section 5)</span></li><li><a href="#act-bar">How far can the bar lean?</a> <span class="meta">(Section 5)</span></li><li><a href="#act-ladder">The painter’s ladder</a> <span class="meta">(Section 6)</span></li><li><a href="#act-ramp">Block on a ramp</a> <span class="meta">(Section 7)</span></li><li><a href="#act-incline">The window of forces that hold</a> <span class="meta">(Section 7)</span></li></ol>
+  <ol class="pindex"><li><a href="#act-nofric">Switch friction off</a> <span class="meta">(Section 1)</span></li><li><a href="#act-sort">Relies on friction or fights it?</a> <span class="meta">(Section 1)</span></li><li><a href="#act-graph">Friction force versus applied force</a> <span class="meta">(Section 2)</span></li><li><a href="#act-quick">Quick fire: what is the friction force?</a> <span class="meta">(Section 2)</span></li><li><a href="#act-dir">Which way does friction act?</a> <span class="meta">(Section 2)</span></li><li><a href="#act-angle">Angled push or pull</a> <span class="meta">(Section 2)</span></li><li><a href="#act-fbd">Build the free-body diagram</a> <span class="meta">(Section 3)</span></li><li><a href="#act-balance">Balance the crate</a> <span class="meta">(Section 3)</span></li><li><a href="#act-push">Pushed crate: slip or tip, with floor buttons</a> <span class="meta">(Section 3)</span></li><li><a href="#act-game">Call it: slip or tip?</a> <span class="meta">(Section 4)</span></li><li><a href="#act-error">Spot the error</a> <span class="meta">(Section 4)</span></li><li><a href="#act-practice">Unlimited slip-or-tip practice</a> <span class="meta">(Section 4)</span></li><li><a href="#act-classify">Name the type</a> <span class="meta">(Section 5)</span></li><li><a href="#act-bar">How far can the bar lean?</a> <span class="meta">(Section 5)</span></li><li><a href="#act-ladder">The painter’s ladder</a> <span class="meta">(Section 6)</span></li><li><a href="#act-ramp">Block on a ramp</a> <span class="meta">(Section 7)</span></li><li><a href="#act-incline">The window of forces that hold</a> <span class="meta">(Section 7)</span></li><li><a href="#act-capstan">A rope around a post</a> <span class="meta">(Section 8)</span></li><li><a href="#act-wedge">The self-locking wedge</a> <span class="meta">(Section 8)</span></li><li><a href="#act-chimney">A climber in a chimney</a> <span class="meta">(Section 8)</span></li></ol>
 
   <h2 id="plist">All in-class problems</h2>
   <p>Two sets of 25. Problems with the same number cover the same idea, so the second set works as a follow-up or a second example.</p>
@@ -1126,6 +1155,8 @@ html.lecture .calc{width:min(24rem,calc(100vw - 1rem))}
     <dt>Slipping</dt><dd>Sliding at the contact surface.</dd>
     <dt>Tipping</dt><dd>Rotation about an edge, which begins when the normal force reaches that edge (<var>x</var> = <var>a</var>/2 for a base of width <var>a</var>).</dd>
     <dt>Angle of static friction, <var>φ</var><sub>s</sub></dt><dd>The incline angle at impending slip, where tan <var>φ</var><sub>s</sub> = <var>μ</var><sub>s</sub>. You will use this in the lab.</dd>
+    <dt>Angle of wrap, <var>β</var></dt><dd>The angle, in radians, over which a rope or belt touches a post or pulley. One full turn is 2π.</dd>
+    <dt>Self-locking</dt><dd>Describes a wedge or screw that stays in place under load with no holding force, because its angle is small compared with the angle of static friction.</dd>
   </dl>
 
   <h2>Next</h2>
@@ -2200,6 +2231,108 @@ Object.keys(window.STATICS_PREVIEW).forEach(function (k) { window.STATICS_PREVIE
     draw();
   }
 
+  /* ---------- Rope around a post (capstan) ---------- */
+  function capstanWidget(box) {
+    var id = frame(box, '0 0 560 300', 'Top view of a rope wrapped around a post. A large load pulls on one end and a person holds the other. The status line gives the holding force.', '');
+    $('.panel', box).innerHTML = '<div class="ctl">' + slider(id + '-w', 'Wraps around the post', 0, 5, 0.25, 0.25, 'turns') + slider(id + '-u', 'Coefficient of static friction, rope on post', 0.1, 0.6, 0.01, 0.3, '') + slider(id + '-t', 'Pull from the load', 1, 50, 1, 20, 'kN') + '</div><p class="verdict" aria-live="polite"></p>';
+    tools(box, '<button type="button" class="btn go">Add one more wrap</button><button type="button" class="btn alt reset">Reset</button>');
+    var scene = $('.scene', box), v = $('.verdict', box), iw = $('#' + id + '-w'), iu = $('#' + id + '-u'), it = $('#' + id + '-t'), tw = null;
+    function draw() {
+      var n = +iw.value, mu = +iu.value, T2 = +it.value * 1000, beta = 2 * Math.PI * n, T1 = T2 * Math.exp(-mu * beta), cx = 270, cy = 150, r0 = 44;
+      $('#' + id + '-w-o').textContent = n.toFixed(2); $('#' + id + '-u-o').textContent = mu.toFixed(2); $('#' + id + '-t-o').textContent = (+it.value).toFixed(0);
+      clear(scene); el('circle', { cx: cx, cy: cy, r: r0 - 5, 'class': 'body' }, scene); txt(scene, cx, cy + 5, 'post', 'small', 'middle');
+      function R(t) { return r0 + 3.2 * t / (2 * Math.PI); }
+      var pts = [20, cy - r0], steps = Math.max(2, Math.ceil(beta / 0.12)), t, k;
+      for (k = 0; k <= steps; k++) { t = beta * k / steps; pts.push((cx + R(t) * Math.sin(t)).toFixed(1), (cy - R(t) * Math.cos(t)).toFixed(1)); }
+      var ex = cx + R(beta) * Math.sin(beta), ey = cy - R(beta) * Math.cos(beta), hx = ex + 80 * Math.cos(beta), hy = ey + 80 * Math.sin(beta);
+      pts.push(hx.toFixed(1), hy.toFixed(1));
+      el('polyline', { points: pts.join(' '), fill: 'none', stroke: 'currentColor', 'stroke-width': 4, 'stroke-linejoin': 'round' }, scene);
+      arrow(scene, 110, cy - r0 - 16, 30, cy - r0 - 16, 'f-applied'); txt(scene, 30, cy - r0 - 28, 'Load pulls ' + (T2 / 1000).toFixed(0) + ' kN', 't-applied');
+      el('circle', { cx: hx, cy: hy, r: 9, 'class': 'dot' }, scene);
+      txt(scene, hx + (hx >= cx ? 16 : -16), clamp(hy + 5, 20, 290), 'You hold ' + (T1 >= 1000 ? (T1 / 1000).toFixed(1) + ' kN' : T1.toFixed(0) + ' N'), 't-friction', hx >= cx ? 'start' : 'end');
+      txt(scene, 548, 290, 'Seen from above', 'small', 'end');
+      var ok = T1 <= 250; v.setAttribute('data-state', ok ? 'hold' : 'edge');
+      v.textContent = 'With ' + n.toFixed(2) + ' turns, friction on the post carries ' + (100 * (1 - T1 / T2)).toFixed(T1 / T2 < 0.01 ? 2 : 0) + '% of the load. To keep the rope from slipping you must hold ' + (T1 >= 1000 ? (T1 / 1000).toFixed(1) + ' kN' : T1.toFixed(0) + ' N') + ', the weight of about ' + (T1 / G).toFixed(T1 / G < 10 ? 1 : 0) + ' kg. ' + (ok ? 'One person can do that with one hand.' : 'That is more than one person can hold. Add wraps.');
+    }
+    $('.go', box).addEventListener('click', function () { if (tw) tw.stop(); var a = +iw.value, b = Math.min(5, a + 1); tw = tween(900, function (k) { iw.value = a + (b - a) * k; draw(); }, function () { iw.value = b; draw(); }); });
+    $('.reset', box).addEventListener('click', function () { if (tw) tw.stop(); iw.value = 0.25; draw(); });
+    [iw, iu, it].forEach(function (n) { n.addEventListener('input', function () { if (tw) tw.stop(); draw(); }); });
+    draw();
+  }
+
+  /* ---------- Self-locking wedge ---------- */
+  function wedgeWidget(box) {
+    var id = frame(box, '0 0 560 330', 'A wedge on the floor under a heavy load that can only move straight down. The status line says whether the wedge stays put or is squeezed out.', '');
+    $('.panel', box).innerHTML = '<div class="ctl">' + slider(id + '-a', 'Wedge angle <var>α</var>', 4, 45, 0.5, 12, 'degrees') + slider(id + '-u', 'Coefficient of static friction, both faces', 0.05, 0.6, 0.01, 0.25, '') + '</div><p class="verdict" aria-live="polite"></p>';
+    tools(box, '<button type="button" class="btn go">Make the wedge steeper</button><button type="button" class="btn alt reset">Reset</button>');
+    var scene = $('.scene', box), v = $('.verdict', box), ia = $('#' + id + '-a'), iu = $('#' + id + '-u'), cur = 'hold', f = 0, tw = null, run = null;
+    function lim() { return 2 * Math.atan(+iu.value) / DEG; }
+    function paint() {
+      var al = +ia.value, t = Math.tan(al * DEG), gy = 300, x0 = 150, Lw = 220, dx = cur === 'slip' ? 80 * f * f : 0; clear(scene); hatch(scene, 30, 530, gy);
+      el('polygon', { points: [x0 + dx, gy, x0 + Lw + dx, gy, x0 + Lw + dx, gy - Lw * t].join(','), 'class': 'body' }, scene);
+      var yl = gy - (80 - dx) * t, yr = gy - (160 - dx) * t, top = yr - 70;
+      el('polygon', { points: [230, yl, 310, yr, 310, top, 230, top].join(','), 'class': 'body' }, scene);
+      [222, 318].forEach(function (x) { el('line', { x1: x, y1: 20, x2: x, y2: Math.min(yl, yr) - 4, 'class': 'ground' }, scene); });
+      arrow(scene, 270, top - 46, 270, top - 4, 'f-weight'); txt(scene, 280, top - 28, 'Load', 't-weight');
+      txt(scene, x0 - 8, gy - 8, 'α = ' + al.toFixed(1) + '°', 't-weight', 'end');
+      if (cur === 'slip') { arrow(scene, x0 + Lw + dx + 8, gy - 20, x0 + Lw + dx + 60, gy - 20, 'f-applied'); }
+      txt(scene, 548, 28, 'Angle of static friction φs = ' + (lim() / 2).toFixed(1) + '°', 'small', 'end'); txt(scene, 548, 48, 'Self-locking up to 2φs = ' + lim().toFixed(1) + '°', 'small', 'end');
+    }
+    function draw() {
+      var al = +ia.value, L = lim(), state = al > L + 1e-9 ? 'slip' : 'hold';
+      $('#' + id + '-a-o').textContent = al.toFixed(1); $('#' + id + '-u-o').textContent = (+iu.value).toFixed(2);
+      if (state !== cur) { if (tw) tw.stop(); cur = state; f = 0; if (state === 'slip') tw = tween(800, function (k) { f = k; paint(); }); }
+      paint(); v.setAttribute('data-state', state);
+      v.textContent = state === 'hold' ? 'Self-locking. The wedge angle (' + al.toFixed(1) + '°) is no more than 2φs = ' + L.toFixed(1) + '°, so the wedge stays put under any load, with nobody holding it. A heavier load presses harder and makes exactly as much more friction.'
+        : 'Squeezed out. The wedge angle (' + al.toFixed(1) + '°) is more than 2φs = ' + L.toFixed(1) + '°. The load pushes the wedge sideways harder than friction on its two faces can resist, and no amount of load fixes that.';
+    }
+    function stop() { if (run) run.stop(); run = null; }
+    $('.go', box).addEventListener('click', function () { stop(); if (cur !== 'hold') { ia.value = 4; draw(); } if (REDUCED) { ia.value = Math.min(45, Math.ceil(lim() * 2 + 0.01) / 2); draw(); return; } var a = +ia.value; run = ticker(function (dt) { a += 6 * dt; ia.value = Math.min(45, a); draw(); if (cur !== 'hold' || a >= 45) return false; }); });
+    $('.reset', box).addEventListener('click', function () { stop(); ia.value = 12; draw(); });
+    [ia, iu].forEach(function (n) { n.addEventListener('input', function () { stop(); draw(); }); });
+    draw();
+  }
+
+  /* ---------- Climber braced between two rock walls ---------- */
+  function chimneyWidget(box) {
+    var id = frame(box, '0 0 560 340', 'A climber braced between two vertical rock walls, back against one and feet against the other. The status line says whether the climber holds or slides.', '');
+    $('.panel', box).innerHTML = '<div class="ctl">' + slider(id + '-n', 'Push against each wall, <var>N</var>', 0, 1500, 10, 700, 'N') + slider(id + '-m', 'Mass of climber', 50, 100, 1, 70, 'kg') + slider(id + '-s', 'Friction, shoes on rock <var>μ</var><sub>1</sub>', 0.1, 1, 0.01, 0.6, '') + slider(id + '-b', 'Friction, back on rock <var>μ</var><sub>2</sub>', 0.1, 1, 0.01, 0.4, '') +
+      '</div><div class="race" aria-hidden="true"><div class="lane"><span class="l1"></span><div class="track"><div class="fill fr"></div></div></div></div><p class="verdict" aria-live="polite"></p>';
+    tools(box, '<button type="button" class="btn go">Relax the push</button><button type="button" class="btn alt wet">Wet rock</button><button type="button" class="btn alt dry">Dry rock</button>');
+    var scene = $('.scene', box), v = $('.verdict', box), iN = $('#' + id + '-n'), im = $('#' + id + '-m'), is = $('#' + id + '-s'), ib = $('#' + id + '-b'), l1 = $('.l1', box), f1 = $('.fr', box), cur = 'hold', f = 0, tw = null, run = null;
+    function calc() { var W = +im.value * G, cap = (+is.value + +ib.value) * +iN.value; return { W: W, N: +iN.value, cap: cap, min: W / (+is.value + +ib.value), s: +is.value, b: +ib.value }; }
+    function paint() {
+      var r = calc(), xl = 180, xr = 380, dy = cur === 'slip' ? 150 * f * f : 0, y = 120 + dy; clear(scene);
+      [[xl, -1], [xr, 1]].forEach(function (w) { el('line', { x1: w[0], y1: 10, x2: w[0], y2: 330, 'class': 'ground' }, scene); for (var k = 20; k < 330; k += 16) el('line', { x1: w[0], y1: k, x2: w[0] + 9 * w[1], y2: k - 9, 'class': 'hatch' }, scene); });
+      el('circle', { cx: xl + 22, cy: y - 34, r: 14, 'class': 'body' }, scene);
+      el('polyline', { points: [xl + 12, y - 18, xl + 10, y + 46, xl + 110, y + 20, xr - 4, y + 50].join(' '), fill: 'none', stroke: 'currentColor', 'stroke-width': 6, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, scene);
+      el('polyline', { points: [xl + 14, y - 6, xl + 70, y + 2, xl + 100, y - 20].join(' '), fill: 'none', stroke: 'currentColor', 'stroke-width': 5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, scene);
+      if (cur === 'hold') {
+        var Ln = 14 + r.N * 0.05, share = r.cap > 0 ? Math.min(1, r.W / r.cap) : 1;
+        arrow(scene, xl - 4 - Ln, y + 20, xl - 4, y + 20, 'f-normal'); txt(scene, xl - 10 - Ln, y + 25, 'N', 't-normal', 'end');
+        arrow(scene, xr + 4 + Ln, y + 50, xr + 4, y + 50, 'f-normal'); txt(scene, xr + 10 + Ln, y + 55, 'N', 't-normal');
+        arrow(scene, xl - 16, y + 10, xl - 16, y + 4 - 60 * share * r.b / (r.s + r.b) - 14, 'f-friction'); txt(scene, xl - 26, y - 20, 'F₂', 't-friction', 'end');
+        arrow(scene, xr + 16, y + 40, xr + 16, y + 34 - 60 * share * r.s / (r.s + r.b) - 14, 'f-friction'); txt(scene, xr + 26, y + 10, 'F₁', 't-friction');
+        arrow(scene, 290, y + 30, 290, y + 96, 'f-weight'); txt(scene, 300, y + 90, 'W = ' + r.W.toFixed(0) + ' N', 't-weight');
+      }
+    }
+    function draw() {
+      var r = calc(), state = r.cap < r.W - 1e-9 ? 'slip' : 'hold';
+      $('#' + id + '-n-o').textContent = r.N.toFixed(0); $('#' + id + '-m-o').textContent = (+im.value).toFixed(0); $('#' + id + '-s-o').textContent = r.s.toFixed(2); $('#' + id + '-b-o').textContent = r.b.toFixed(2);
+      if (state !== cur) { if (tw) tw.stop(); cur = state; f = 0; if (state === 'slip') tw = tween(800, function (k) { f = k; paint(); }); }
+      paint(); var pct = r.cap > 0 ? Math.min(1, r.W / r.cap) : 1; l1.textContent = 'Friction used: ' + Math.round(pct * 100) + '% of (μ₁ + μ₂)N = ' + r.cap.toFixed(0) + ' N'; f1.style.width = pct * 100 + '%';
+      v.setAttribute('data-state', state);
+      var need = 'The smallest push that holds is W ÷ (μ₁ + μ₂) = ' + r.min.toFixed(0) + ' N, which is ' + Math.round(100 * r.min / r.W) + '% of the climber’s weight.';
+      v.textContent = state === 'hold' ? 'Holds. Nothing is underneath the climber. The two walls can supply up to ' + r.cap.toFixed(0) + ' N of friction, and the weight is ' + r.W.toFixed(0) + ' N. ' + need : 'Slides down. The walls can supply only ' + r.cap.toFixed(0) + ' N of friction against a weight of ' + r.W.toFixed(0) + ' N. ' + need;
+    }
+    function stop() { if (run) run.stop(); run = null; }
+    $('.go', box).addEventListener('click', function () { stop(); if (cur !== 'hold') { iN.value = 1500; draw(); } if (REDUCED) { iN.value = Math.max(0, Math.floor(calc().min / 10) * 10 - 10); draw(); return; } var n = +iN.value; run = ticker(function (dt) { n -= 160 * dt; iN.value = Math.max(0, n); draw(); if (cur !== 'hold' || n <= 0) return false; }); });
+    function rock(s, b) { stop(); is.value = s; ib.value = b; draw(); }
+    $('.wet', box).addEventListener('click', function () { rock(0.3, 0.2); }); $('.dry', box).addEventListener('click', function () { rock(0.6, 0.4); });
+    [iN, im, is, ib].forEach(function (n) { n.addEventListener('input', function () { stop(); draw(); }); });
+    draw();
+  }
+
   /* ---------- Just-in-time review ---------- */
   var REVIEW = window.STATICS_REVIEW || {}, jit = null;
   function miniBuild(host, sliders, calc, drawFn) {
@@ -2503,6 +2636,9 @@ Object.keys(window.STATICS_PREVIEW).forEach(function (k) { window.STATICS_PREVIE
   $$('[data-widget="fbd"]').forEach(fbdWidget);
   $$('[data-widget="error"]').forEach(errorWidget);
   $$('[data-widget="bar"]').forEach(barWidget);
+  $$('[data-widget="capstan"]').forEach(capstanWidget);
+  $$('[data-widget="wedge"]').forEach(wedgeWidget);
+  $$('[data-widget="chimney"]').forEach(chimneyWidget);
   $$('.stepper').forEach(stepper);
   $$('.prob').forEach(problem);
   lectureView(); calculator();

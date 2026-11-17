@@ -361,7 +361,7 @@ html.lecture .calc{width:min(24rem,calc(100vw - 1rem))}
       <article class="card">
         <svg viewBox="0 0 72 72" aria-hidden="true" focusable="false"><path class="ico" d="M6 62h60M6 62L62 26"/><rect class="ico-f" x="-11" y="-16" width="22" height="16" transform="translate(38,41.5) rotate(-32.7)"/></svg>
         <div>
-          <p class="meta">Lesson, online: 17 interactive activities, 50 in-class problems in two sets</p>
+          <p class="meta">Lesson, online: 20 interactive activities, 50 in-class problems in two sets</p>
           <h3><a href="lesson01.html">Lesson 1: Friction</a></h3>
           <p>Friction is the force that keeps a ladder on the wall and a crate on a ramp. In this lesson you will draw free-body diagrams that include friction, test whether a body stays in equilibrium, and decide whether it will slip or tip first.</p>
         </div>
@@ -400,6 +400,7 @@ html.lecture .calc{width:min(24rem,calc(100vw - 1rem))}
     <li>Three types of friction problems</li>
     <li>The painter’s ladder</li>
     <li>Friction on an incline</li>
+    <li>Friction in unexpected places: a rope around a post, a self-locking wedge, and a climber in a chimney</li>
   </ol>
 
   <h2>What you need first</h2>
@@ -1470,6 +1471,108 @@ Object.keys(window.STATICS_PREVIEW).forEach(function (k) { window.STATICS_PREVIE
     draw();
   }
 
+  /* ---------- Rope around a post (capstan) ---------- */
+  function capstanWidget(box) {
+    var id = frame(box, '0 0 560 300', 'Top view of a rope wrapped around a post. A large load pulls on one end and a person holds the other. The status line gives the holding force.', '');
+    $('.panel', box).innerHTML = '<div class="ctl">' + slider(id + '-w', 'Wraps around the post', 0, 5, 0.25, 0.25, 'turns') + slider(id + '-u', 'Coefficient of static friction, rope on post', 0.1, 0.6, 0.01, 0.3, '') + slider(id + '-t', 'Pull from the load', 1, 50, 1, 20, 'kN') + '</div><p class="verdict" aria-live="polite"></p>';
+    tools(box, '<button type="button" class="btn go">Add one more wrap</button><button type="button" class="btn alt reset">Reset</button>');
+    var scene = $('.scene', box), v = $('.verdict', box), iw = $('#' + id + '-w'), iu = $('#' + id + '-u'), it = $('#' + id + '-t'), tw = null;
+    function draw() {
+      var n = +iw.value, mu = +iu.value, T2 = +it.value * 1000, beta = 2 * Math.PI * n, T1 = T2 * Math.exp(-mu * beta), cx = 270, cy = 150, r0 = 44;
+      $('#' + id + '-w-o').textContent = n.toFixed(2); $('#' + id + '-u-o').textContent = mu.toFixed(2); $('#' + id + '-t-o').textContent = (+it.value).toFixed(0);
+      clear(scene); el('circle', { cx: cx, cy: cy, r: r0 - 5, 'class': 'body' }, scene); txt(scene, cx, cy + 5, 'post', 'small', 'middle');
+      function R(t) { return r0 + 3.2 * t / (2 * Math.PI); }
+      var pts = [20, cy - r0], steps = Math.max(2, Math.ceil(beta / 0.12)), t, k;
+      for (k = 0; k <= steps; k++) { t = beta * k / steps; pts.push((cx + R(t) * Math.sin(t)).toFixed(1), (cy - R(t) * Math.cos(t)).toFixed(1)); }
+      var ex = cx + R(beta) * Math.sin(beta), ey = cy - R(beta) * Math.cos(beta), hx = ex + 80 * Math.cos(beta), hy = ey + 80 * Math.sin(beta);
+      pts.push(hx.toFixed(1), hy.toFixed(1));
+      el('polyline', { points: pts.join(' '), fill: 'none', stroke: 'currentColor', 'stroke-width': 4, 'stroke-linejoin': 'round' }, scene);
+      arrow(scene, 110, cy - r0 - 16, 30, cy - r0 - 16, 'f-applied'); txt(scene, 30, cy - r0 - 28, 'Load pulls ' + (T2 / 1000).toFixed(0) + ' kN', 't-applied');
+      el('circle', { cx: hx, cy: hy, r: 9, 'class': 'dot' }, scene);
+      txt(scene, hx + (hx >= cx ? 16 : -16), clamp(hy + 5, 20, 290), 'You hold ' + (T1 >= 1000 ? (T1 / 1000).toFixed(1) + ' kN' : T1.toFixed(0) + ' N'), 't-friction', hx >= cx ? 'start' : 'end');
+      txt(scene, 548, 290, 'Seen from above', 'small', 'end');
+      var ok = T1 <= 250; v.setAttribute('data-state', ok ? 'hold' : 'edge');
+      v.textContent = 'With ' + n.toFixed(2) + ' turns, friction on the post carries ' + (100 * (1 - T1 / T2)).toFixed(T1 / T2 < 0.01 ? 2 : 0) + '% of the load. To keep the rope from slipping you must hold ' + (T1 >= 1000 ? (T1 / 1000).toFixed(1) + ' kN' : T1.toFixed(0) + ' N') + ', the weight of about ' + (T1 / G).toFixed(T1 / G < 10 ? 1 : 0) + ' kg. ' + (ok ? 'One person can do that with one hand.' : 'That is more than one person can hold. Add wraps.');
+    }
+    $('.go', box).addEventListener('click', function () { if (tw) tw.stop(); var a = +iw.value, b = Math.min(5, a + 1); tw = tween(900, function (k) { iw.value = a + (b - a) * k; draw(); }, function () { iw.value = b; draw(); }); });
+    $('.reset', box).addEventListener('click', function () { if (tw) tw.stop(); iw.value = 0.25; draw(); });
+    [iw, iu, it].forEach(function (n) { n.addEventListener('input', function () { if (tw) tw.stop(); draw(); }); });
+    draw();
+  }
+
+  /* ---------- Self-locking wedge ---------- */
+  function wedgeWidget(box) {
+    var id = frame(box, '0 0 560 330', 'A wedge on the floor under a heavy load that can only move straight down. The status line says whether the wedge stays put or is squeezed out.', '');
+    $('.panel', box).innerHTML = '<div class="ctl">' + slider(id + '-a', 'Wedge angle <var>α</var>', 4, 45, 0.5, 12, 'degrees') + slider(id + '-u', 'Coefficient of static friction, both faces', 0.05, 0.6, 0.01, 0.25, '') + '</div><p class="verdict" aria-live="polite"></p>';
+    tools(box, '<button type="button" class="btn go">Make the wedge steeper</button><button type="button" class="btn alt reset">Reset</button>');
+    var scene = $('.scene', box), v = $('.verdict', box), ia = $('#' + id + '-a'), iu = $('#' + id + '-u'), cur = 'hold', f = 0, tw = null, run = null;
+    function lim() { return 2 * Math.atan(+iu.value) / DEG; }
+    function paint() {
+      var al = +ia.value, t = Math.tan(al * DEG), gy = 300, x0 = 150, Lw = 220, dx = cur === 'slip' ? 80 * f * f : 0; clear(scene); hatch(scene, 30, 530, gy);
+      el('polygon', { points: [x0 + dx, gy, x0 + Lw + dx, gy, x0 + Lw + dx, gy - Lw * t].join(','), 'class': 'body' }, scene);
+      var yl = gy - (80 - dx) * t, yr = gy - (160 - dx) * t, top = yr - 70;
+      el('polygon', { points: [230, yl, 310, yr, 310, top, 230, top].join(','), 'class': 'body' }, scene);
+      [222, 318].forEach(function (x) { el('line', { x1: x, y1: 20, x2: x, y2: Math.min(yl, yr) - 4, 'class': 'ground' }, scene); });
+      arrow(scene, 270, top - 46, 270, top - 4, 'f-weight'); txt(scene, 280, top - 28, 'Load', 't-weight');
+      txt(scene, x0 - 8, gy - 8, 'α = ' + al.toFixed(1) + '°', 't-weight', 'end');
+      if (cur === 'slip') { arrow(scene, x0 + Lw + dx + 8, gy - 20, x0 + Lw + dx + 60, gy - 20, 'f-applied'); }
+      txt(scene, 548, 28, 'Angle of static friction φs = ' + (lim() / 2).toFixed(1) + '°', 'small', 'end'); txt(scene, 548, 48, 'Self-locking up to 2φs = ' + lim().toFixed(1) + '°', 'small', 'end');
+    }
+    function draw() {
+      var al = +ia.value, L = lim(), state = al > L + 1e-9 ? 'slip' : 'hold';
+      $('#' + id + '-a-o').textContent = al.toFixed(1); $('#' + id + '-u-o').textContent = (+iu.value).toFixed(2);
+      if (state !== cur) { if (tw) tw.stop(); cur = state; f = 0; if (state === 'slip') tw = tween(800, function (k) { f = k; paint(); }); }
+      paint(); v.setAttribute('data-state', state);
+      v.textContent = state === 'hold' ? 'Self-locking. The wedge angle (' + al.toFixed(1) + '°) is no more than 2φs = ' + L.toFixed(1) + '°, so the wedge stays put under any load, with nobody holding it. A heavier load presses harder and makes exactly as much more friction.'
+        : 'Squeezed out. The wedge angle (' + al.toFixed(1) + '°) is more than 2φs = ' + L.toFixed(1) + '°. The load pushes the wedge sideways harder than friction on its two faces can resist, and no amount of load fixes that.';
+    }
+    function stop() { if (run) run.stop(); run = null; }
+    $('.go', box).addEventListener('click', function () { stop(); if (cur !== 'hold') { ia.value = 4; draw(); } if (REDUCED) { ia.value = Math.min(45, Math.ceil(lim() * 2 + 0.01) / 2); draw(); return; } var a = +ia.value; run = ticker(function (dt) { a += 6 * dt; ia.value = Math.min(45, a); draw(); if (cur !== 'hold' || a >= 45) return false; }); });
+    $('.reset', box).addEventListener('click', function () { stop(); ia.value = 12; draw(); });
+    [ia, iu].forEach(function (n) { n.addEventListener('input', function () { stop(); draw(); }); });
+    draw();
+  }
+
+  /* ---------- Climber braced between two rock walls ---------- */
+  function chimneyWidget(box) {
+    var id = frame(box, '0 0 560 340', 'A climber braced between two vertical rock walls, back against one and feet against the other. The status line says whether the climber holds or slides.', '');
+    $('.panel', box).innerHTML = '<div class="ctl">' + slider(id + '-n', 'Push against each wall, <var>N</var>', 0, 1500, 10, 700, 'N') + slider(id + '-m', 'Mass of climber', 50, 100, 1, 70, 'kg') + slider(id + '-s', 'Friction, shoes on rock <var>μ</var><sub>1</sub>', 0.1, 1, 0.01, 0.6, '') + slider(id + '-b', 'Friction, back on rock <var>μ</var><sub>2</sub>', 0.1, 1, 0.01, 0.4, '') +
+      '</div><div class="race" aria-hidden="true"><div class="lane"><span class="l1"></span><div class="track"><div class="fill fr"></div></div></div></div><p class="verdict" aria-live="polite"></p>';
+    tools(box, '<button type="button" class="btn go">Relax the push</button><button type="button" class="btn alt wet">Wet rock</button><button type="button" class="btn alt dry">Dry rock</button>');
+    var scene = $('.scene', box), v = $('.verdict', box), iN = $('#' + id + '-n'), im = $('#' + id + '-m'), is = $('#' + id + '-s'), ib = $('#' + id + '-b'), l1 = $('.l1', box), f1 = $('.fr', box), cur = 'hold', f = 0, tw = null, run = null;
+    function calc() { var W = +im.value * G, cap = (+is.value + +ib.value) * +iN.value; return { W: W, N: +iN.value, cap: cap, min: W / (+is.value + +ib.value), s: +is.value, b: +ib.value }; }
+    function paint() {
+      var r = calc(), xl = 180, xr = 380, dy = cur === 'slip' ? 150 * f * f : 0, y = 120 + dy; clear(scene);
+      [[xl, -1], [xr, 1]].forEach(function (w) { el('line', { x1: w[0], y1: 10, x2: w[0], y2: 330, 'class': 'ground' }, scene); for (var k = 20; k < 330; k += 16) el('line', { x1: w[0], y1: k, x2: w[0] + 9 * w[1], y2: k - 9, 'class': 'hatch' }, scene); });
+      el('circle', { cx: xl + 22, cy: y - 34, r: 14, 'class': 'body' }, scene);
+      el('polyline', { points: [xl + 12, y - 18, xl + 10, y + 46, xl + 110, y + 20, xr - 4, y + 50].join(' '), fill: 'none', stroke: 'currentColor', 'stroke-width': 6, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, scene);
+      el('polyline', { points: [xl + 14, y - 6, xl + 70, y + 2, xl + 100, y - 20].join(' '), fill: 'none', stroke: 'currentColor', 'stroke-width': 5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, scene);
+      if (cur === 'hold') {
+        var Ln = 14 + r.N * 0.05, share = r.cap > 0 ? Math.min(1, r.W / r.cap) : 1;
+        arrow(scene, xl - 4 - Ln, y + 20, xl - 4, y + 20, 'f-normal'); txt(scene, xl - 10 - Ln, y + 25, 'N', 't-normal', 'end');
+        arrow(scene, xr + 4 + Ln, y + 50, xr + 4, y + 50, 'f-normal'); txt(scene, xr + 10 + Ln, y + 55, 'N', 't-normal');
+        arrow(scene, xl - 16, y + 10, xl - 16, y + 4 - 60 * share * r.b / (r.s + r.b) - 14, 'f-friction'); txt(scene, xl - 26, y - 20, 'F₂', 't-friction', 'end');
+        arrow(scene, xr + 16, y + 40, xr + 16, y + 34 - 60 * share * r.s / (r.s + r.b) - 14, 'f-friction'); txt(scene, xr + 26, y + 10, 'F₁', 't-friction');
+        arrow(scene, 290, y + 30, 290, y + 96, 'f-weight'); txt(scene, 300, y + 90, 'W = ' + r.W.toFixed(0) + ' N', 't-weight');
+      }
+    }
+    function draw() {
+      var r = calc(), state = r.cap < r.W - 1e-9 ? 'slip' : 'hold';
+      $('#' + id + '-n-o').textContent = r.N.toFixed(0); $('#' + id + '-m-o').textContent = (+im.value).toFixed(0); $('#' + id + '-s-o').textContent = r.s.toFixed(2); $('#' + id + '-b-o').textContent = r.b.toFixed(2);
+      if (state !== cur) { if (tw) tw.stop(); cur = state; f = 0; if (state === 'slip') tw = tween(800, function (k) { f = k; paint(); }); }
+      paint(); var pct = r.cap > 0 ? Math.min(1, r.W / r.cap) : 1; l1.textContent = 'Friction used: ' + Math.round(pct * 100) + '% of (μ₁ + μ₂)N = ' + r.cap.toFixed(0) + ' N'; f1.style.width = pct * 100 + '%';
+      v.setAttribute('data-state', state);
+      var need = 'The smallest push that holds is W ÷ (μ₁ + μ₂) = ' + r.min.toFixed(0) + ' N, which is ' + Math.round(100 * r.min / r.W) + '% of the climber’s weight.';
+      v.textContent = state === 'hold' ? 'Holds. Nothing is underneath the climber. The two walls can supply up to ' + r.cap.toFixed(0) + ' N of friction, and the weight is ' + r.W.toFixed(0) + ' N. ' + need : 'Slides down. The walls can supply only ' + r.cap.toFixed(0) + ' N of friction against a weight of ' + r.W.toFixed(0) + ' N. ' + need;
+    }
+    function stop() { if (run) run.stop(); run = null; }
+    $('.go', box).addEventListener('click', function () { stop(); if (cur !== 'hold') { iN.value = 1500; draw(); } if (REDUCED) { iN.value = Math.max(0, Math.floor(calc().min / 10) * 10 - 10); draw(); return; } var n = +iN.value; run = ticker(function (dt) { n -= 160 * dt; iN.value = Math.max(0, n); draw(); if (cur !== 'hold' || n <= 0) return false; }); });
+    function rock(s, b) { stop(); is.value = s; ib.value = b; draw(); }
+    $('.wet', box).addEventListener('click', function () { rock(0.3, 0.2); }); $('.dry', box).addEventListener('click', function () { rock(0.6, 0.4); });
+    [iN, im, is, ib].forEach(function (n) { n.addEventListener('input', function () { stop(); draw(); }); });
+    draw();
+  }
+
   /* ---------- Just-in-time review ---------- */
   var REVIEW = window.STATICS_REVIEW || {}, jit = null;
   function miniBuild(host, sliders, calc, drawFn) {
@@ -1773,6 +1876,9 @@ Object.keys(window.STATICS_PREVIEW).forEach(function (k) { window.STATICS_PREVIE
   $$('[data-widget="fbd"]').forEach(fbdWidget);
   $$('[data-widget="error"]').forEach(errorWidget);
   $$('[data-widget="bar"]').forEach(barWidget);
+  $$('[data-widget="capstan"]').forEach(capstanWidget);
+  $$('[data-widget="wedge"]').forEach(wedgeWidget);
+  $$('[data-widget="chimney"]').forEach(chimneyWidget);
   $$('.stepper').forEach(stepper);
   $$('.prob').forEach(problem);
   lectureView(); calculator();
