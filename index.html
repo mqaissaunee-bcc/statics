@@ -361,7 +361,7 @@ html.lecture .calc{width:min(24rem,calc(100vw - 1rem))}
       <article class="card">
         <svg viewBox="0 0 72 72" aria-hidden="true" focusable="false"><path class="ico" d="M6 62h60M6 62L62 26"/><rect class="ico-f" x="-11" y="-16" width="22" height="16" transform="translate(38,41.5) rotate(-32.7)"/></svg>
         <div>
-          <p class="meta">Lesson, online: 17 interactive activities, 25 in-class problems</p>
+          <p class="meta">Lesson, online: 17 interactive activities, 50 in-class problems in two sets</p>
           <h3><a href="lesson01.html">Lesson 1: Friction</a></h3>
           <p>Friction is the force that keeps a ladder on the wall and a crate on a ramp. In this lesson you will draw free-body diagrams that include friction, test whether a body stays in equilibrium, and decide whether it will slip or tip first.</p>
         </div>
@@ -482,6 +482,9 @@ window.STATICS_REVIEW = {
   result: { t: 'Resultant of two perpendicular forces', w: 'result', h: '<p>The floor pushes on a body with a normal force and a friction force at right angles. Their combined effect is one force, found with the Pythagorean theorem:</p><p class="eq"><var>R</var> = √(<var>N</var>² + <var>F</var>²)</p><p>At impending slip the resultant leans away from the normal by the angle of static friction, where tan <var>φ</var><sub>s</sub> = <var>μ</var><sub>s</sub>.</p>' },
   impending: { t: 'When you may write F = μsN', see: ['equil'], h: '<p>Static friction is a reaction. It takes whatever value equilibrium requires, anywhere from zero up to a limit:</p><p class="eq"><var>F</var> ≤ <var>μ</var><sub>s</sub><var>N</var></p><p>You may replace the inequality with <var>F</var> = <var>μ</var><sub>s</sub><var>N</var> only when the body is on the verge of slipping. Look for words such as “impending,” “about to slip,” “smallest force that starts,” or “largest force that causes no motion.”</p><p>If the problem gives the loads and asks whether the body holds, solve for <var>F</var> from equilibrium and then compare it with <var>μ</var><sub>s</sub><var>N</var>.</p>' }
 };
+
+/* b-set: second-set problems reuse the first set's review links */
+Object.keys(window.STATICS_PREVIEW).forEach(function (k) { window.STATICS_PREVIEW['b' + k.slice(1)] = window.STATICS_PREVIEW[k]; });
 
 (function () {
   'use strict';
