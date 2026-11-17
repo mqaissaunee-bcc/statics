@@ -266,6 +266,43 @@ html.lecture .prob-grid{grid-template-columns:minmax(0,1fr) minmax(0,34rem)}
 .btn:disabled{opacity:.55;cursor:default}
 .prob .katex{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:bottom}
 .prob .katex.mblock{display:block}
+/* Review chips and dialog */
+.jitrow{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;font-family:var(--font-head);font-size:.98rem;max-width:none;margin:0 0 var(--s2)}
+.jitrow span{color:var(--ink-2);font-weight:600}
+.chip{font:inherit;font-family:var(--font-head);font-size:.95rem;min-height:36px;padding:.25rem .8rem;border:1.5px dashed var(--link);border-radius:999px;background:transparent;color:var(--link);cursor:pointer}
+.chip:hover{background:var(--pad);border-style:solid}
+.fb .chip{margin-left:.4rem}
+dialog.jit{width:min(46rem,94vw);max-height:90vh;overflow:auto;border:2px solid var(--ink);border-top:8px solid var(--link);background:var(--sheet);color:var(--ink);padding:var(--s3)}
+dialog.jit::backdrop{background:rgba(10,20,15,.6)}
+dialog.jit h2{margin-top:0}
+dialog.jit h2:focus{outline:none}
+.jit-mini svg{max-height:210px}
+.jit-mini .ctl,.jit-mini .eqline{padding:.5rem var(--s2);background:var(--sheet);margin:0}
+.eqline{font-size:1.12rem;max-width:none}
+/* newer widgets */
+.widget.textw{background:var(--sheet)}
+.widget.textw .panel{border-top:0}
+.tools.presets{align-items:center}
+.winbar{font-family:var(--font-head);font-size:.95rem;margin-top:var(--s2)}
+.winbar .track{position:relative;height:18px;border:1.5px solid var(--ink);background:var(--no-bg);margin-bottom:.2rem}
+.winbar .win{position:absolute;top:0;bottom:0;background:var(--ok)}
+.winbar .mark{position:absolute;top:-6px;bottom:-6px;width:4px;margin-left:-2px;background:var(--ink)}
+.psol{border-left:3px solid var(--rule);padding-left:var(--s2);margin-top:var(--s2)}
+.psol p{max-width:none}
+.widget .field{max-width:none}
+.widget,.sort{scroll-margin-top:1rem}
+.fbd-list{border:0;padding:0;margin:0 0 var(--s2);display:grid;gap:.4rem}
+@media (min-width:640px){.fbd-list{grid-template-columns:1fr 1fr}}
+.fbd-list legend{padding:0;margin-bottom:.5rem}
+.fbd-list .opt{margin:0;font-family:var(--font-head)}
+.fbd-fb{font-family:var(--font-head);padding-left:1.2rem;margin:.6rem 0 0}
+.fbd-fb:empty{display:none}
+.fbd-fb li{max-width:none;margin-bottom:.3rem}
+.errl{padding-left:1.6rem;margin:0 0 var(--s2)}
+.errl li{max-width:none;margin-bottom:.4rem}
+.errl .btn{width:100%;text-align:left;font-weight:400;font-size:1.08rem}
+.errl .btn:disabled{opacity:1}
+.errl .btn.bad{border-color:var(--no);background:var(--no-bg);font-weight:600}
 </style>
 </head>
 <body>
@@ -276,10 +313,10 @@ html.lecture .prob-grid{grid-template-columns:minmax(0,1fr) minmax(0,34rem)}
       <div class="tb-cell"><b>Brookdale Community College</b></div>
       <div class="tb-cell">Statics</div>
       <div class="tb-cell">Lesson 1: Friction</div>
-      <div class="tb-cell tb-sheet">Sheet 2 of 4</div>
+      <div class="tb-cell tb-sheet">Sheet 2 of 3</div>
       <div class="tb-cell tb-lecture"><button type="button" class="btn" id="lecture" aria-pressed="false">Lecture view: off</button></div>
     </div>
-    <nav class="sheets" aria-label="Lesson pages"><ul><li><a href="index.html"><span class="n" aria-hidden="true">1</span>Overview</a></li><li><a href="lesson01.html" aria-current="page"><span class="n" aria-hidden="true">2</span>Lesson</a></li><li><a href="activity01.html"><span class="n" aria-hidden="true">3</span>Activity</a></li><li><a href="lab01.html"><span class="n" aria-hidden="true">4</span>Lab</a></li></ul></nav>
+    <nav class="sheets" aria-label="Lesson pages"><ul><li><a href="index.html"><span class="n" aria-hidden="true">1</span>Overview</a></li><li><a href="lesson01.html" aria-current="page"><span class="n" aria-hidden="true">2</span>Lesson</a></li><li><a href="lab01.html"><span class="n" aria-hidden="true">3</span>Lab</a></li></ul></nav>
   </div>
 </header>
 <main id="main" class="wrap">
@@ -288,11 +325,11 @@ html.lecture .prob-grid{grid-template-columns:minmax(0,1fr) minmax(0,34rem)}
   <h1>Friction</h1>
   <p class="lede">Until now, most of our problems came with supports that held firm. This lesson asks a different question: will the body stay where it is at all? The answer depends on friction, and on something a particle model hides, which is where the floor pushes back.</p>
   <div class="progress no-print"><progress id="prog" value="0" max="1" aria-describedby="prog-t"></progress><span id="prog-t"></span></div>
-  <p class="meta">Seven sections with 25 in-class problems placed where each topic comes up. Your progress on the checks is saved on this device.</p>
-  <p class="note no-print"><b>Showing this to a class?</b> Turn on Lecture view at the top of the page for larger type. Every figure has a Full screen button and a button that runs it for you, and each worked solution opens one step at a time. The 25 in-class problems are marked with a yellow bar; each has its own answer, step, and full-solution buttons, and a list of all of them is at the end of the page.</p>
+  <p class="meta">Seven sections, 17 interactive activities, and 25 in-class problems placed where each topic comes up. Both are listed at the end of the page, so you can jump straight to any one. Wherever you see a “Need a refresher?” button, it opens a short review of an earlier idea without leaving your place. Your progress on the checks is saved on this device.</p>
 
   <h2>Before you start</h2>
-  <p>Two questions on ideas this lesson leans on. If either one is shaky, review moments and rigid-body equilibrium before going on.</p>
+  <p>Two questions on ideas this lesson leans on. If either one is shaky, open the matching review below before going on.</p>
+  <div data-chips="fbd equil moment weight"></div>
   <div class="check" data-quiz="pre1"></div>
   <div class="check" data-quiz="pre2"></div>
 </div>
@@ -300,12 +337,16 @@ html.lecture .prob-grid{grid-template-columns:minmax(0,1fr) minmax(0,34rem)}
 <section class="sheet" aria-labelledby="s1">
   <h2 id="s1">1. Why friction matters</h2>
   <p>It is tempting to think of friction as waste: heat, wear, and lost energy. Sometimes it is. But take friction away and you cannot walk, a car cannot brake or steer, a ladder slides out from the wall, and every bolted joint in a steel building comes loose. Engineers spend as much effort getting <em>enough</em> friction as they do getting rid of it.</p>
-  <div class="sort" data-sort="sort1"></div>
+  <h3>Try it: switch friction off</h3>
+  <p>Three ordinary scenes, all standing still or working as expected. Predict what each one does when friction disappears, then turn it off.</p>
+  <div class="widget" id="act-nofric" data-widget="nofric"></div>
+  <div class="sort" id="act-sort" data-sort="sort1"></div>
   <p>The friction in this lesson is <b>dry friction</b>, also called Coulomb friction: the friction between solid surfaces with no lubricant between them (Hibbeler, 2022).</p>
 </section>
 
 <section class="sheet" aria-labelledby="s2">
   <h2 id="s2">2. Three states of friction</h2>
+  <div data-chips="weight equil"></div>
   <p>Push gently on a heavy desk and it does not move. You are not weak; the floor is pushing back on the desk with a friction force exactly as large as your push. Push harder and friction grows to match. This is <b>static friction</b>, and the key fact about it is that it is a <em>reaction</em>. It takes whatever value equilibrium requires, up to a limit:</p>
   <p class="eq"><var>F</var> ≤ <var>μ</var><sub>s</sub><var>N</var></p>
   <p>Here <var>F</var> is the friction force, <var>N</var> is the normal force, and <var>μ</var><sub>s</sub> is the <b>coefficient of static friction</b>, a number with no units that depends on the two surfaces in contact.</p>
@@ -315,11 +356,16 @@ html.lecture .prob-grid{grid-template-columns:minmax(0,1fr) minmax(0,34rem)}
 
   <figure>
     <figcaption><span class="fig-n">Figure 1</span><span class="fig-t">Friction Force Versus Applied Force for a Crate on a Rough Horizontal Floor</span></figcaption>
-    <div class="widget" data-widget="graph"></div>
+    <div class="widget" id="act-graph" data-widget="graph"></div>
     <p class="fig-note"><i>Note.</i> Interactive figure. A 20-kg crate rests on a floor with <var>μ</var><sub>s</sub> = 0.40 and <var>μ</var><sub>k</sub> = 0.30, so <var>N</var> = (20 kg)(9.81 m/s²) = 196.2 N. Select “Pull harder and harder” to watch the whole curve trace out, or move the slider yourself. Original figure; concept as presented in Hibbeler (2022).</p>
   </figure>
 
   <div class="check" data-quiz="q1"></div>
+
+  <h3>Try it: quick fire</h3>
+  <p>A new crate every time. Decide whether it is at rest or sliding, then enter the friction force. Watch for the crate nobody is pushing.</p>
+  <div data-chips="weight impending"></div>
+  <div class="widget" id="act-quick" data-widget="quick"></div>
 
   <h3>In class: the three states</h3>
   <p>Five problems on a level floor with a horizontal push. In each one, decide which state the crate is in before you write any friction equation.</p>
@@ -378,6 +424,9 @@ html.lecture .prob-grid{grid-template-columns:minmax(0,1fr) minmax(0,34rem)}
   <p><b>The coefficient is not a force.</b> <var>μ</var><sub>s</sub> is a ratio. The force needed to start a body sliding on a level floor is <var>μ</var><sub>s</sub><var>N</var>, which depends on how hard the surfaces are pressed together.</p>
   <p><b>Friction does not always oppose the motion of the object.</b> It opposes <em>sliding between the two surfaces</em>, or the tendency to slide. When you walk, your shoe pushes backward on the floor. Friction on your shoe points forward, the same direction you are moving. To find the direction, ask which way the surface would slide if friction vanished, and point friction the other way.</p>
   <div class="check" data-quiz="q2"></div>
+  <h3>Try it: which way does friction act?</h3>
+  <p>Seven cases. In each one, decide the direction before you choose, then see the arrow drawn.</p>
+  <div class="widget" id="act-dir" data-widget="dir"></div>
   <div class="check" data-quiz="q3"></div>
   <article class="prob" id="p17" aria-labelledby="p17-h">
   <h3 id="p17-h"><span class="tag">Problem 17</span>Forces on a worker pushing a crate</h3>
@@ -402,6 +451,9 @@ html.lecture .prob-grid{grid-template-columns:minmax(0,1fr) minmax(0,34rem)}
 
   <h3>When the push or pull is angled</h3>
   <p>So far the normal force has equaled the weight. That is true only when nothing else pushes or pulls vertically. A push angled downward presses the body into the floor and raises <var>N</var>, which raises the friction available. A pull angled upward lifts some of the weight off the floor and lowers both. Always get <var>N</var> from Σ<var>F</var><sub>y</sub> = 0. Never assume <var>N</var> = <var>W</var>.</p>
+  <div data-chips="comp equil"></div>
+  <p>Try it. Swing the force from a downward push to an upward pull and watch <var>N</var> change. Then push at 70° with <var>μ</var><sub>s</sub> = 0.40 and try to make the crate slip.</p>
+  <div class="widget" id="act-angle" data-widget="angle"></div>
   <article class="prob" id="p16" aria-labelledby="p16-h">
   <h3 id="p16-h"><span class="tag">Problem 16</span>Downward-angled push increases the normal force</h3>
   <div class="prob-grid">
@@ -458,13 +510,23 @@ html.lecture .prob-grid{grid-template-columns:minmax(0,1fr) minmax(0,34rem)}
     <li><b>No tipping:</b> <var>x</var> ≤ <var>a</var>/2</li>
   </ul>
 
+  <h3>Try it: build the free-body diagram</h3>
+  <p>Eight candidate forces, four of which belong. Each one you select is drawn on the crate.</p>
+  <div data-chips="fbd"></div>
+  <div class="widget" id="act-fbd" data-widget="fbd"></div>
+
+  <h3>Try it: balance the crate</h3>
+  <p>Before the figure does it for you, do it yourself. Drag the green normal force along the base, or use the slider, until the moments about O cancel. Then select “New push” and predict where <var>N</var> must go before you move it.</p>
+  <div data-chips="moment equil fbd"></div>
+  <div class="widget" id="act-balance" data-widget="balance"></div>
+
   <figure>
     <figcaption><span class="fig-n">Figure 2</span><span class="fig-t">Free-Body Diagram of a Pushed Crate With the Normal Force Offset by Distance x</span></figcaption>
-    <div class="widget" data-widget="push"></div>
+    <div class="widget" id="act-push" data-widget="push"></div>
     <p class="fig-note"><i>Note.</i> Interactive figure. The crate has a mass of 60 kg and a height of 1.6 m. The two bars show how much of each limit the push has used; whichever bar fills first decides how the crate fails. Select “Push harder and harder” and watch which one wins. Original figure.</p>
   </figure>
 
-  <p>Use Figure 2 to try three things. Raise <var>P</var> slowly and watch <var>N</var> walk toward the edge. Lower the push height and see the tipping limit move away. Then raise <var>μ</var><sub>s</sub> and watch a crate that used to slide start to tip instead.</p>
+  <p>Use Figure 2 to try three things. Raise <var>P</var> slowly and watch <var>N</var> walk toward the edge. Lower the push height and see the tipping limit move away. Then use the three floor buttons: the same crate under the same growing push slides on a polished floor and falls over on a rubber mat. More grip did not make the crate safer. It changed how the crate fails.</p>
   <div class="check" data-quiz="q4"></div>
 
   <h3>In class: where the normal force acts</h3>
@@ -508,11 +570,6 @@ html.lecture .prob-grid{grid-template-columns:minmax(0,1fr) minmax(0,34rem)}
   <div class="psteps-w"><p class="plabel">Steps</p><ol class="psteps"><li>Identify the type: no apparent impending motion, so solve for <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span>, and <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span> from equilibrium alone.</li><li>Compute the weight: <span class="katex mblock"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>W</mi><mo>=</mo><mo stretchy="false">(</mo><mn>30</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>9.81</mn><mo stretchy="false">)</mo><mo>=</mo><mn>294.3</mn><mtext> </mtext><mi mathvariant="normal">N</mi></mrow><annotation encoding="application/x-tex">W = (30)(9.81) = 294.3\ \mathrm{N}</annotation></semantics></math></span></li><li>Resolve the push: <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>cos</mi><mo>⁡</mo><mn>2</mn><msup><mn>0</mn><mo lspace="0em" rspace="0em">∘</mo></msup><mo>=</mo><mn>112.76</mn><mtext> </mtext><mi mathvariant="normal">N</mi></mrow><annotation encoding="application/x-tex">P\cos 20^{\circ} = 112.76\ \mathrm{N}</annotation></semantics></math></span> and <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>sin</mi><mo>⁡</mo><mn>2</mn><msup><mn>0</mn><mo lspace="0em" rspace="0em">∘</mo></msup><mo>=</mo><mn>41.04</mn><mtext> </mtext><mi mathvariant="normal">N</mi></mrow><annotation encoding="application/x-tex">P\sin 20^{\circ} = 41.04\ \mathrm{N}</annotation></semantics></math></span>.</li><li>Apply <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi><msub><mi>F</mi><mi>x</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\Sigma F_x = 0</annotation></semantics></math></span>: <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>=</mo><mn>112.76</mn><mtext> </mtext><mi mathvariant="normal">N</mi></mrow><annotation encoding="application/x-tex">F = 112.76\ \mathrm{N}</annotation></semantics></math></span>.</li><li>Apply <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi><msub><mi>F</mi><mi>y</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\Sigma F_y = 0</annotation></semantics></math></span>: <span class="katex mblock"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>N</mi><mo>=</mo><mn>294.3</mn><mo>+</mo><mn>41.04</mn><mo>=</mo><mn>335.34</mn><mtext> </mtext><mi mathvariant="normal">N</mi></mrow><annotation encoding="application/x-tex">N = 294.3 + 41.04 = 335.34\ \mathrm{N}</annotation></semantics></math></span></li><li>Take moments about <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi></mrow><annotation encoding="application/x-tex">O</annotation></semantics></math></span>: <span class="katex mblock"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><mn>41.04</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>0.50</mn><mo stretchy="false">)</mo><mo>−</mo><mo stretchy="false">(</mo><mn>112.76</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>0.30</mn><mo stretchy="false">)</mo><mo>+</mo><mi>N</mi><mi>x</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">(41.04)(0.50) - (112.76)(0.30) + Nx = 0</annotation></semantics></math></span></li><li>Solve: <span class="katex mblock"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mrow><mn>33.83</mn><mo>−</mo><mn>20.52</mn></mrow><mn>335.34</mn></mfrac><mo>=</mo><mn>0.0397</mn><mtext> </mtext><mi mathvariant="normal">m</mi></mrow><annotation encoding="application/x-tex">x = \frac{33.83 - 20.52}{335.34} = 0.0397\ \mathrm{m}</annotation></semantics></math></span></li><li>State the result: <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span> acts <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.0397</mn><mtext> </mtext><mi mathvariant="normal">m</mi></mrow><annotation encoding="application/x-tex">0.0397\ \mathrm{m}</annotation></semantics></math></span> to the right of the centerline, inside the base, so there is no tipping.</li></ol></div>
   <div class="pfull"><p class="plabel">Full solution</p><p>Given: <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>30</mn><mtext> </mtext><mrow><mi mathvariant="normal">k</mi><mi mathvariant="normal">g</mi></mrow></mrow><annotation encoding="application/x-tex">m = 30\ \mathrm{kg}</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mn>120</mn><mtext> </mtext><mi mathvariant="normal">N</mi></mrow><annotation encoding="application/x-tex">P = 120\ \mathrm{N}</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi><mo>=</mo><mn>2</mn><msup><mn>0</mn><mo lspace="0em" rspace="0em">∘</mo></msup></mrow><annotation encoding="application/x-tex">\theta = 20^{\circ}</annotation></semantics></math></span>. <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>W</mi><mo>=</mo><mo stretchy="false">(</mo><mn>30</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>9.81</mn><mo stretchy="false">)</mo><mo>=</mo><mn>294.3</mn><mtext> </mtext><mi mathvariant="normal">N</mi></mrow><annotation encoding="application/x-tex">W = (30)(9.81) = 294.3\ \mathrm{N}</annotation></semantics></math></span>. Components of <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span>: <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>cos</mi><mo>⁡</mo><mi>θ</mi><mo>=</mo><mn>112.76</mn><mtext> </mtext><mi mathvariant="normal">N</mi></mrow><annotation encoding="application/x-tex">P\cos\theta = 112.76\ \mathrm{N}</annotation></semantics></math></span> (right), <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>sin</mi><mo>⁡</mo><mi>θ</mi><mo>=</mo><mn>41.04</mn><mtext> </mtext><mi mathvariant="normal">N</mi></mrow><annotation encoding="application/x-tex">P\sin\theta = 41.04\ \mathrm{N}</annotation></semantics></math></span> (down). <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi><msub><mi>F</mi><mi>x</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\Sigma F_x = 0</annotation></semantics></math></span>: <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>=</mo><mn>112.76</mn><mtext> </mtext><mi mathvariant="normal">N</mi></mrow><annotation encoding="application/x-tex">F = 112.76\ \mathrm{N}</annotation></semantics></math></span>. <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi><msub><mi>F</mi><mi>y</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\Sigma F_y = 0</annotation></semantics></math></span>: <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><mn>294.3</mn><mo>+</mo><mn>41.04</mn><mo>=</mo><mn>335.34</mn><mtext> </mtext><mi mathvariant="normal">N</mi></mrow><annotation encoding="application/x-tex">N = 294.3 + 41.04 = 335.34\ \mathrm{N}</annotation></semantics></math></span>. <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Σ</mi><msub><mi>M</mi><mi>O</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\Sigma M_O = 0</annotation></semantics></math></span> (counterclockwise positive): <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>41.04</mn><mtext> </mtext><mi mathvariant="normal">N</mi><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>0.50</mn><mtext> </mtext><mi mathvariant="normal">m</mi><mo stretchy="false">)</mo><mo>−</mo><mo stretchy="false">(</mo><mn>112.76</mn><mtext> </mtext><mi mathvariant="normal">N</mi><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>0.30</mn><mtext> </mtext><mi mathvariant="normal">m</mi><mo stretchy="false">)</mo><mo>+</mo><mi>N</mi><mi>x</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">(41.04\ \mathrm{N})(0.50\ \mathrm{m}) - (112.76\ \mathrm{N})(0.30\ \mathrm{m}) + Nx = 0</annotation></semantics></math></span>, so <span class="katex mblock"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mrow><mn>33.83</mn><mo>−</mo><mn>20.52</mn></mrow><mn>335.34</mn></mfrac><mtext> </mtext><mi mathvariant="normal">m</mi><mo>=</mo><mn>0.0397</mn><mtext> </mtext><mi mathvariant="normal">m</mi></mrow><annotation encoding="application/x-tex">x = \frac{33.83 - 20.52}{335.34}\ \mathrm{m} = 0.0397\ \mathrm{m}</annotation></semantics></math></span> The positive sign means <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span> acts about <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>40</mn><mtext> </mtext><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">m</mi></mrow></mrow><annotation encoding="application/x-tex">40\ \mathrm{mm}</annotation></semantics></math></span> to the right of the centerline, well inside the <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.50</mn><mtext> </mtext><mi mathvariant="normal">m</mi></mrow><annotation encoding="application/x-tex">0.50\ \mathrm{m}</annotation></semantics></math></span> half-width, so the crate does not tip.</p></div>
 </article>
-
-  <div class="note">
-    <h3>More grip is not always better</h3>
-    <p>It is easy to assume the stronger material, or the grippier surface, is always the better choice. A crate that slides when it is pushed too hard gives a warning and stays upright. Put it on a high-friction mat and the same push may tip it over instead. Tires, brake pads, and bearings are all chosen as trade-offs among grip, wear, heat, and cost. The right amount of friction depends on what the design has to do.</p>
-  </div>
 </section>
 
 <section class="sheet" aria-labelledby="s4">
@@ -525,13 +582,12 @@ html.lecture .prob-grid{grid-template-columns:minmax(0,1fr) minmax(0,34rem)}
     <li>Check the other condition. If you assumed slipping, is <var>x</var> ≤ <var>a</var>/2? If you assumed tipping, is <var>F</var> ≤ <var>μ</var><sub>s</sub><var>N</var>?</li>
     <li>If the check fails, your assumption was wrong. Switch and solve again. The motion that needs the smaller force governs.</li>
   </ol>
-  <p class="note">Notice how little of this is arithmetic. The equations take a few lines. The engineering is in the diagram, the assumption, and the check, and that is where your work is graded.</p>
 
   <h3>Call it: slip or tip?</h3>
   <p>Each round deals a new crate. Decide, as a class or on your own, what happens first as the push grows. Then find out. After a few rounds, look for the shortcut: which two numbers are you really comparing?</p>
   <figure>
     <figcaption><span class="fig-n">Figure 3</span><span class="fig-t">Slip-or-Tip Prediction Rounds for a Pushed Crate</span></figcaption>
-    <div class="widget" data-widget="game"></div>
+    <div class="widget" id="act-game" data-widget="game"></div>
     <p class="fig-note"><i>Note.</i> Interactive figure. Every crate has a mass of 60 kg and a height of 1.6 m. Slipping needs <var>P</var> = <var>μ</var><sub>s</sub><var>W</var> and tipping needs <var>P</var> = <var>W</var><var>a</var>/(2<var>h</var>), so the weight cancels and the comparison is <var>μ</var><sub>s</sub> against <var>a</var>/(2<var>h</var>). Original figure.</p>
   </figure>
 
@@ -561,6 +617,15 @@ html.lecture .prob-grid{grid-template-columns:minmax(0,1fr) minmax(0,34rem)}
       <p><b>Answer.</b> The crate stays in equilibrium, though it is close to slipping. Notice that pushing downward raised <var>N</var>, and with it the available friction.</p>
     </div>
   <div class="check" data-quiz="q5"></div>
+
+  <h3>Try it: spot the error</h3>
+  <p>Five short solutions, each with exactly one wrong line. These are the mistakes that cost the most points on friction problems.</p>
+  <div class="widget" id="act-error" data-widget="error"></div>
+
+  <h3>Practice: as many as you want</h3>
+  <p>Each problem has new numbers. Work it on paper, enter your answer, and check it. The feedback looks for the usual slips, such as reporting the other limit or using mass in place of weight.</p>
+  <div data-chips="weight moment impending"></div>
+  <div class="widget" id="act-practice" data-widget="practice"></div>
 
   <h3>In class: slip or tip</h3>
   <article class="prob" id="p6" aria-labelledby="p6-h">
@@ -609,6 +674,10 @@ html.lecture .prob-grid{grid-template-columns:minmax(0,1fr) minmax(0,34rem)}
     </tbody>
   </table>
   </div>
+  <h3>Try it: name the type</h3>
+  <p>Seven short problem statements. Do not solve them. Decide which of the three types each one is.</p>
+  <div data-chips="equil impending"></div>
+  <div class="widget" id="act-classify" data-widget="classify"></div>
   <div class="check" data-quiz="q6"></div>
 
   <h3>Practice: a bar against a wall</h3>
@@ -626,7 +695,11 @@ html.lecture .prob-grid{grid-template-columns:minmax(0,1fr) minmax(0,34rem)}
 </section>
 
 <div class="sheet">
-  <h3 style="margin-top:0">In class: a bar against a wall</h3>
+  <h3 style="margin-top:0">Try it: how far can the bar lean?</h3>
+  <p>Set the two coefficients from the practice problem (0.30 at the floor, 0.40 at the wall) and lower the bar until it lets go. Then make the wall smooth and see how much the limit moves.</p>
+  <div class="widget" id="act-bar" data-widget="bar"></div>
+
+  <h3>In class: a bar against a wall</h3>
   <article class="prob" id="p9" aria-labelledby="p9-h">
   <h3 id="p9-h"><span class="tag">Problem 9</span>Bar leaning against a rough wall on a rough floor</h3>
   <div class="prob-grid">
@@ -641,11 +714,12 @@ html.lecture .prob-grid{grid-template-columns:minmax(0,1fr) minmax(0,34rem)}
 
 <section class="sheet" aria-labelledby="s5b">
   <h2 id="s5b">6. Put it to work: the painter’s ladder</h2>
+  <div data-chips="moment equil trig"></div>
   <p>The bar against the wall is a ladder, and the practical question is how far up it someone can climb. As the painter climbs, the load moves toward the wall, the wall pushes back harder, and the floor has to supply more friction to match. At some height the floor runs out.</p>
   <p>Predict first: if the painter gets halfway up safely, are they safe the rest of the way?</p>
   <figure>
     <figcaption><span class="fig-n">Figure 4</span><span class="fig-t">Forces on a Ladder as a Painter Climbs</span></figcaption>
-    <div class="widget" data-widget="ladder"></div>
+    <div class="widget" id="act-ladder" data-widget="ladder"></div>
     <p class="fig-note"><i>Note.</i> Interactive figure. The ladder is 5 m long with a mass of 20 kg; the painter has a mass of 75 kg. With a smooth wall the four reactions follow from equilibrium alone. With wall friction turned on, the values shown assume the wall is supplying its maximum friction, which is the most favorable case for the ladder. Original figure.</p>
   </figure>
   <p>Try three changes and explain each with a free-body diagram: stand the ladder steeper, roughen the floor, and roughen the wall. Which one buys the most height?</p>
@@ -670,10 +744,15 @@ html.lecture .prob-grid{grid-template-columns:minmax(0,1fr) minmax(0,34rem)}
   <p>This is how a coefficient of friction is measured: tilt the surface until the block lets go. A block can also tip on a ramp. With base <var>b</var> and height <var>H</var>, it tips when its weight’s line of action passes the downhill edge of the base, at tan <var>θ</var> = <var>b</var>/<var>H</var>. Whichever angle is smaller is reached first.</p>
   <figure>
     <figcaption><span class="fig-n">Figure 5</span><span class="fig-t">A Block on a Ramp of Increasing Angle</span></figcaption>
-    <div class="widget" data-widget="ramp"></div>
+    <div class="widget" id="act-ramp" data-widget="ramp"></div>
     <p class="fig-note"><i>Note.</i> Interactive figure. Select “Raise the ramp” and watch for the first motion, then change the block or the surface. The friction values are for illustration. Original figure.</p>
   </figure>
   <p>When another force acts along the slope, find the direction of friction the usual way: ask which way the block would slide without it. A block held from sliding down has friction pointing up the slope. A block being pushed up has friction pointing down the slope.</p>
+  <h3>Try it: the window of forces that hold</h3>
+  <p>A block on a steep ramp is held by a force along the slope. Too little and it slides down. Too much and it slides up. In between, friction quietly changes size and direction to make up the difference. Find both ends of the window, then see how the window changes with <var>μ</var><sub>s</sub>.</p>
+  <div data-chips="incl impending trig"></div>
+  <div class="widget" id="act-incline" data-widget="incline"></div>
+
   <h3>In class: inclines</h3>
   <article class="prob" id="p13" aria-labelledby="p13-h">
   <h3 id="p13-h"><span class="tag">Problem 13</span>Block at rest on an incline</h3>
@@ -740,6 +819,9 @@ html.lecture .prob-grid{grid-template-columns:minmax(0,1fr) minmax(0,34rem)}
     <li>For a crate pushed horizontally, the comparison comes down to <var>μ</var><sub>s</sub> against <var>a</var>/(2<var>h</var>). The smaller one is reached first.</li>
   </ul>
 
+  <h2 id="alist">All interactive activities</h2>
+  <ol class="pindex"><li><a href="#act-nofric">Switch friction off</a> <span class="meta">(Section 1)</span></li><li><a href="#act-sort">Relies on friction or fights it?</a> <span class="meta">(Section 1)</span></li><li><a href="#act-graph">Friction force versus applied force</a> <span class="meta">(Section 2)</span></li><li><a href="#act-quick">Quick fire: what is the friction force?</a> <span class="meta">(Section 2)</span></li><li><a href="#act-dir">Which way does friction act?</a> <span class="meta">(Section 2)</span></li><li><a href="#act-angle">Angled push or pull</a> <span class="meta">(Section 2)</span></li><li><a href="#act-fbd">Build the free-body diagram</a> <span class="meta">(Section 3)</span></li><li><a href="#act-balance">Balance the crate</a> <span class="meta">(Section 3)</span></li><li><a href="#act-push">Pushed crate: slip or tip, with floor buttons</a> <span class="meta">(Section 3)</span></li><li><a href="#act-game">Call it: slip or tip?</a> <span class="meta">(Section 4)</span></li><li><a href="#act-error">Spot the error</a> <span class="meta">(Section 4)</span></li><li><a href="#act-practice">Unlimited slip-or-tip practice</a> <span class="meta">(Section 4)</span></li><li><a href="#act-classify">Name the type</a> <span class="meta">(Section 5)</span></li><li><a href="#act-bar">How far can the bar lean?</a> <span class="meta">(Section 5)</span></li><li><a href="#act-ladder">The painter’s ladder</a> <span class="meta">(Section 6)</span></li><li><a href="#act-ramp">Block on a ramp</a> <span class="meta">(Section 7)</span></li><li><a href="#act-incline">The window of forces that hold</a> <span class="meta">(Section 7)</span></li></ol>
+
   <h2 id="plist">All in-class problems</h2>
   <ol class="pindex"><li value="1"><a href="#p1">Crate on a rough floor with a horizontal push</a></li><li value="2"><a href="#p2">Crate pushed horizontally on a rough floor</a></li><li value="3"><a href="#p3">Crate pushed by a force angled below the horizontal</a></li><li value="4"><a href="#p4">Free-body diagram with the normal force offset by x</a></li><li value="5"><a href="#p5">Crate on the verge of tipping about its front edge</a></li><li value="6"><a href="#p6">Slip-or-tip free-body diagram of a pushed crate</a></li><li value="7"><a href="#p7">Crate sliding at constant velocity under a horizontal push</a></li><li value="8"><a href="#p8">Slowly increasing horizontal pull on a crate at impending slip</a></li><li value="9"><a href="#p9">Bar leaning against a rough wall on a rough floor</a></li><li value="10"><a href="#p10">Block on a tilting board at the angle of static friction</a></li><li value="11"><a href="#p11">Push height that separates slipping from tipping</a></li><li value="12"><a href="#p12">Angled push on a crate with the normal force at unknown position x</a></li><li value="13"><a href="#p13">Block at rest on an incline</a></li><li value="14"><a href="#p14">Crate pulled by a rope angled above the horizontal</a></li><li value="15"><a href="#p15">Tall crate on a ramp of increasing angle</a></li><li value="16"><a href="#p16">Downward-angled push increases the normal force</a></li><li value="17"><a href="#p17">Forces on a worker pushing a crate</a></li><li value="18"><a href="#p18">Rope pulling at the top corner of a crate</a></li><li value="19"><a href="#p19">Bar against a smooth wall on a rough floor</a></li><li value="20"><a href="#p20">Holding force on a block that tends to slide down a ramp</a></li><li value="21"><a href="#p21">Force needed to start a block moving up a ramp</a></li><li value="22"><a href="#p22">Normal-force offset compared with the half-width of the base</a></li><li value="23"><a href="#p23">Friction force versus applied push, showing the drop at slipping</a></li><li value="24"><a href="#p24">Steeply angled push on a crate</a></li><li value="25"><a href="#p25">Resultant of the normal and friction forces at impending slip</a></li></ol>
 
@@ -759,8 +841,8 @@ html.lecture .prob-grid{grid-template-columns:minmax(0,1fr) minmax(0,34rem)}
 
   <h2>Next</h2>
   <div class="next">
-    <a href="activity01.html">Do the activity<span>Slip or Tip? Crate Stability Check, about 25 minutes, before class</span></a>
-    <a href="lab01.html">Preview the lab<span>Measuring Static Friction and Predicting Slip or Tip on an Incline</span></a>
+    <a href="lab01.html">Do the lab<span>Measuring Static Friction and Predicting Slip or Tip on an Incline, on screen</span></a>
+    <a href="index.html">Back to the overview<span>All pages for Lesson 1</span></a>
   </div>
 
   <h2>References</h2>
@@ -826,19 +908,21 @@ window.STATICS_SORT = { sort1: [
   ['A wheel bearing', 0, 'Here friction wastes energy and makes heat, so bearings use rolling elements and lubricant to reduce it.'],
   ['A piston in an engine cylinder', 0, 'Sliding friction here causes wear and lost power, which is why engines need oil.']
 ] };
-window.STATICS_ACTIVITY = [
-  { id: 'a1', ans: 147.15, tol: 3, mode: 'slip', other: 160.53,
-    okMsg: 'Slipping governs on the bare floor: μsW is smaller than the push needed to bring N to the edge. Make sure your page shows the tipping check, x ≤ a/2.',
-    otherMsg: 'That is the push that would tip the crate. Now find the push that would slip it and compare. The smaller one governs.',
-    hint: 'Find W = mg first. Then find two candidate forces: one from F = μsN, one from x = a/2. Which is smaller?' },
-  { id: 'a2', ans: 160.53, tol: 3, mode: 'tip', other: 353.16,
-    okMsg: 'On the mat the crate tips before it slides, and the largest safe push went up by less than 10 percent. What the mat mainly changed is how the crate fails.',
-    otherMsg: 'That is the push that would slip the crate on the mat. Check x for that push. Is it inside the base?',
-    hint: 'The tipping limit does not depend on μs. Compare it with the new slipping limit.' },
-  { id: 'a3', ans: 0.5, tol: 0.011,
-    okMsg: 'Below 0.50 m the slipping limit is reached first. Pushing low is the standard advice for moving tall loads, and this is the reason.',
-    hint: 'Set the slipping force equal to the tipping force, μsW = Wa/(2h), and solve for h. The weight cancels.' }
-];
+window.STATICS_QREVIEW = { pre1: 'moment', pre2: 'equil', q1: 'impending', q3: 'impending', q4: 'moment', q6: 'equil' };
+window.STATICS_PREVIEW = { p1: ['weight', 'impending'], p8: ['weight', 'impending'], p2: ['weight', 'impending'], p23: ['weight'], p7: ['equil', 'weight'], p17: ['fbd', 'equil'], p25: ['result'],
+  p16: ['comp', 'equil'], p3: ['comp', 'impending'], p14: ['comp', 'impending'], p24: ['comp', 'trig'], p4: ['moment', 'equil'], p22: ['moment'], p5: ['moment'], p12: ['comp', 'moment'],
+  p6: ['moment', 'impending'], p11: ['moment'], p18: ['comp', 'moment'], p9: ['moment', 'equil', 'trig'], p19: ['moment', 'equil'], p13: ['incl'], p10: ['incl', 'trig'], p15: ['trig'], p20: ['incl', 'impending'], p21: ['incl', 'impending'] };
+window.STATICS_REVIEW = {
+  fbd: { t: 'Drawing a free-body diagram', see: ['equil', 'weight'], h: '<ol class="steps"><li><b>Isolate the body.</b> Draw its outline alone, cut free from the floor, wall, and anything else it touches.</li><li><b>Draw the weight</b> straight down through the center of gravity.</li><li><b>At every contact</b> draw a normal force perpendicular to the surface and, if the surface is rough, a friction force along it.</li><li><b>Add the applied forces,</b> the dimensions you will need for moments, and a pair of axes.</li></ol><p>If you do not know which way an unknown force points, guess. A negative answer means it points the other way.</p>' },
+  equil: { t: 'The three equations of equilibrium', see: ['moment', 'fbd'], h: '<p>A rigid body at rest in two dimensions satisfies three independent equations:</p><p class="eq">Σ<var>F</var><sub>x</sub> = 0, &nbsp; Σ<var>F</var><sub>y</sub> = 0, &nbsp; Σ<var>M</var><sub>O</sub> = 0</p><p>Three equations solve for three unknowns per body. A particle has only the two force equations, which is why a particle model cannot tell you where the normal force acts.</p><p>You choose point O. Put it where unknown forces pass through, and those forces drop out of the moment equation.</p>' },
+  moment: { t: 'Moment of a force', w: 'moment', see: ['equil'], h: '<p>A moment is the turning effect of a force about a point. Its size is the force times the <em>perpendicular</em> distance from the point to the force’s line of action:</p><p class="eq"><var>M</var><sub>O</sub> = <var>F</var><var>d</var></p><p>A force whose line of action passes through O has no moment about O. Pick a sign convention (counterclockwise positive is common) and keep it for the whole problem.</p>' },
+  comp: { t: 'Components of an angled force', w: 'comp', see: ['trig'], h: '<p>A force <var>P</var> at angle <var>θ</var> from the horizontal acts like two forces at once: <var>P</var> cos <var>θ</var> horizontally and <var>P</var> sin <var>θ</var> vertically. The cosine goes with the side the angle touches.</p><p>In friction problems the vertical part matters: it adds to the normal force when it points into the surface and subtracts when it points away.</p>' },
+  weight: { t: 'Weight from mass', w: 'weight', h: '<p>Mass is how much matter a body has, in kilograms. Weight is the force gravity puts on it, in newtons:</p><p class="eq"><var>W</var> = <var>m</var><var>g</var>, &nbsp; <var>g</var> = 9.81 m/s²</p><p>Friction and equilibrium equations need forces, so convert mass to weight first. In US customary units a weight in pounds is already a force.</p>' },
+  trig: { t: 'Tangent and inverse tangent', w: 'trig', see: ['comp'], h: '<p>In a right triangle, tan <var>θ</var> = opposite ÷ adjacent. When you know the ratio and want the angle, use the inverse: <var>θ</var> = tan⁻¹(ratio). Set your calculator to degrees.</p><p>Friction problems often end with a tangent, because slipping on a ramp begins when tan <var>θ</var> = <var>μ</var><sub>s</sub>.</p>' },
+  incl: { t: 'Weight components on a ramp', w: 'incl', see: ['comp', 'trig'], h: '<p>On a ramp, use axes along the slope and perpendicular to it. The weight splits into <var>W</var> sin <var>θ</var> down the slope and <var>W</var> cos <var>θ</var> into the slope.</p><p>To remember which gets the sine, test a flat ramp: at <var>θ</var> = 0 nothing pulls the block along the surface, and sin 0 = 0.</p>' },
+  result: { t: 'Resultant of two perpendicular forces', w: 'result', h: '<p>The floor pushes on a body with a normal force and a friction force at right angles. Their combined effect is one force, found with the Pythagorean theorem:</p><p class="eq"><var>R</var> = √(<var>N</var>² + <var>F</var>²)</p><p>At impending slip the resultant leans away from the normal by the angle of static friction, where tan <var>φ</var><sub>s</sub> = <var>μ</var><sub>s</sub>.</p>' },
+  impending: { t: 'When you may write F = μsN', see: ['equil'], h: '<p>Static friction is a reaction. It takes whatever value equilibrium requires, anywhere from zero up to a limit:</p><p class="eq"><var>F</var> ≤ <var>μ</var><sub>s</sub><var>N</var></p><p>You may replace the inequality with <var>F</var> = <var>μ</var><sub>s</sub><var>N</var> only when the body is on the verge of slipping. Look for words such as “impending,” “about to slip,” “smallest force that starts,” or “largest force that causes no motion.”</p><p>If the problem gives the loads and asks whether the body holds, solve for <var>F</var> from equilibrium and then compare it with <var>μ</var><sub>s</sub><var>N</var>.</p>' }
+};
 
 (function () {
   'use strict';
@@ -1098,10 +1182,10 @@ window.STATICS_ACTIVITY = [
 
   /* ---------- Pushed crate scene (shared by the free-body diagram and the game) ---------- */
   var CR = { H: 1.6, sc: 105, W: 60 * G };
-  function crateLimits(q) { return { slip: q.mu * CR.W, tip: CR.W * q.a / (2 * q.h) }; }
+  function crateLimits(q) { var W = q.W || CR.W; return { slip: q.mu * W, tip: W * q.a / (2 * q.h) }; }
   function crateScene(scene, q, P, state, f, opt) {
     clear(scene);
-    var W = CR.W, lim = crateLimits(q), gy = 285, cx = 300 - (opt.game ? 60 : 0), aw = q.a * CR.sc, hh = CR.H * CR.sc, left = cx - aw / 2, right = cx + aw / 2;
+    var W = q.W || CR.W, lim = crateLimits(q), gy = 285, cx = 300 - (opt.game ? 60 : 0), aw = q.a * CR.sc, hh = CR.H * CR.sc, left = cx - aw / 2, right = cx + aw / 2;
     var F = state === 'hold' ? P : (state === 'tip' ? lim.tip : lim.slip), x = state === 'hold' ? P * q.h / W : (state === 'tip' ? q.a / 2 : lim.slip * q.h / W);
     hatch(scene, 30, 530, gy);
     var dx = state === 'slip' ? 34 + 150 * f * f : 0;
@@ -1134,10 +1218,11 @@ window.STATICS_ACTIVITY = [
       }
     }
     if (opt.game) {
+      if (q.m) txt(scene, 548, 36, 'Mass = ' + q.m + ' kg', 't-weight', 'end');
       txt(scene, 548, 60, 'Base a = ' + q.a.toFixed(2) + ' m', 't-weight', 'end');
       txt(scene, 548, 84, 'Push height h = ' + q.h.toFixed(2) + ' m', 't-weight', 'end');
       txt(scene, 548, 108, 'μs = ' + q.mu.toFixed(2), 't-weight', 'end');
-      if (opt.reveal) { txt(scene, 548, 140, 'a ÷ 2h = ' + (q.a / (2 * q.h)).toFixed(2), 't-normal', 'end'); }
+      if (opt.reveal) { txt(scene, 40, 36, 'a ÷ 2h = ' + (q.a / (2 * q.h)).toFixed(2) + '  against  μs = ' + q.mu.toFixed(2), 't-normal'); }
     } else txt(scene, 548, 26, 'x = ' + x.toFixed(3) + ' m of ' + (q.a / 2).toFixed(3) + ' m available', 'small', 'end');
   }
   function pushWidget(box) {
@@ -1186,6 +1271,10 @@ window.STATICS_ACTIVITY = [
     });
     $('.reset', box).addEventListener('click', function () { stop(); ip.value = 0; draw(); });
     [ip, ih, ia, im].forEach(function (n) { n.addEventListener('input', function () { stop(); draw(); }); });
+    var pre = document.createElement('div'); pre.className = 'tools presets';
+    pre.innerHTML = '<span class="plabel">Same crate, different floor:</span><button type="button" class="btn alt" data-mu="0.2">Polished floor (0.20)</button><button type="button" class="btn alt" data-mu="0.35">Sealed concrete (0.35)</button><button type="button" class="btn alt" data-mu="0.7">Rubber mat (0.70)</button>';
+    $('.panel', box).insertBefore(pre, $('.ctl', box));
+    pre.addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; stop(); im.value = b.getAttribute('data-mu'); ip.value = 0; draw(); $('.go', box).click(); });
     draw();
   }
 
@@ -1359,7 +1448,527 @@ window.STATICS_ACTIVITY = [
     show();
   }
 
+  /* ---------- Shared bits for the newer widgets ---------- */
+  function frame(box, vb, title, panel) {
+    var id = 'w' + (++uid);
+    box.innerHTML = '<svg viewBox="' + vb + '" role="img" aria-labelledby="' + id + '-ttl"><title id="' + id + '-ttl">' + title + '</title><g class="scene"></g></svg><div class="panel">' + panel + '</div>';
+    return id;
+  }
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+  function pick(lo, hi, step) { return +(lo + step * Math.floor(Math.random() * (Math.round((hi - lo) / step) + 1))).toFixed(4); }
+  function rlabel(g, x, y, str, cls, th, anchor) { var t = txt(g, x, y, str, cls, anchor); t.setAttribute('transform', 'rotate(' + th + ',' + x + ',' + y + ')'); return t; }
+
+  /* ---------- Balance the crate: drag the normal force ---------- */
+  function balanceWidget(box) {
+    var a = 0.8, Hc = 1.4, W = 60 * G, sc = 170, gy = 270, cx = 290, P, h, drag = false;
+    var id = frame(box, '0 0 560 360', 'A pushed crate. Move the normal force N along the base until the moments about O balance. The status line gives the current net moment.',
+      '<div class="ctl">' + slider('X', 'Position of <var>N</var> from the centerline, <var>x</var>', -0.4, 0.4, 0.005, 0, 'm').replace(/X/g, 'bx' + (uid + 1)) + '</div><p class="eqline" aria-hidden="true"></p><p class="verdict" aria-live="polite"></p>');
+    tools(box, '<button type="button" class="btn show">Show the balance point</button><button type="button" class="btn alt deal">New push</button>');
+    var sid = 'bx' + uid; var scene = $('.scene', box), svg = $('svg', box), ix = $('#' + sid), v = $('.verdict', box), eq = $('.eqline', box);
+    svg.style.touchAction = 'none'; svg.style.cursor = 'ew-resize';
+    function deal() { P = pick(60, 280, 10); h = pick(0.5, 1.3, 0.1); ix.value = 0; draw(); }
+    function draw() {
+      var x = +ix.value, need = P * h / W, M = W * x - P * h, can = need <= a / 2 + 1e-9, ok = Math.abs(x - need) <= 0.0051;
+      $('#' + sid + '-o').textContent = x.toFixed(3);
+      clear(scene); hatch(scene, 30, 530, gy);
+      var aw = a * sc, hh = Hc * sc, left = cx - aw / 2, right = cx + aw / 2, tilt = ok ? 0 : clamp(-M / 40, -9, 9);
+      var g = el('g', tilt ? { transform: 'rotate(' + tilt + ',' + (tilt > 0 ? right : left) + ',' + gy + ')' } : {}, scene);
+      el('rect', { x: left, y: gy - hh, width: aw, height: hh, 'class': 'body' }, g);
+      el('line', { x1: cx, y1: gy - hh, x2: cx, y2: gy, 'class': 'faint' }, g);
+      el('circle', { cx: cx, cy: gy - hh / 2, r: 4.5, fill: 'currentColor' }, g);
+      var yP = gy - h * sc, Lp = 24 + P * 0.2;
+      arrow(scene, left - Lp, yP, left, yP, 'f-applied'); txt(scene, left - Lp - 8, yP + 5, 'P = ' + P + ' N', 't-applied', 'end');
+      el('line', { x1: left - 12, y1: yP + 8, x2: left - 12, y2: gy, 'class': 'faint' }, scene); txt(scene, left - 20, (yP + gy) / 2 + 10, 'h = ' + h.toFixed(1) + ' m', 'small', 'end');
+      arrow(scene, cx, gy - hh / 2, cx, gy - hh / 2 + 70, 'f-weight'); txt(scene, right + 10, gy - hh / 2 + 40, 'W = ' + W.toFixed(0) + ' N', 't-weight');
+      var nx = cx + x * sc; arrow(scene, nx, gy + 74, nx, gy + 3, 'f-normal'); txt(scene, nx + 10, gy + 70, 'N = ' + W.toFixed(0) + ' N', 't-normal');
+      el('circle', { cx: nx, cy: gy + 80, r: 9, 'class': 'dot' }, scene);
+      arrow(scene, cx - 14, gy + 14, cx - 14 - 22 - P * 0.2, gy + 14, 'f-friction'); txt(scene, cx - 44 - P * 0.2, gy + 36, 'F = ' + P + ' N', 't-friction', 'end');
+      txt(scene, cx - 4, gy - 8, 'O', 'small', 'end');
+      eq.innerHTML = 'Σ<var>M</var><sub>O</sub> = <var>N</var><var>x</var> − <var>P</var><var>h</var> = (' + W.toFixed(0) + ')(' + x.toFixed(3) + ') − (' + P + ')(' + h.toFixed(1) + ') = <b>' + M.toFixed(1) + ' N·m</b>';
+      if (ok) { v.setAttribute('data-state', 'hold'); v.textContent = 'Balanced. N sits ' + need.toFixed(3) + ' m ahead of the centerline, which is Ph/W. That uses ' + Math.round(need / (a / 2) * 100) + '% of the half-base.'; }
+      else if (!can && x >= a / 2 - 1e-9) { v.setAttribute('data-state', 'tip'); v.textContent = 'N is at the very edge and the moments still do not balance. It would have to act ' + need.toFixed(3) + ' m out, beyond the 0.400 m half-base. No position works: the crate tips.'; }
+      else { v.setAttribute('data-state', 'edge'); v.textContent = M < 0 ? 'The push is winning: the crate rotates forward. Move N toward the front edge.' : 'N is too far forward: its moment is larger than the push’s. Move it back.'; }
+    }
+    function at(e) { var r = svg.getBoundingClientRect(); ix.value = clamp(((e.clientX - r.left) / r.width * 560 - cx) / sc, -0.4, 0.4); draw(); }
+    svg.addEventListener('pointerdown', function (e) { drag = true; try { svg.setPointerCapture(e.pointerId); } catch (err) { /* older browsers */ } at(e); });
+    svg.addEventListener('pointermove', function (e) { if (drag) at(e); });
+    svg.addEventListener('pointerup', function () { drag = false; }); svg.addEventListener('pointercancel', function () { drag = false; });
+    ix.addEventListener('input', draw);
+    $('.deal', box).addEventListener('click', deal);
+    $('.show', box).addEventListener('click', function () {
+      var from = +ix.value, to = Math.min(a / 2, Math.round(P * h / W / 0.005) * 0.005);
+      tween(700, function (k) { ix.value = from + (to - from) * k; draw(); });
+    });
+    deal();
+  }
+
+  /* ---------- Angled push or pull: the normal force is not the weight ---------- */
+  function angleWidget(box) {
+    var id = frame(box, '0 0 560 330', 'A crate pushed or pulled by a force P at an angle. The status line gives the normal force, the friction needed, and the friction available.', '');
+    $('.panel', box).innerHTML = '<div class="ctl">' +
+      slider(id + '-t', 'Angle <var>θ</var> (positive pushes down, negative pulls up)', -45, 80, 1, 25, 'degrees') +
+      slider(id + '-p', 'Force <var>P</var>', 0, 800, 1, 100, 'N') +
+      slider(id + '-u', 'Coefficient of static friction <var>μ</var><sub>s</sub>', 0.1, 0.8, 0.01, 0.35, '') +
+      slider(id + '-m', 'Mass of crate', 20, 80, 1, 40, 'kg') +
+      '</div><div class="race" aria-hidden="true"><div class="lane"><span class="l1"></span><div class="track"><div class="fill fr"></div></div></div></div><p class="verdict" aria-live="polite"></p>';
+    tools(box, '<button type="button" class="btn go">Push harder and harder</button><button type="button" class="btn alt reset">Reset</button>');
+    var scene = $('.scene', box), v = $('.verdict', box), it = $('#' + id + '-t'), ip = $('#' + id + '-p'), iu = $('#' + id + '-u'), im = $('#' + id + '-m'), l1 = $('.l1', box), f1 = $('.fr', box);
+    var cur = 'hold', f = 0, tw = null, run = null;
+    function calc() {
+      var th = +it.value * DEG, P = +ip.value, mu = +iu.value, W = +im.value * G, N = W + P * Math.sin(th), need = P * Math.cos(th), den = Math.cos(th) - mu * Math.sin(th);
+      return { th: th, P: P, mu: mu, W: W, N: N, need: need, max: mu * Math.max(0, N), Ps: den > 1e-6 ? mu * W / den : Infinity };
+    }
+    function paint() {
+      var r = calc(); clear(scene);
+      var gy = 235, cx = 300, bw = 170, bh = 84, dx = cur === 'slip' ? 150 * f * f : 0, dy = cur === 'lift' ? -30 * f : 0;
+      hatch(scene, 30, 530, gy);
+      var g = el('g', { transform: 'translate(' + dx + ',' + dy + ')' }, scene);
+      el('rect', { x: cx - bw / 2, y: gy - bh, width: bw, height: bh, 'class': 'body' }, g);
+      var L = 30 + r.P * 0.16, ux = Math.cos(r.th), uy = Math.sin(r.th), x1, y1, x2, y2;
+      if (r.th >= 0) { x2 = cx - bw / 2; y2 = gy - bh + 14; x1 = x2 - L * ux; y1 = y2 - L * uy; } else { x1 = cx + bw / 2; y1 = gy - bh / 2; x2 = x1 + L * ux; y2 = y1 + L * uy; }
+      if (Math.abs(uy) > 0.03) { el('line', { x1: x1, y1: y1, x2: x2, y2: y1, 'class': 'faint' }, g); el('line', { x1: x2, y1: y1, x2: x2, y2: y2, 'class': 'faint' }, g); }
+      arrow(g, x1, y1, x2, y2, 'f-applied');
+      txt(g, r.th >= 0 ? x1 - 6 : x2 + 8, r.th >= 0 ? y1 - 8 : y2 - 4, 'P = ' + r.P.toFixed(0) + ' N', 't-applied', r.th >= 0 ? 'end' : 'start');
+      if (cur === 'hold') {
+        arrow(g, cx + 30, gy + 20 + Math.min(70, 20 + r.N * 0.07), cx + 30, gy + 3, 'f-normal'); txt(g, cx + 40, gy + 62, 'N = ' + r.N.toFixed(0) + ' N', 't-normal');
+        if (r.need > 1) { arrow(g, cx - 10, gy + 14, cx - 10 - 18 - r.need * 0.16, gy + 14, 'f-friction'); txt(g, cx - 20, gy + 40, 'F = ' + r.need.toFixed(0) + ' N', 't-friction', 'end'); }
+        arrow(g, cx, gy - bh / 2, cx, gy - bh / 2 + 34, 'f-weight');
+      }
+      txt(scene, 548, 26, 'P cos θ = ' + r.need.toFixed(0) + ' N along the floor', 'small', 'end');
+      txt(scene, 548, 46, 'P sin θ = ' + Math.abs(r.P * Math.sin(r.th)).toFixed(0) + ' N ' + (r.th >= 0 ? 'into the floor' : 'lifting'), 'small', 'end');
+      txt(scene, 548, 66, 'W = ' + r.W.toFixed(0) + ' N', 'small', 'end');
+      return r;
+    }
+    function draw() {
+      var r = calc(), state = r.N <= 0 ? 'lift' : (r.need > r.max + 1e-9 ? 'slip' : 'hold');
+      $('#' + id + '-t-o').textContent = (+it.value).toFixed(0); $('#' + id + '-p-o').textContent = r.P.toFixed(0); $('#' + id + '-u-o').textContent = r.mu.toFixed(2); $('#' + id + '-m-o').textContent = (+im.value).toFixed(0);
+      if (state !== cur) { if (tw) tw.stop(); cur = state; f = 0; if (state !== 'hold') tw = tween(700, function (k) { f = k; paint(); }); }
+      paint();
+      var pct = r.max > 0 ? Math.min(1, r.need / r.max) : 1; l1.textContent = 'Friction used: ' + Math.round(pct * 100) + '% of μsN = ' + r.max.toFixed(0) + ' N'; f1.style.width = pct * 100 + '%';
+      var lim = isFinite(r.Ps) ? 'At this angle it slips at P = ' + r.Ps.toFixed(0) + ' N.' : 'At this angle no push, however large, can make it slip: every added newton adds at least as much available friction as it adds sliding force.';
+      v.setAttribute('data-state', state === 'lift' ? 'tip' : state);
+      if (state === 'hold') v.textContent = 'Holds. N = W ' + (r.th >= 0 ? '+' : '−') + ' P sin θ = ' + r.N.toFixed(0) + ' N, ' + (Math.abs(r.N - r.W) < 0.5 ? 'equal to the weight' : (r.N > r.W ? 'more than the weight' : 'less than the weight')) + '. ' + lim;
+      else if (state === 'slip') v.textContent = 'Slips. It needs ' + r.need.toFixed(0) + ' N of friction but μsN is only ' + r.max.toFixed(0) + ' N, because N = ' + r.N.toFixed(0) + ' N.';
+      else v.textContent = 'The upward part of the pull now exceeds the weight, so the crate lifts off the floor. With N = 0 there is no friction at all.';
+    }
+    function stop() { if (run) run.stop(); run = null; }
+    $('.go', box).addEventListener('click', function () {
+      stop(); ip.value = 0; draw(); var r = calc();
+      if (REDUCED) { ip.value = isFinite(r.Ps) ? Math.min(800, Math.ceil(r.Ps + 0.01)) : 800; draw(); return; }
+      var P = 0; run = ticker(function (dt) { P += 90 * dt; ip.value = Math.min(800, P); draw(); if (cur !== 'hold' || P >= 800) return false; });
+    });
+    $('.reset', box).addEventListener('click', function () { stop(); ip.value = 0; draw(); });
+    [it, ip, iu, im].forEach(function (n) { n.addEventListener('input', function () { stop(); draw(); }); });
+    draw();
+  }
+
+  /* ---------- Incline with a force along the slope: the window of forces that hold ---------- */
+  function inclineWidget(box) {
+    var id = frame(box, '0 0 560 340', 'A block on a ramp with a force P pushing up the slope. The status line says whether it holds, slides down, or slides up, and which way friction acts.', '');
+    $('.panel', box).innerHTML = '<div class="ctl">' +
+      slider(id + '-p', 'Force up the slope <var>P</var>', 0, 250, 0.5, 70, 'N') +
+      slider(id + '-t', 'Ramp angle <var>θ</var>', 0, 60, 0.5, 35, 'degrees') +
+      slider(id + '-u', 'Coefficient of static friction <var>μ</var><sub>s</sub>', 0, 0.8, 0.01, 0.25, '') +
+      slider(id + '-m', 'Mass of block', 5, 30, 1, 15, 'kg') +
+      '</div><div class="winbar" aria-hidden="true"><div class="track"><div class="win"></div><div class="mark"></div></div><span class="wl"></span></div><p class="verdict" aria-live="polite"></p>';
+    tools(box, '<button type="button" class="btn up">Push harder</button><button type="button" class="btn down">Ease off</button><button type="button" class="btn alt reset">Reset</button>');
+    var scene = $('.scene', box), v = $('.verdict', box), ip = $('#' + id + '-p'), it = $('#' + id + '-t'), iu = $('#' + id + '-u'), im = $('#' + id + '-m'), win = $('.win', box), mark = $('.mark', box), wl = $('.wl', box);
+    var cur = 'hold', f = 0, tw = null, run = null;
+    function calc() {
+      var th = +it.value * DEG, W = +im.value * G, mu = +iu.value, P = +ip.value, s = W * Math.sin(th), n = W * Math.cos(th);
+      return { th: +it.value, W: W, mu: mu, P: P, s: s, N: n, lo: s - mu * n, hi: s + mu * n, F: s - P };
+    }
+    function paint() {
+      var r = calc(); clear(scene);
+      var px0 = 60, py0 = 300, L = 380, c = Math.cos(r.th * DEG), s = Math.sin(r.th * DEG), b = 76, H = 48;
+      hatch(scene, 30, 530, py0);
+      el('line', { x1: px0, y1: py0, x2: px0 + L * c, y2: py0 - L * s, 'class': 'ground', 'stroke-width': 5 }, scene);
+      txt(scene, px0 + 4, py0 + 30, 'θ = ' + r.th.toFixed(1) + '°', 't-weight');
+      var d = 200 + (cur === 'down' ? -130 * f * f : (cur === 'up' ? 130 * f * f : 0)), bx = px0 + d * c, by = py0 - d * s;
+      var g = el('g', { transform: 'translate(' + bx + ',' + by + ') rotate(' + (-r.th) + ')' }, scene);
+      el('rect', { x: -b / 2, y: -H, width: b, height: H, 'class': 'body' }, g);
+      if (r.P > 0.5) { var Lp = 18 + r.P * 0.3; arrow(g, -b / 2 - Lp, -H / 2, -b / 2, -H / 2, 'f-applied'); rlabel(g, -b / 2 - Lp - 6, -H / 2 + 5, 'P', 't-applied', r.th, 'end'); }
+      if (cur === 'hold') {
+        var Lf = 14 + Math.abs(r.F) * 0.3;
+        if (Math.abs(r.F) > 0.5) { if (r.F > 0) arrow(g, -4, 14, -4 + Lf, 14, 'f-friction'); else arrow(g, 4, 14, 4 - Lf, 14, 'f-friction'); rlabel(g, r.F > 0 ? Lf + 2 : -Lf - 2, 19, 'F', 't-friction', r.th, r.F > 0 ? 'start' : 'end'); }
+        arrow(g, 0, -H - 3, 0, -H - 16 - r.N * 0.25, 'f-normal'); rlabel(g, 10, -H - 14 - r.N * 0.25, 'N', 't-normal', r.th);
+        var gx = bx - (H / 2) * s, gyy = by - (H / 2) * c, Lw = 20 + r.W * 0.25;
+        arrow(scene, gx, gyy, gx, gyy + Lw, 'f-weight'); txt(scene, gx + 8, gyy + Lw, 'W', 't-weight');
+      }
+      txt(scene, 548, 26, 'W sin θ = ' + r.s.toFixed(1) + ' N down the slope', 'small', 'end');
+      txt(scene, 548, 46, 'N = W cos θ = ' + r.N.toFixed(1) + ' N', 'small', 'end');
+      txt(scene, 548, 66, 'μsN = ' + (r.mu * r.N).toFixed(1) + ' N available', 'small', 'end');
+      return r;
+    }
+    function draw() {
+      var r = calc(), state = r.P < r.lo - 1e-9 ? 'down' : (r.P > r.hi + 1e-9 ? 'up' : 'hold');
+      $('#' + id + '-p-o').textContent = r.P.toFixed(1); $('#' + id + '-t-o').textContent = r.th.toFixed(1); $('#' + id + '-u-o').textContent = r.mu.toFixed(2); $('#' + id + '-m-o').textContent = (+im.value).toFixed(0);
+      if (state !== cur) { if (tw) tw.stop(); cur = state; f = 0; if (state !== 'hold') tw = tween(700, function (k) { f = k; paint(); }); }
+      paint();
+      var lo = Math.max(0, r.lo), hi = Math.min(250, r.hi);
+      win.style.left = lo / 2.5 + '%'; win.style.width = Math.max(0, hi - lo) / 2.5 + '%'; mark.style.left = r.P / 2.5 + '%';
+      wl.textContent = 'Holds for P from ' + lo.toFixed(1) + ' N to ' + r.hi.toFixed(1) + ' N';
+      v.setAttribute('data-state', state === 'hold' ? 'hold' : 'slip');
+      if (state === 'hold') v.textContent = 'Holds. Friction is ' + Math.abs(r.F).toFixed(1) + ' N ' + (Math.abs(r.F) < 0.05 ? '(none needed: P exactly balances W sin θ)' : (r.F > 0 ? 'up the slope, helping P hold the block' : 'down the slope, resisting the push')) + '. ' + (r.lo <= 0 ? 'Friction alone can hold this block, so no push is needed.' : 'Below ' + r.lo.toFixed(1) + ' N it slides down.') + ' Above ' + r.hi.toFixed(1) + ' N it slides up.';
+      else if (state === 'down') v.textContent = 'Slides down. P plus the most friction available (' + (r.mu * r.N).toFixed(1) + ' N, up the slope) is still less than W sin θ = ' + r.s.toFixed(1) + ' N. The smallest P that holds is ' + r.lo.toFixed(1) + ' N.';
+      else v.textContent = 'Slides up. P is more than W sin θ plus the most friction available (now acting down the slope). The block starts up the ramp at P = ' + r.hi.toFixed(1) + ' N.';
+    }
+    function stop() { if (run) run.stop(); run = null; }
+    function sweep(dir) {
+      stop(); if (cur !== 'hold') { var r0 = calc(); ip.value = clamp((Math.max(0, r0.lo) + Math.min(250, r0.hi)) / 2, 0, 250); draw(); }
+      if (REDUCED) { var r = calc(); ip.value = dir > 0 ? Math.min(250, r.hi + 1) : Math.max(0, r.lo - 1); draw(); return; }
+      var P = +ip.value; run = ticker(function (dt) { P += dir * 30 * dt; ip.value = clamp(P, 0, 250); draw(); if (cur !== 'hold' || P <= 0 || P >= 250) return false; });
+    }
+    $('.up', box).addEventListener('click', function () { sweep(1); }); $('.down', box).addEventListener('click', function () { sweep(-1); });
+    $('.reset', box).addEventListener('click', function () { stop(); var r = calc(); ip.value = clamp(r.s, 0, 250); draw(); });
+    [ip, it, iu, im].forEach(function (n) { n.addEventListener('input', function () { stop(); draw(); }); });
+    draw();
+  }
+
+  /* ---------- Which way does friction act? ---------- */
+  function dirWidget(box) {
+    var c = Math.cos(25 * DEG), s = Math.sin(25 * DEG);
+    function floor(sc) { hatch(sc, 60, 500, 200); }
+    function ramp(sc, pushed) {
+      hatch(sc, 60, 500, 215); el('line', { x1: 110, y1: 215, x2: 110 + 340 * c, y2: 215 - 340 * s, 'class': 'ground', 'stroke-width': 5 }, sc);
+      var g = el('g', { transform: 'translate(' + (110 + 180 * c) + ',' + (215 - 180 * s) + ') rotate(-25)' }, sc);
+      el('rect', { x: -40, y: -50, width: 80, height: 50, 'class': 'body' }, g);
+      if (pushed) { arrow(g, -110, -25, -40, -25, 'f-applied'); rlabel(g, -116, -20, 'P', 't-applied', 25, 'end'); }
+      return g;
+    }
+    function ladder(sc) { hatch(sc, 60, 440, 215); el('line', { x1: 440, y1: 20, x2: 440, y2: 215, 'class': 'ground' }, sc); for (var y = 30; y < 215; y += 16) el('line', { x1: 440, y1: y, x2: 449, y2: y - 9, 'class': 'hatch' }, sc); el('line', { x1: 320, y1: 215, x2: 440, y2: 45, 'class': 'ground', 'stroke-width': 6 }, sc); }
+    var Q = [
+      { q: 'A worker pushes a crate to the right. It does not move. Which way does friction from the floor act on the crate?', o: ['To the left', 'To the right', 'There is no friction'], a: 0,
+        d: function (sc) { floor(sc); el('rect', { x: 230, y: 120, width: 110, height: 80, 'class': 'body' }, sc); arrow(sc, 150, 160, 230, 160, 'f-applied'); txt(sc, 142, 165, 'P', 't-applied', 'end'); }, f: [300, 214, 230, 214],
+        w: 'Without friction the crate would slide right, so friction on the crate points left and equals the push.' },
+      { q: 'A crate sits on a level floor. Nobody is touching it. Which way does friction act on it?', o: ['To the left', 'To the right', 'There is no friction'], a: 2,
+        d: function (sc) { floor(sc); el('rect', { x: 230, y: 120, width: 110, height: 80, 'class': 'body' }, sc); }, f: null,
+        w: 'Nothing is trying to slide the crate, so equilibrium needs no friction. μsN is only what is available, not what acts.' },
+      { q: 'You are walking to the right. Your back foot is planted and pushing off. Which way does friction from the floor act on that shoe?', o: ['To the right, the way you are walking', 'To the left, against your motion'], a: 0,
+        d: function (sc) { floor(sc); el('path', { d: 'M220,200 L220,178 Q222,164 240,164 L262,164 Q268,186 320,188 Q332,190 332,200 Z', 'class': 'body' }, sc); arrow(sc, 250, 100, 330, 100, 'f-weight'); txt(sc, 250, 90, 'walking this way', 'small'); }, f: [240, 214, 310, 214],
+        w: 'The shoe pushes backward on the floor and would slide backward without friction. Friction on the shoe points forward. It is the force that moves you.' },
+      { q: 'A block rests on a ramp without moving. Which way does friction act on the block?', o: ['Up the slope', 'Down the slope', 'There is no friction'], a: 0,
+        d: function (sc) { ramp(sc, false); }, f: 'up',
+        w: 'Without friction the block would slide down, so friction points up the slope and equals W sin θ.' },
+      { q: 'The same block is pushed up the ramp, harder and harder, until it is about to slide up. Which way does friction act now?', o: ['Up the slope', 'Down the slope'], a: 1,
+        d: function (sc) { ramp(sc, true); }, f: 'down',
+        w: 'Now the block is about to slide up, so friction opposes that and points down the slope. Same block, same ramp, opposite direction.' },
+      { q: 'A ladder leans against a wall. Which way does friction from the floor act on the foot of the ladder?', o: ['Toward the wall', 'Away from the wall'], a: 0,
+        d: function (sc) { ladder(sc); el('circle', { cx: 320, cy: 215, r: 6, 'class': 'dot' }, sc); }, f: [250, 230, 316, 230],
+        w: 'The foot of the ladder would slide away from the wall, so friction on it points toward the wall.' },
+      { q: 'The wall is rough too. Which way does friction from the wall act on the top of the ladder?', o: ['Up', 'Down'], a: 0,
+        d: function (sc) { ladder(sc); el('circle', { cx: 440, cy: 45, r: 6, 'class': 'dot' }, sc); }, f: [458, 100, 458, 40],
+        w: 'The top of the ladder would slide down the wall, so friction on it points up. That helps carry the weight.' }
+    ];
+    frame(box, '0 0 560 250', 'A scene for the friction direction question in the prompt below.', '<p class="gq"></p><div class="tools big opts"></div><p class="verdict" aria-live="polite" data-state="hold"></p><p class="score" aria-live="polite"></p>');
+    tools(box, '');
+    var scene = $('.scene', box), gq = $('.gq', box), op = $('.opts', box), v = $('.verdict', box), scEl = $('.score', box), k = 0, right = 0;
+    function show() {
+      var q = Q[k]; clear(scene); q.d(scene); gq.textContent = 'Case ' + (k + 1) + ' of ' + Q.length + '. ' + q.q;
+      v.setAttribute('data-state', 'hold'); v.textContent = 'Ask: which way would the surface slide if friction vanished? Friction points the other way.';
+      op.innerHTML = q.o.map(function (t, i) { return '<button type="button" class="btn" data-i="' + i + '">' + t + '</button>'; }).join('');
+    }
+    op.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      if (b.hasAttribute('data-next')) { k++; if (k >= Q.length) { k = 0; right = 0; scEl.textContent = ''; } show(); return; }
+      var q = Q[k], ok = +b.getAttribute('data-i') === q.a; if (ok) right++;
+      if (q.f === 'up' || q.f === 'down') { var g = el('g', { transform: 'translate(' + (110 + 180 * c) + ',' + (215 - 180 * s) + ') rotate(-25)' }, scene); if (q.f === 'up') arrow(g, -30, 14, 40, 14, 'f-friction'); else arrow(g, 30, 14, -40, 14, 'f-friction'); rlabel(g, q.f === 'up' ? 46 : -46, 19, 'F', 't-friction', 25, q.f === 'up' ? 'start' : 'end'); }
+      else if (q.f) { arrow(scene, q.f[0], q.f[1], q.f[2], q.f[3], 'f-friction'); txt(scene, q.f[2] + (q.f[2] < q.f[0] ? -8 : 8), q.f[3] + (q.f[0] === q.f[2] ? -6 : 5), 'F', 't-friction', q.f[2] < q.f[0] ? 'end' : 'start'); }
+      else txt(scene, 285, 232, 'F = 0', 't-friction', 'middle');
+      v.setAttribute('data-state', ok ? 'hold' : 'slip'); v.textContent = (ok ? 'Correct. ' : 'Not this one. ') + q.w;
+      scEl.textContent = 'Score: ' + right + ' of ' + (k + 1);
+      op.innerHTML = '<button type="button" class="btn alt" data-next="1">' + (k + 1 < Q.length ? 'Next case' : 'Start over') + '</button>'; $('button', op).focus();
+    });
+    show();
+  }
+
+  /* ---------- Classify the problem ---------- */
+  function classifyWidget(box) {
+    var T = ['No apparent impending motion', 'Impending motion at all contacts', 'Impending motion at some contacts'];
+    var Q = shuffle([
+      ['A 20-kg crate is pushed with a known 80 N force. μs = 0.3. Does it stay in equilibrium?', 0, 'Unknowns F, N, and x: three. Equilibrium equations: three. Solve, then check F ≤ μsN and x ≤ a/2.'],
+      ['A 12-kg block rests on a 15° board with μs = 0.40. Find the friction force acting on it.', 0, 'Nothing says it is about to slip. Friction comes from equilibrium (W sin θ), then you check it against μsN.'],
+      ['A ladder stands on a rough floor against a smooth wall with a painter halfway up. Is it safe?', 0, 'The loads are all given. Solve the reactions from equilibrium, then compare the floor friction with μN.'],
+      ['A bar leans on a rough wall and a rough floor. Find the smallest angle at which it will not slip.', 1, 'To move at all, the bar must slip at both ends at once. Five unknowns, three equilibrium equations plus two friction equations.'],
+      ['A block on a 35° ramp is held by a force along the slope. Find the smallest force that keeps it from sliding down.', 1, 'There is one contact and slipping is impending there, so F = μsN applies. The unknowns match the equilibrium equations plus one friction equation.'],
+      ['A tall crate is pushed harder and harder. Find the push at which it first moves.', 2, 'It could slip or it could tip. Four unknowns (P, F, N, x) and three equilibrium equations, plus one of two possible conditions. Assume one and check the other.'],
+      ['Two blocks are stacked and the lower one is pulled. Find the pull at which anything first slips.', 2, 'Slipping could start between the blocks or at the floor. You do not know which, so assume one and check the other.']
+    ]), k = 0, right = 0;
+    box.className += ' textw';
+    box.innerHTML = '<div class="panel"><p class="gq"></p><div class="tools big opts"></div><p class="verdict" aria-live="polite" data-state="hold"></p><p class="score" aria-live="polite"></p></div>';
+    var gq = $('.gq', box), op = $('.opts', box), v = $('.verdict', box), scEl = $('.score', box);
+    function show() { gq.textContent = 'Problem ' + (k + 1) + ' of ' + Q.length + '. ' + Q[k][0]; v.textContent = 'Count the unknowns, count the equations, then choose the type.'; v.setAttribute('data-state', 'hold'); op.innerHTML = T.map(function (t, i) { return '<button type="button" class="btn" data-i="' + i + '">' + t + '</button>'; }).join(''); }
+    op.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      if (b.hasAttribute('data-next')) { k++; if (k >= Q.length) { k = 0; right = 0; Q = shuffle(Q); scEl.textContent = ''; } show(); return; }
+      var ok = +b.getAttribute('data-i') === Q[k][1]; if (ok) right++;
+      v.setAttribute('data-state', ok ? 'hold' : 'slip'); v.textContent = (ok ? 'Correct. ' : 'Not this one: it is “' + T[Q[k][1]].toLowerCase() + '.” ') + Q[k][2];
+      scEl.textContent = 'Score: ' + right + ' of ' + (k + 1);
+      op.innerHTML = '<button type="button" class="btn alt" data-next="1">' + (k + 1 < Q.length ? 'Next problem' : 'Start over') + '</button>'; $('button', op).focus();
+    });
+    show();
+  }
+
+  /* ---------- Unlimited slip-or-tip practice with answer checking ---------- */
+  function practiceWidget(box) {
+    var id = frame(box, '0 0 560 370', 'A crate to analyze. Its mass, base width, push height, and coefficient of static friction are listed in the prompt below.', '');
+    $('.panel', box).innerHTML = '<p class="gq"></p><div class="ctl"><div class="field"><label for="' + id + '-v">Largest push with no motion, in newtons</label><input type="number" id="' + id + '-v" step="0.1" inputmode="decimal"></div>' +
+      '<fieldset class="radios"><legend>What happens just past that push?</legend><label><input type="radio" name="' + id + '-m" value="slip"> It slips</label><label><input type="radio" name="' + id + '-m" value="tip"> It tips</label></fieldset></div>' +
+      '<div class="tools"><button type="button" class="btn chk">Check my answer</button><button type="button" class="btn alt sol">Show the solution</button><button type="button" class="btn alt new">New problem</button></div>' +
+      '<p class="verdict" aria-live="polite" data-state="hold"></p><div class="psol" hidden></div><p class="score" aria-live="polite"></p>';
+    tools(box, '');
+    var scene = $('.scene', box), gq = $('.gq', box), v = $('.verdict', box), iv = $('#' + id + '-v'), sol = $('.psol', box), scEl = $('.score', box), q, n = 0, right = 0, counted = false;
+    function lim() { return crateLimits(q); }
+    function deal() {
+      do { q = { m: pick(30, 90, 5), a: pick(0.4, 1.2, 0.1), h: pick(0.4, 1.6, 0.1), mu: pick(0.2, 0.8, 0.05) }; q.W = q.m * G; } while (Math.abs(q.mu - q.a / (2 * q.h)) < 0.06);
+      n++; counted = false; iv.value = ''; $$('input[type=radio]', box).forEach(function (r) { r.checked = false; }); sol.hidden = true;
+      gq.textContent = 'Practice ' + n + '. A uniform ' + q.m + '-kg crate with a base ' + q.a.toFixed(2) + ' m wide is pushed horizontally ' + q.h.toFixed(2) + ' m above the floor. μs = ' + q.mu.toFixed(2) + '. Find the largest push that causes no motion.';
+      v.setAttribute('data-state', 'hold'); v.textContent = 'Work it on paper: assume one motion, solve, and check the other.';
+      crateScene(scene, q, 0, 'hold', 0, { game: true });
+    }
+    function play() { var L = lim(), crit = Math.min(L.slip, L.tip), how = L.slip <= L.tip ? 'slip' : 'tip'; tween(how === 'tip' ? 900 : 700, function (t) { crateScene(scene, q, crit, how, t, { game: true, reveal: true }); }); }
+    function solution() {
+      var L = lim(), x = L.slip * q.h / q.W, how = L.slip <= L.tip ? 'slip' : 'tip';
+      sol.innerHTML = '<p><b>W</b> = (' + q.m + ' kg)(9.81 m/s²) = ' + q.W.toFixed(1) + ' N, and <var>N</var> = <var>W</var>.</p>' +
+        '<p><b>Assume slipping:</b> <var>P</var> = <var>μ</var><sub>s</sub><var>N</var> = (' + q.mu.toFixed(2) + ')(' + q.W.toFixed(1) + ') = ' + L.slip.toFixed(1) + ' N.</p>' +
+        '<p><b>Check tipping:</b> <var>x</var> = <var>P</var><var>h</var>/<var>W</var> = ' + x.toFixed(3) + ' m, against <var>a</var>/2 = ' + (q.a / 2).toFixed(3) + ' m. ' + (how === 'slip' ? 'N is inside the base, so the assumption holds.' : 'That is outside the base, so the assumption fails.') + '</p>' +
+        (how === 'tip' ? '<p><b>Assume tipping:</b> <var>P</var> = <var>W</var>(<var>a</var>/2)/<var>h</var> = ' + L.tip.toFixed(1) + ' N, which is less than <var>μ</var><sub>s</sub><var>N</var> = ' + L.slip.toFixed(1) + ' N, so the check passes.</p>' : '') +
+        '<p><b>Answer:</b> ' + Math.min(L.slip, L.tip).toFixed(1) + ' N, and ' + (how === 'slip' ? 'slipping' : 'tipping') + ' governs.</p>';
+      sol.hidden = false;
+    }
+    $('.chk', box).addEventListener('click', function () {
+      var val = parseFloat(iv.value), mode = $('input[type=radio]:checked', box), L = lim(), crit = Math.min(L.slip, L.tip), other = Math.max(L.slip, L.tip), how = L.slip <= L.tip ? 'slip' : 'tip';
+      if (isNaN(val) || !mode) { v.setAttribute('data-state', 'edge'); v.textContent = 'Enter a number and choose slips or tips, then check.'; return; }
+      var tol = Math.max(1.5, crit * 0.01), close = Math.abs(val - crit) <= tol, mok = mode.value === how;
+      if (close && mok) { if (!counted) { right++; } counted = true; v.setAttribute('data-state', 'hold'); v.textContent = 'Correct: ' + crit.toFixed(1) + ' N, and ' + (how === 'slip' ? 'slipping' : 'tipping') + ' governs. Watch it happen.'; scEl.textContent = 'Solved: ' + right + ' of ' + n; play(); return; }
+      counted = true; v.setAttribute('data-state', 'slip'); scEl.textContent = 'Solved: ' + right + ' of ' + n;
+      if (Math.abs(val - other) <= Math.max(1.5, other * 0.01)) v.textContent = 'Not yet. That is the force for the other kind of motion. Both limits give a force, and the smaller one is reached first. Did your check pass?';
+      else if (Math.abs(val - q.mu * q.m) < 0.6 || Math.abs(val - q.m * q.a / (2 * q.h)) < 0.6) v.textContent = 'Not yet. It looks like you used the mass where the weight belongs. W = mg.';
+      else if (close) v.textContent = 'Your force is right, but the failure mode is not. Which limit did that force come from?';
+      else if (mok) v.textContent = 'The failure mode is right, but the force is off. Recheck W = mg and the equation for that limit.';
+      else v.textContent = 'Not yet. Find two candidate forces, one from F = μsN and one from x = a/2, and take the smaller.';
+    });
+    $('.sol', box).addEventListener('click', function () { counted = true; solution(); play(); });
+    $('.new', box).addEventListener('click', deal);
+    deal();
+  }
+
+  /* ---------- A world without friction ---------- */
+  function nofricWidget(box) {
+    frame(box, '0 0 560 300', 'Three everyday scenes: a block on a ramp, a person walking, and a ladder against a wall. The button turns friction off and on, and the status line says what happens.', '<p class="verdict" aria-live="polite" data-state="hold"></p>');
+    tools(box, '<button type="button" class="btn sw" aria-pressed="false">Turn friction off</button>');
+    var scene = $('.scene', box), v = $('.verdict', box), sw = $('.sw', box), on = true, k = 0, wx = 250, ph = 0, run = null, tw = null;
+    var c = Math.cos(25 * DEG), s = Math.sin(25 * DEG), L = 205;
+    function paint() {
+      clear(scene); hatch(scene, 20, 540, 262);
+      el('line', { x1: 30, y1: 262, x2: 30 + 190 * c, y2: 262 - 190 * s, 'class': 'ground', 'stroke-width': 5 }, scene);
+      var d = 140 - 105 * k * k, g = el('g', { transform: 'translate(' + (30 + d * c) + ',' + (262 - d * s) + ') rotate(-25)' }, scene);
+      el('rect', { x: -26, y: -34, width: 52, height: 34, 'class': 'body' }, g);
+      var hip = 205, sway = Math.sin(ph) * 16, lean = on ? 0 : 6 * Math.sin(ph * 2);
+      el('circle', { cx: wx + lean, cy: 150, r: 13, 'class': 'body' }, scene);
+      el('line', { x1: wx + lean, y1: 163, x2: wx, y2: hip, 'class': 'ground' }, scene);
+      el('line', { x1: wx, y1: hip, x2: wx + sway, y2: 260, 'class': 'ground' }, scene); el('line', { x1: wx, y1: hip, x2: wx - sway, y2: 260, 'class': 'ground' }, scene);
+      el('line', { x1: wx + lean / 2, y1: 178, x2: wx - sway * 0.8, y2: 200, 'class': 'ground' }, scene); el('line', { x1: wx + lean / 2, y1: 178, x2: wx + sway * 0.8, y2: 200, 'class': 'ground' }, scene);
+      el('line', { x1: 520, y1: 40, x2: 520, y2: 262, 'class': 'ground' }, scene); for (var y = 50; y < 262; y += 16) el('line', { x1: 520, y1: y, x2: 529, y2: y - 9, 'class': 'hatch' }, scene);
+      var th = 60 * (1 - k * k) * DEG; el('line', { x1: 520 - L * Math.cos(th), y1: 262 - 3, x2: 520, y2: 262 - 3 - L * Math.sin(th), 'class': 'ground', 'stroke-width': 6 }, scene);
+      txt(scene, 90, 290, 'Block on a ramp', 'small', 'middle'); txt(scene, 290, 290, 'Walking', 'small', 'middle'); txt(scene, 455, 290, 'Ladder', 'small', 'middle');
+    }
+    function say() {
+      v.setAttribute('data-state', on ? 'hold' : 'slip'); sw.textContent = on ? 'Turn friction off' : 'Turn friction back on'; sw.setAttribute('aria-pressed', on ? 'false' : 'true');
+      v.textContent = on ? 'Friction on. The block stays on the ramp, each step pushes the walker forward, and the ladder stays against the wall.' : 'Friction off. The block slides to the bottom, the walker’s feet slip and go nowhere, and the foot of the ladder shoots out from the wall. Nothing here was broken. Friction was holding all of it.';
+    }
+    sw.addEventListener('click', function () {
+      on = !on; say(); if (run) run.stop(); if (tw) tw.stop();
+      if (REDUCED) { k = on ? 0 : 1; paint(); return; }
+      var k0 = k, k1 = on ? 0 : 1, t = 0; tw = tween(900, function (q) { k = k0 + (k1 - k0) * q; });
+      run = ticker(function (dt) { t += dt; ph += 7 * dt; if (on) { wx += 34 * dt; if (wx > 370) wx = 215; } paint(); if (t > 6) { ph = 0; paint(); return false; } });
+    });
+    say(); paint();
+  }
+
+  /* ---------- Quick fire: what is the friction force? ---------- */
+  function quickWidget(box) {
+    var id = 'w' + (++uid); box.className += ' textw';
+    box.innerHTML = '<div class="panel"><p class="gq"></p><div class="ctl"><div class="field"><label for="' + id + '-v">Friction force on the crate, in newtons</label><input type="number" id="' + id + '-v" step="0.1" inputmode="decimal"></div></div>' +
+      '<div class="tools"><button type="button" class="btn chk">Check</button><button type="button" class="btn alt new">Next crate</button></div><p class="verdict" aria-live="polite" data-state="hold"></p><p class="score" aria-live="polite"></p></div>';
+    var gq = $('.gq', box), iv = $('#' + id + '-v'), v = $('.verdict', box), scEl = $('.score', box), q, n = 0, right = 0, counted;
+    function deal() {
+      var m = pick(20, 60, 5), mus = pick(0.3, 0.6, 0.05), muk = +(mus - 0.1).toFixed(2), N = m * G, kind = Math.floor(Math.random() * 5), P;
+      if (kind === 0) P = 0; else if (kind < 3) P = Math.round(mus * N * (0.25 + 0.6 * Math.random())); else P = Math.round(mus * N * (1.1 + 0.4 * Math.random()));
+      q = { m: m, mus: mus, muk: muk, N: N, P: P, max: mus * N, ans: P <= mus * N ? P : muk * N, slides: P > mus * N }; n++; counted = false; iv.value = '';
+      gq.textContent = 'Crate ' + n + '. A ' + m + '-kg crate rests on a level floor with μs = ' + mus.toFixed(2) + ' and μk = ' + muk.toFixed(2) + '. ' + (P === 0 ? 'Nobody is pushing on it.' : 'A steady horizontal push of ' + P + ' N is applied low on the crate.') + ' What friction force does the floor exert on it?';
+      v.setAttribute('data-state', 'hold'); v.textContent = 'Decide the state first: at rest, or sliding?';
+    }
+    $('.chk', box).addEventListener('click', function () {
+      var val = parseFloat(iv.value); if (isNaN(val)) { v.setAttribute('data-state', 'edge'); v.textContent = 'Enter a number, then check.'; return; }
+      var tol = Math.max(1, q.ans * 0.015), ok = Math.abs(val - q.ans) <= tol, why;
+      if (q.slides) why = 'The push (' + q.P + ' N) is more than μsN = ' + q.max.toFixed(1) + ' N, so the crate slides and friction is kinetic: μkN = ' + q.ans.toFixed(1) + ' N.';
+      else if (q.P === 0) why = 'Nothing is trying to slide it, so friction is 0 N. μsN = ' + q.max.toFixed(1) + ' N is only what is available.';
+      else why = 'The push (' + q.P + ' N) is less than μsN = ' + q.max.toFixed(1) + ' N, so the crate stays at rest and friction equals the push: ' + q.P + ' N.';
+      if (ok && !counted) right++; counted = true; scEl.textContent = 'Score: ' + right + ' of ' + n;
+      v.setAttribute('data-state', ok ? 'hold' : 'slip');
+      if (ok) v.textContent = 'Correct. ' + why;
+      else if (Math.abs(val - q.max) <= Math.max(1, q.max * 0.015)) v.textContent = 'Not yet. ' + val + ' N is μsN, the most static friction available. Is the crate actually at that limit? Compare the push with it.';
+      else if (Math.abs(val - q.m * (q.slides ? q.muk : q.mus)) < 0.6) v.textContent = 'Not yet. It looks like you used the mass where the weight belongs. N = W = mg.';
+      else v.textContent = 'Not yet. Find μsN and compare it with the push. Below the limit, friction equals the push. Above it, the crate slides and friction is μkN.';
+    });
+    $('.new', box).addEventListener('click', deal); deal();
+  }
+
+  /* ---------- Build the free-body diagram ---------- */
+  function fbdWidget(box) {
+    var F = [
+      ['P', 'Push P, at the push height', 1, ''],
+      ['W', 'Weight W, down through the center', 1, ''],
+      ['Fl', 'Friction F along the floor, pointing left', 1, ''],
+      ['Fr', 'Friction F along the floor, pointing right', 0, 'Friction to the right would help the push. It opposes the tendency to slide, so it points left.'],
+      ['Nx', 'Normal force N, up, ahead of the centerline', 1, ''],
+      ['Nc', 'Normal force N, up, through the center', 0, 'With N at the centerline nothing balances the moment of the push. N must shift toward the front edge.'],
+      ['M', 'A “force of motion” in the direction of the push', 0, 'There is no such force. Every force on the diagram must come from something touching the crate, or from gravity.'],
+      ['R', 'The crate’s push back on the worker', 0, 'That force is real, but it acts on the worker. A free-body diagram shows only forces acting on the body you isolated.']
+    ], on = {};
+    frame(box, '0 0 560 330', 'A crate pushed to the right by a worker. Forces you select in the list below are drawn on it.', '<fieldset class="fbd-list"><legend class="gq">Select every force that belongs on the crate’s free-body diagram, and nothing else.</legend>' +
+      F.map(function (f) { return '<label class="opt"><input type="checkbox" value="' + f[0] + '"><span>' + f[1] + '</span></label>'; }).join('') + '</fieldset><div class="tools"><button type="button" class="btn chk">Check my diagram</button><button type="button" class="btn alt clr">Clear</button></div><p class="verdict" aria-live="polite" data-state="hold">Four forces act on the crate.</p><ul class="fbd-fb"></ul>');
+    tools(box, '');
+    var scene = $('.scene', box), v = $('.verdict', box), fb = $('.fbd-fb', box);
+    function paint() {
+      clear(scene); var gy = 250, l = 220, r = 340, top = 50; hatch(scene, 30, 530, gy);
+      el('rect', { x: l, y: top, width: r - l, height: gy - top, 'class': 'body' }, scene); el('line', { x1: 280, y1: top, x2: 280, y2: gy, 'class': 'faint' }, scene); el('circle', { cx: 280, cy: 150, r: 4.5, fill: 'currentColor' }, scene);
+      if (on.P) { arrow(scene, 130, 100, l, 100, 'f-applied'); txt(scene, 124, 105, 'P', 't-applied', 'end'); }
+      if (on.W) { arrow(scene, 280, 150, 280, 222, 'f-weight'); txt(scene, 290, 200, 'W', 't-weight'); }
+      if (on.Fl) { arrow(scene, 290, 264, 215, 264, 'f-friction'); txt(scene, 208, 269, 'F', 't-friction', 'end'); }
+      if (on.Fr) { arrow(scene, 350, 264, 425, 264, 'f-friction'); txt(scene, 432, 269, 'F', 't-friction'); }
+      if (on.Nx) { arrow(scene, 318, 322, 318, 253, 'f-normal'); txt(scene, 326, 318, 'N', 't-normal'); }
+      if (on.Nc) { arrow(scene, 280, 322, 280, 253, 'f-normal'); txt(scene, 272, 318, 'N', 't-normal', 'end'); }
+      if (on.M) { arrow(scene, 350, 150, 440, 150, 'f-applied'); txt(scene, 446, 155, '“motion”', 't-applied'); }
+      if (on.R) { arrow(scene, l, 124, 130, 124, 'f-weight'); txt(scene, 124, 140, 'on worker', 'small', 'end'); }
+    }
+    box.addEventListener('change', function (e) { if (e.target.type !== 'checkbox') return; on[e.target.value] = e.target.checked; paint(); });
+    $('.chk', box).addEventListener('click', function () {
+      var bad = F.filter(function (f) { return !f[2] && on[f[0]]; }), miss = F.filter(function (f) { return f[2] && !on[f[0]]; });
+      fb.innerHTML = bad.map(function (f) { return '<li><b>Remove:</b> ' + f[1].charAt(0).toLowerCase() + f[1].slice(1) + '. ' + f[3] + '</li>'; }).join('') + (miss.length ? '<li><b>Still missing:</b> ' + miss.length + ' force' + (miss.length > 1 ? 's' : '') + '. Check each thing that touches the crate, and gravity.</li>' : '');
+      var ok = !bad.length && !miss.length; v.setAttribute('data-state', ok ? 'hold' : 'slip');
+      v.textContent = ok ? 'Correct. Four forces: the push, the weight, friction opposing the tendency to slide, and a normal force shifted toward the edge the crate would tip about.' : 'Not yet. ' + (bad.length ? bad.length + ' selected force' + (bad.length > 1 ? 's do' : ' does') + ' not belong. ' : '') + (miss.length ? 'Something is missing.' : '');
+    });
+    $('.clr', box).addEventListener('click', function () { on = {}; $$('input', box).forEach(function (i) { i.checked = false; }); fb.innerHTML = ''; v.setAttribute('data-state', 'hold'); v.textContent = 'Four forces act on the crate.'; paint(); });
+    paint();
+  }
+
+  /* ---------- Spot the error ---------- */
+  function errorWidget(box) {
+    var Q = [
+      { p: 'A 50-kg crate sits at rest on a floor with μs = 0.40 while a worker pushes horizontally with 100 N. Find the friction force.', l: ['W = (50)(9.81) = 490.5 N', 'N = W = 490.5 N', 'F = μsN = (0.40)(490.5) = 196 N'], e: 2, w: 'The crate is at rest and nothing says it is about to slip, so F = μsN does not apply. From ΣFx = 0, F = P = 100 N. The 196 N is only the limit.' },
+      { p: 'A 40-kg crate is pushed by a force P angled 25° below the horizontal. μs = 0.35. Find P for impending slip.', l: ['ΣFx = 0: P cos 25° = F', 'ΣFy = 0: N = W = 392.4 N', 'F = μsN = (0.35)(392.4) = 137.3 N', 'P = 137.3 ÷ cos 25° = 151.5 N'], e: 1, w: 'The push has a downward part, so N = W + P sin 25°. With that, P = μsW ÷ (cos 25° − μs sin 25°) = 181 N.' },
+      { p: 'A 30-kg crate rests on a floor with μs = 0.50. Find the horizontal push that brings it to the verge of slipping.', l: ['W = 30 N', 'N = W', 'P = μsN = (0.50)(30) = 15 N'], e: 0, w: 'Thirty kilograms is a mass. W = mg = (30)(9.81) = 294.3 N, so P = 147 N.' },
+      { p: 'A 60-kg crate with a base 0.60 m wide is pushed horizontally 1.20 m above the floor. μs = 0.50. Find the largest push that causes no motion.', l: ['W = (60)(9.81) = 588.6 N', 'Assume slipping: P = μsN = 294.3 N', 'Check: x = Ph/W = (294.3)(1.20)/588.6 = 0.60 m', 'Answer: 294 N, and slipping governs'], e: 3, w: 'The check failed and was ignored: x = 0.60 m is outside the half-base of 0.30 m. The crate tips first, at P = W(a/2)/h = 147 N.' },
+      { p: 'A 10-kg block rests without moving on a 20° ramp with μs = 0.50. Find the friction force on it.', l: ['W = (10)(9.81) = 98.1 N', 'N = W cos 20° = 92.2 N', 'F = W cos 20° = 92.2 N'], e: 2, w: 'Along the slope the weight component is W sin 20°, so F = 33.6 N. The cosine part acts into the slope and is balanced by N.' }
+    ], k = 0, right = 0;
+    box.className += ' textw';
+    box.innerHTML = '<div class="panel"><p class="gq"></p><ol class="errl"></ol><p class="verdict" aria-live="polite" data-state="hold"></p><div class="tools"><button type="button" class="btn alt nx" hidden></button></div><p class="score" aria-live="polite"></p></div>';
+    var gq = $('.gq', box), ol = $('.errl', box), v = $('.verdict', box), nx = $('.nx', box), scEl = $('.score', box), done;
+    function show() { var q = Q[k]; done = false; gq.textContent = 'Solution ' + (k + 1) + ' of ' + Q.length + '. ' + q.p; ol.innerHTML = q.l.map(function (t, i) { return '<li><button type="button" class="btn alt" data-i="' + i + '">' + t + '</button></li>'; }).join(''); v.setAttribute('data-state', 'hold'); v.textContent = 'One line of this solution is wrong. Select it.'; nx.hidden = true; }
+    ol.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b || done) return; done = true; var q = Q[k], ok = +b.getAttribute('data-i') === q.e; if (ok) right++;
+      $$('button', ol).forEach(function (x, i) { x.disabled = true; if (i === q.e) x.className = 'btn alt bad'; });
+      v.setAttribute('data-state', ok ? 'hold' : 'slip'); v.textContent = (ok ? 'Correct. ' : 'Not that line. The error is the one now outlined. ') + q.w;
+      scEl.textContent = 'Score: ' + right + ' of ' + (k + 1); nx.hidden = false; nx.textContent = k + 1 < Q.length ? 'Next solution' : 'Start over'; nx.focus();
+    });
+    nx.addEventListener('click', function () { k++; if (k >= Q.length) { k = 0; right = 0; scEl.textContent = ''; } show(); });
+    show();
+  }
+
+  /* ---------- Bar against a wall: the smallest angle that holds ---------- */
+  function barWidget(box) {
+    var id = frame(box, '0 0 560 340', 'A uniform bar leaning against a wall. The status line gives the smallest angle at which it will not slip.', '');
+    $('.panel', box).innerHTML = '<div class="ctl">' + slider(id + '-a', 'Angle <var>θ</var> between bar and floor', 15, 85, 0.5, 70, 'degrees') + slider(id + '-f', 'Floor friction <var>μ</var><sub>A</sub>', 0, 0.8, 0.01, 0.3, '') + slider(id + '-w', 'Wall friction <var>μ</var><sub>B</sub> (0 is a smooth wall)', 0, 0.8, 0.01, 0.4, '') + '</div><p class="verdict" aria-live="polite"></p>';
+    tools(box, '<button type="button" class="btn go">Lower the bar</button><button type="button" class="btn alt reset">Reset</button>');
+    var scene = $('.scene', box), v = $('.verdict', box), ia = $('#' + id + '-a'), iff = $('#' + id + '-f'), iw = $('#' + id + '-w'), cur = 'hold', f = 0, tw = null, run = null, L = 250;
+    function tmin() { var a = +iff.value, b = +iw.value; return a <= 0 ? 90 : Math.max(0, Math.atan((1 - a * b) / (2 * a)) / DEG); }
+    function paint() {
+      var th0 = +ia.value, th = th0 * (1 - f * f) * DEG, wx = 440, gy = 300, m = tmin() * DEG; clear(scene);
+      hatch(scene, 30, wx, gy); el('line', { x1: wx, y1: 30, x2: wx, y2: gy, 'class': 'ground' }, scene); for (var y = 40; y < gy; y += 16) el('line', { x1: wx, y1: y, x2: wx + 9, y2: y - 9, 'class': 'hatch' }, scene);
+      if (m < 89 * DEG) { el('line', { x1: wx - L * Math.cos(m), y1: gy, x2: wx, y2: gy - L * Math.sin(m), 'class': 'faint' }, scene); txt(scene, wx - L * Math.cos(m) - 6, gy - 8, 'limit', 'small', 'end'); }
+      var ax = wx - L * Math.cos(th), by = gy - L * Math.sin(th);
+      el('line', { x1: ax, y1: gy - 3, x2: wx - 3, y2: by, 'class': 'ground', 'stroke-width': 7 }, scene);
+      if (cur === 'hold') { var mx = (ax + wx) / 2, my = (gy + by) / 2; arrow(scene, mx, my, mx, my + 60, 'f-weight'); txt(scene, mx + 8, my + 58, 'W', 't-weight'); arrow(scene, ax - 60, gy + 14, ax - 4, gy + 14, 'f-friction'); txt(scene, ax - 66, gy + 19, 'FA', 't-friction', 'end'); if (+iw.value > 0) { arrow(scene, wx + 14, by + 40, wx + 14, by - 14, 'f-friction'); txt(scene, wx + 22, by + 6, 'FB', 't-friction'); } }
+      txt(scene, 40, 30, 'θ = ' + th0.toFixed(1) + '°', 't-weight'); txt(scene, wx - 8, gy + 30, 'A is the foot, B is the top', 'small', 'end');
+    }
+    function draw() {
+      var th = +ia.value, m = tmin(), state = th < m - 1e-9 ? 'slip' : 'hold';
+      $('#' + id + '-a-o').textContent = th.toFixed(1); $('#' + id + '-f-o').textContent = (+iff.value).toFixed(2); $('#' + id + '-w-o').textContent = (+iw.value).toFixed(2);
+      if (state !== cur) { if (tw) tw.stop(); cur = state; f = 0; if (state === 'slip') tw = tween(900, function (k) { f = k; paint(); }); }
+      paint(); v.setAttribute('data-state', state);
+      var lim = m >= 90 ? 'With a frictionless floor no angle holds.' : 'The smallest angle that holds is ' + m.toFixed(1) + '°, where tan θ = (1 − μAμB) ÷ 2μA.';
+      v.textContent = (state === 'hold' ? 'Holds. ' : 'Slips. To move, the bar must slide at the floor and the wall together, and at this angle both have run out of friction. ') + lim + ' The weight and length of the bar cancel.';
+    }
+    function stop() { if (run) run.stop(); run = null; }
+    $('.go', box).addEventListener('click', function () { stop(); if (cur !== 'hold') { ia.value = 85; draw(); } if (REDUCED) { ia.value = Math.max(15, Math.floor(tmin() * 2 - 0.01) / 2); draw(); return; } var th = +ia.value; run = ticker(function (dt) { th -= 9 * dt; ia.value = Math.max(15, th); draw(); if (cur !== 'hold' || th <= 15) return false; }); });
+    $('.reset', box).addEventListener('click', function () { stop(); ia.value = 85; draw(); });
+    [ia, iff, iw].forEach(function (n) { n.addEventListener('input', function () { stop(); draw(); }); });
+    draw();
+  }
+
+  /* ---------- Just-in-time review ---------- */
+  var REVIEW = window.STATICS_REVIEW || {}, jit = null;
+  function miniBuild(host, sliders, calc, drawFn) {
+    var id = 'm' + (++uid);
+    host.innerHTML = (drawFn ? '<svg viewBox="0 0 400 170" role="img" aria-label="Diagram that follows the sliders. The line below gives the values."><g class="scene"></g></svg>' : '') +
+      '<div class="ctl">' + sliders.map(function (s, i) { return slider(id + '-' + i, s[0], s[1], s[2], s[3], s[4], s[5]); }).join('') + '</div><p class="eqline" aria-live="polite"></p>';
+    var ins = sliders.map(function (s, i) { return $('#' + id + '-' + i, host); }), out = $('.eqline', host), scene = $('.scene', host);
+    function go() { var vals = ins.map(function (n, i) { $('#' + id + '-' + i + '-o', host).textContent = (+n.value).toFixed(sliders[i][6] || 0); return +n.value; }); out.innerHTML = calc(vals); if (drawFn) { clear(scene); drawFn(scene, vals); } }
+    ins.forEach(function (n) { n.addEventListener('input', go); }); go();
+  }
+  var MINI = {
+    moment: function (h) { miniBuild(h, [['Force <var>F</var>', 0, 200, 5, 50, 'N'], ['Perpendicular distance <var>d</var>', 0, 3, 0.1, 2, 'm', 1]], function (v) { return '<var>M</var><sub>O</sub> = <var>F</var><var>d</var> = (' + v[0] + ' N)(' + v[1].toFixed(1) + ' m) = <b>' + (v[0] * v[1]).toFixed(0) + ' N·m</b>'; },
+      function (sc, v) { var x = 60 + v[1] * 95; el('line', { x1: 60, y1: 120, x2: x, y2: 120, 'class': 'ground', 'stroke-width': 5 }, sc); el('circle', { cx: 60, cy: 120, r: 7, 'class': 'dot' }, sc); txt(sc, 52, 148, 'O', 't-weight', 'end'); if (v[0] > 0) arrow(sc, x, 116 - 12 - v[0] * 0.45, x, 116, 'f-applied'); txt(sc, x + 8, 60, 'F', 't-applied'); txt(sc, (60 + x) / 2, 145, 'd', 'small', 'middle'); }); },
+    comp: function (h) { miniBuild(h, [['Force <var>P</var>', 0, 200, 5, 100, 'N'], ['Angle <var>θ</var> from the horizontal', 0, 90, 1, 30, 'degrees']], function (v) { return 'Horizontal part: <var>P</var> cos <var>θ</var> = <b>' + (v[0] * Math.cos(v[1] * DEG)).toFixed(1) + ' N</b>. Vertical part: <var>P</var> sin <var>θ</var> = <b>' + (v[0] * Math.sin(v[1] * DEG)).toFixed(1) + ' N</b>.'; },
+      function (sc, v) { var L = v[0] * 0.75, x = 60 + L * Math.cos(v[1] * DEG), y = 150 - L * Math.sin(v[1] * DEG); el('line', { x1: 60, y1: 150, x2: x, y2: 150, 'class': 'faint' }, sc); el('line', { x1: x, y1: 150, x2: x, y2: y, 'class': 'faint' }, sc); arrow(sc, 60, 150, x, y, 'f-applied'); txt(sc, (60 + x) / 2, 166, 'P cos θ', 'small', 'middle'); txt(sc, x + 8, (150 + y) / 2, 'P sin θ', 'small'); }); },
+    weight: function (h) { miniBuild(h, [['Mass <var>m</var>', 1, 100, 1, 35, 'kg']], function (v) { return '<var>W</var> = <var>m</var><var>g</var> = (' + v[0] + ' kg)(9.81 m/s²) = <b>' + (v[0] * G).toFixed(1) + ' N</b>'; }); },
+    trig: function (h) { miniBuild(h, [['Ratio (opposite ÷ adjacent, or <var>μ</var><sub>s</sub>)', 0, 3, 0.01, 0.36, '', 2]], function (v) { return '<var>θ</var> = tan⁻¹(' + v[0].toFixed(2) + ') = <b>' + (Math.atan(v[0]) / DEG).toFixed(1) + '°</b>. Check: tan ' + (Math.atan(v[0]) / DEG).toFixed(1) + '° = ' + v[0].toFixed(2) + '.'; }); },
+    incl: function (h) { miniBuild(h, [['Ramp angle <var>θ</var>', 0, 90, 1, 25, 'degrees']], function (v) { return 'For a 100 N block: along the slope <var>W</var> sin <var>θ</var> = <b>' + (100 * Math.sin(v[0] * DEG)).toFixed(1) + ' N</b>; into the slope <var>W</var> cos <var>θ</var> = <b>' + (100 * Math.cos(v[0] * DEG)).toFixed(1) + ' N</b>.'; },
+      function (sc, v) { var c = Math.cos(v[0] * DEG), s = Math.sin(v[0] * DEG); el('line', { x1: 60, y1: 160, x2: 60 + 280 * c, y2: 160 - 280 * s, 'class': 'ground', 'stroke-width': 4 }, sc); var bx = 60 + 150 * c - 18 * s, by = 160 - 150 * s - 18 * c; el('circle', { cx: bx, cy: by, r: 5, fill: 'currentColor' }, sc); arrow(sc, bx, by, bx, by + 90, 'f-weight'); if (s > 0.06) arrow(sc, bx, by, bx - 90 * s * c, by + 90 * s * s, 'f-applied'); if (c > 0.06) arrow(sc, bx, by, bx + 90 * c * s, by + 90 * c * c, 'f-normal'); }); },
+    result: function (h) { miniBuild(h, [['Normal force <var>N</var>', 0, 500, 5, 390, 'N'], ['Friction force <var>F</var>', 0, 500, 5, 195, 'N']], function (v) { var R = Math.sqrt(v[0] * v[0] + v[1] * v[1]); return '<var>R</var> = √(<var>N</var>² + <var>F</var>²) = <b>' + R.toFixed(1) + ' N</b>' + (v[0] > 0 ? ', tilted ' + (Math.atan(v[1] / v[0]) / DEG).toFixed(1) + '° from the normal' : '') + '.'; }); }
+  };
+  function openReview(key) {
+    var r = REVIEW[key]; if (!r) return;
+    if (!jit) {
+      jit = document.createElement('dialog'); jit.className = 'jit'; jit.setAttribute('aria-labelledby', 'jit-h');
+      jit.innerHTML = '<div class="jit-head"><p class="kicker">Quick review</p><h2 id="jit-h" tabindex="-1"></h2></div><div class="jit-body"></div><div class="jit-mini widget"></div><div class="jit-more"></div><div class="tools"><button type="button" class="btn jit-x">Back to the lesson</button></div>';
+      $('.jit-x', jit).addEventListener('click', function () { if (jit.close) jit.close(); else jit.removeAttribute('open'); });
+      jit.addEventListener('click', function (e) { if (e.target === jit && jit.close) jit.close(); });
+    }
+    (document.fullscreenElement || document.body).appendChild(jit);
+    $('#jit-h', jit).textContent = r.t; $('.jit-body', jit).innerHTML = r.h;
+    var m = $('.jit-mini', jit); m.innerHTML = ''; m.hidden = !MINI[r.w]; if (MINI[r.w]) MINI[r.w](m);
+    $('.jit-more', jit).innerHTML = r.see ? '<p class="jitrow"><span>Related:</span> ' + r.see.map(function (k) { return '<button type="button" class="chip" data-review="' + k + '">' + REVIEW[k].t + '</button>'; }).join(' ') + '</p>' : '';
+    if (!jit.open) { if (jit.showModal) jit.showModal(); else jit.setAttribute('open', ''); }
+    jit.scrollTop = 0; $('#jit-h', jit).focus();
+  }
+  document.addEventListener('click', function (e) { var b = e.target.closest ? e.target.closest('[data-review]') : null; if (b) openReview(b.getAttribute('data-review')); });
+  function chips(keys, lead) { return '<p class="jitrow"><span>' + lead + '</span> ' + keys.filter(function (k) { return REVIEW[k]; }).map(function (k) { return '<button type="button" class="chip" data-review="' + k + '">' + REVIEW[k].t + '</button>'; }).join(' ') + '</p>'; }
+  function problemChips() {
+    var map = window.STATICS_PREVIEW || {};
+    $$('.prob').forEach(function (p) { var ks = map[p.id]; if (!ks) return; var d = document.createElement('div'); d.className = 'no-print'; d.innerHTML = chips(ks, 'Stuck? Review:'); p.insertBefore(d.firstChild, $('.tools', p)); });
+    $$('[data-chips]').forEach(function (n) { n.outerHTML = chips(n.getAttribute('data-chips').split(' '), 'Need a refresher?'); });
+  }
+
+  /* ---------- Lab: dot plot of the trials ---------- */
+  function labPlot(rows) {
+    var svg = $('#lab-plot'); if (!svg) return; var sc = $('.scene', svg); clear(sc);
+    var x0 = 150, x1 = 530, top = Math.max(1, Math.ceil(Math.max.apply(null, [1].concat(rows.map(function (r) { return r.mus.length ? Math.max.apply(null, r.mus) : 0; }))) * 5) / 5);
+    function X(m) { return x0 + (x1 - x0) * m / top; }
+    el('line', { x1: x0, y1: 140, x2: x1, y2: 140, 'class': 'axis' }, sc);
+    for (var t = 0; t <= top + 1e-9; t += 0.2) { el('line', { x1: X(t), y1: 140, x2: X(t), y2: 146, 'class': 'axis' }, sc); txt(sc, X(t), 162, t.toFixed(1), 'small', 'middle'); }
+    txt(sc, (x0 + x1) / 2, 182, 'Coefficient of static friction, μs', '', 'middle');
+    rows.forEach(function (r, i) {
+      var y = 34 + i * 38; txt(sc, x0 - 12, y + 5, r.n.length > 16 ? r.n.slice(0, 15) + '…' : r.n, '', 'end'); el('line', { x1: x0, y1: y, x2: x1, y2: y, 'class': 'faint' }, sc);
+      r.mus.forEach(function (m) { el('circle', { cx: X(m), cy: y, r: 6, 'class': 'dot', 'fill-opacity': 0.75 }, sc); });
+      if (r.mus.length) { var mean = r.mus.reduce(function (a, b) { return a + b; }, 0) / r.mus.length; el('line', { x1: X(mean), y1: y - 14, x2: X(mean), y2: y + 14, stroke: 'currentColor', 'stroke-width': 3 }, sc); }
+    });
+  }
+
   /* ---------- Knowledge checks ---------- */
+  var QRV = window.STATICS_QREVIEW || {};
   var QUIZ = window.STATICS_QUIZ || {}, PKEY = 'statics-l1-checks-v1', done = load(PKEY);
   function updateProgress() {
     var bar = $('#prog'); if (!bar) return;
@@ -1382,7 +1991,7 @@ window.STATICS_ACTIVITY = [
       if (!sel) { fb.className = 'fb no'; fb.textContent = 'Choose an answer, then check it.'; return; }
       var o = opts[+sel.value];
       fb.className = 'fb ' + (o.ok ? 'ok' : 'no');
-      fb.innerHTML = '<strong>' + (o.ok ? 'Correct.' : 'Not yet.') + '</strong> ' + o.why;
+      fb.innerHTML = '<strong>' + (o.ok ? 'Correct.' : 'Not yet.') + '</strong> ' + o.why + (!o.ok && QRV[id] && REVIEW[QRV[id]] ? ' <button type="button" class="chip" data-review="' + QRV[id] + '">Review: ' + REVIEW[QRV[id]].t + '</button>' : '');
       if (o.ok) { done[id] = 1; save(PKEY, done); updateProgress(); }
     });
   }
@@ -1410,26 +2019,6 @@ window.STATICS_ACTIVITY = [
     });
   }
 
-  /* ---------- Activity answer checker ---------- */
-  function activity() {
-    var parts = window.STATICS_ACTIVITY; if (!parts) return;
-    parts.forEach(function (pt) {
-      var btn = $('#' + pt.id + '-btn'); if (!btn) return;
-      btn.addEventListener('click', function () {
-        var fb = $('#' + pt.id + '-fb'), val = parseFloat($('#' + pt.id + '-val').value), mode = $('input[name="' + pt.id + '-mode"]:checked');
-        if (isNaN(val) || (pt.mode && !mode)) { fb.className = 'fb no'; fb.textContent = 'Enter a number' + (pt.mode ? ' and choose slips or tips' : '') + ', then check.'; return; }
-        var close = Math.abs(val - pt.ans) <= pt.tol, modeOk = !pt.mode || mode.value === pt.mode, msg;
-        if (close && modeOk) { fb.className = 'fb ok'; fb.innerHTML = '<strong>Correct.</strong> ' + pt.okMsg; return; }
-        fb.className = 'fb no';
-        if (pt.other != null && Math.abs(val - pt.other) <= pt.tol) msg = pt.otherMsg;
-        else if (close && !modeOk) msg = 'Your force is right, but the failure mode is not. Which limit did that force come from?';
-        else if (!close && modeOk) msg = 'The failure mode is right, but the force is off. ' + pt.hint;
-        else msg = pt.hint;
-        fb.innerHTML = '<strong>Not yet.</strong> ' + msg;
-      });
-    });
-  }
-
   /* ---------- Lab data sheet ---------- */
   function lab() {
     var host = $('#lab-rows'); if (!host) return;
@@ -1448,13 +2037,14 @@ window.STATICS_ACTIVITY = [
     $('#lab-pred').innerHTML = ph;
     $$('[data-save]').forEach(function (n) { if (data[n.id] != null) n.value = data[n.id]; });
     function calc() {
+      var plot = [];
       var b = parseFloat($('#tb').value), H = parseFloat($('#tH').value), tipA = (b > 0 && H > 0) ? Math.atan(b / H) / DEG : null;
       $('#tipangle').textContent = tipA == null ? 'Enter the tall block’s base and height.' : 'Predicted tip angle: ' + tipA.toFixed(1) + '° (tan θ = ' + (b / H).toFixed(3) + ').';
       for (var s = 1; s <= S; s++) {
         var mus = [];
         for (var t = 1; t <= T; t++) { var a = parseFloat($('#s' + s + 't' + t).value); if (!isNaN(a) && a > 0 && a < 90) mus.push(Math.tan(a * DEG)); }
         var name = $('#s' + s + 'n').value || 'Surface ' + s;
-        $('#p' + s + 'n').textContent = name;
+        $('#p' + s + 'n').textContent = name; plot.push({ n: name, mus: mus }); if (s === S) labPlot(plot);
         if (!mus.length) { ['mu', 'rg'].forEach(function (k) { $('#s' + s + k).textContent = '–'; }); ['sa', 'ta', 'pr'].forEach(function (k) { $('#p' + s + k).textContent = '–'; }); continue; }
         var mean = mus.reduce(function (x, y) { return x + y; }, 0) / mus.length, lo = Math.min.apply(null, mus), hi = Math.max.apply(null, mus);
         $('#s' + s + 'mu').textContent = mean.toFixed(2) + ' (n = ' + mus.length + ')';
@@ -1485,12 +2075,23 @@ window.STATICS_ACTIVITY = [
   $$('[data-widget="game"]').forEach(gameWidget);
   $$('[data-widget="ladder"]').forEach(ladderWidget);
   $$('[data-widget="rig"]').forEach(labRig);
+  $$('[data-widget="balance"]').forEach(balanceWidget);
+  $$('[data-widget="angle"]').forEach(angleWidget);
+  $$('[data-widget="incline"]').forEach(inclineWidget);
+  $$('[data-widget="dir"]').forEach(dirWidget);
+  $$('[data-widget="classify"]').forEach(classifyWidget);
+  $$('[data-widget="practice"]').forEach(practiceWidget);
+  $$('[data-widget="nofric"]').forEach(nofricWidget);
+  $$('[data-widget="quick"]').forEach(quickWidget);
+  $$('[data-widget="fbd"]').forEach(fbdWidget);
+  $$('[data-widget="error"]').forEach(errorWidget);
+  $$('[data-widget="bar"]').forEach(barWidget);
   $$('.stepper').forEach(stepper);
   $$('.prob').forEach(problem);
   lectureView();
   $$('[data-quiz]').forEach(quiz);
   $$('[data-sort]').forEach(sortTask);
-  updateProgress(); activity(); lab();
+  problemChips(); updateProgress(); lab();
 })();
 </script>
 </body>
