@@ -303,6 +303,26 @@ dialog.jit h2:focus{outline:none}
 .errl .btn{width:100%;text-align:left;font-weight:400;font-size:1.08rem}
 .errl .btn:disabled{opacity:1}
 .errl .btn.bad{border-color:var(--no);background:var(--no-bg);font-weight:600}
+/* Calculator */
+.tb-lecture .btn[aria-expanded="true"]{background:var(--ink);color:var(--sheet)}
+.calc{position:fixed;right:1rem;bottom:1rem;z-index:60;width:min(22rem,calc(100vw - 1rem));max-height:calc(100vh - 1rem);overflow:auto;background:var(--sheet);color:var(--ink);border:2px solid var(--ink);border-top:8px solid var(--rule);font-family:var(--font-head);font-size:1rem}
+.calc-head{display:flex;align-items:center;gap:.4rem;padding:.4rem .5rem;cursor:move;touch-action:none;border-bottom:1px solid var(--rule-soft);background:var(--pad)}
+.calc-title{font-weight:700;margin-right:auto}
+.calc-head .btn{min-height:44px;padding:.2rem .6rem;font-size:.9rem}
+.calc input[type=text]{display:block;width:calc(100% - 1rem);margin:.5rem .5rem 0;font-size:1.15rem;font-family:var(--font-head)}
+.calc-out{display:block;margin:.3rem .5rem .5rem;padding:.3rem .5rem;min-height:2.4rem;text-align:right;font-size:1.5rem;font-weight:700;background:var(--pad);border:1px solid var(--rule-soft);overflow-wrap:anywhere}
+.calc-out.err{font-size:1rem;font-weight:600;text-align:left;background:var(--no-bg);border-color:var(--no)}
+.calc-keys{display:grid;grid-template-columns:repeat(5,1fr);gap:.3rem;padding:0 .5rem .5rem}
+.calc-keys .btn{min-width:0;min-height:44px;padding:.2rem;font-size:1.05rem}
+.calc-keys .btn.num{background:var(--sheet);color:var(--ink);border-color:var(--ink-2);font-size:1.2rem}
+.calc-keys .btn.num:hover{background:var(--pad)}
+.calc-keys .btn.calc-eq{background:var(--hi);color:var(--hi-ink);border-color:var(--ink)}
+.calc-hist{padding:0 .5rem .5rem;border-top:1px solid var(--rule-soft)}
+.calc-hist .plabel{font-size:.9rem;margin:.4rem 0 .3rem;font-weight:600}
+.calc-hist ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.25rem;max-height:9rem;overflow:auto}
+.calc-hist li{max-width:none}
+.calc-hist .chip{width:100%;text-align:left;border-radius:0;overflow-wrap:anywhere}
+html.lecture .calc{width:min(24rem,calc(100vw - 1rem))}
 </style>
 </head>
 <body>
@@ -314,6 +334,7 @@ dialog.jit h2:focus{outline:none}
       <div class="tb-cell">Statics</div>
       <div class="tb-cell">Lesson 1: Friction</div>
       <div class="tb-cell tb-sheet">Sheet 2 of 3</div>
+      <div class="tb-cell tb-lecture"><button type="button" class="btn" data-calc aria-expanded="false">Calculator</button></div>
       <div class="tb-cell tb-lecture"><button type="button" class="btn" id="lecture" aria-pressed="false">Lecture view: off</button></div>
     </div>
     <nav class="sheets" aria-label="Lesson pages"><ul><li><a href="index.html"><span class="n" aria-hidden="true">1</span>Overview</a></li><li><a href="lesson01.html" aria-current="page"><span class="n" aria-hidden="true">2</span>Lesson</a></li><li><a href="lab01.html"><span class="n" aria-hidden="true">3</span>Lab</a></li></ul></nav>
@@ -325,7 +346,7 @@ dialog.jit h2:focus{outline:none}
   <h1>Friction</h1>
   <p class="lede">Until now, most of our problems came with supports that held firm. This lesson asks a different question: will the body stay where it is at all? The answer depends on friction, and on something a particle model hides, which is where the floor pushes back.</p>
   <div class="progress no-print"><progress id="prog" value="0" max="1" aria-describedby="prog-t"></progress><span id="prog-t"></span></div>
-  <p class="meta">Seven sections, 17 interactive activities, and 25 in-class problems placed where each topic comes up. Both are listed at the end of the page, so you can jump straight to any one. Wherever you see a “Need a refresher?” button, it opens a short review of an earlier idea without leaving your place. Your progress on the checks is saved on this device.</p>
+  <p class="meta">Seven sections, 17 interactive activities, and 25 in-class problems placed where each topic comes up. Both are listed at the end of the page, so you can jump straight to any one. A scientific calculator opens from the Calculator button at the top of the page and on every in-class problem; you can drag it anywhere. Wherever you see a “Need a refresher?” button, it opens a short review of an earlier idea without leaving your place. Your progress on the checks is saved on this device.</p>
 
   <h2>Before you start</h2>
   <p>Two questions on ideas this lesson leans on. If either one is shaky, open the matching review below before going on.</p>
@@ -1427,7 +1448,7 @@ window.STATICS_REVIEW = {
   function problem(box) {
     var ans = $('.pans', box), sw = $('.psteps-w', box), steps = $$('.psteps > li', box), full = $('.pfull', box), A = false, F = false, shown = 0;
     var bar = document.createElement('div'); bar.className = 'tools';
-    bar.innerHTML = '<button type="button" class="btn a"></button><button type="button" class="btn n"></button><button type="button" class="btn alt f"></button><button type="button" class="btn alt h">Hide all</button><button type="button" class="btn alt fs">Full screen</button><p class="sr" role="status"></p>';
+    bar.innerHTML = '<button type="button" class="btn a"></button><button type="button" class="btn n"></button><button type="button" class="btn alt f"></button><button type="button" class="btn alt h">Hide all</button><button type="button" class="btn alt" data-calc aria-expanded="false">Calculator</button><button type="button" class="btn alt fs">Full screen</button><p class="sr" role="status"></p>';
     box.insertBefore(bar, ans);
     var ba = $('.a', bar), bn = $('.n', bar), bf = $('.f', bar), bh = $('.h', bar), live = $('.sr', bar);
     function show(say) {
@@ -1967,6 +1988,131 @@ window.STATICS_REVIEW = {
     });
   }
 
+  /* ---------- Scientific calculator (floating panel, no eval) ---------- */
+  function calcEval(src, deg, ans) {
+    var s = src.replace(/×/g, '*').replace(/÷/g, '/').replace(/[−–]/g, '-').replace(/π/g, 'pi').replace(/√/g, 'sqrt').replace(/\s+/g, '').toLowerCase(), i = 0;
+    var NAMES = ['arcsin', 'arccos', 'arctan', 'asin', 'acos', 'atan', 'sqrt', 'sin', 'cos', 'tan', 'abs', 'log', 'ans', 'ln', 'pi', 'e'];
+    if (!s) throw 'Enter an expression first.';
+    function peek() { return s.charAt(i); }
+    function close() { if (peek() === ')') i++; else if (i < s.length) throw 'Check the parentheses.'; }
+    function fact(n) { if (n < 0 || n % 1 || n > 170) throw 'n! needs a whole number from 0 to 170.'; var r = 1; for (var k = 2; k <= n; k++) r *= k; return r; }
+    function apply(f, x) {
+      var a = deg ? x * DEG : x;
+      switch (f.replace('arc', 'a')) {
+        case 'sin': return Math.sin(a);
+        case 'cos': return Math.cos(a);
+        case 'tan': if (Math.abs(Math.cos(a)) < 1e-12) throw 'tan is undefined at that angle.'; return Math.tan(a);
+        case 'asin': if (Math.abs(x) > 1) throw 'sin⁻¹ needs a value from −1 to 1.'; return deg ? Math.asin(x) / DEG : Math.asin(x);
+        case 'acos': if (Math.abs(x) > 1) throw 'cos⁻¹ needs a value from −1 to 1.'; return deg ? Math.acos(x) / DEG : Math.acos(x);
+        case 'atan': return deg ? Math.atan(x) / DEG : Math.atan(x);
+        case 'sqrt': if (x < 0) throw 'The square root of a negative number is not real.'; return Math.sqrt(x);
+        case 'ln': if (x <= 0) throw 'ln needs a positive number.'; return Math.log(x);
+        case 'log': if (x <= 0) throw 'log needs a positive number.'; return Math.log(x) / Math.LN10;
+        default: return Math.abs(x);
+      }
+    }
+    function primary() {
+      var c = peek(), v;
+      if (c === '(') { i++; v = expr(); close(); return v; }
+      var m = /^(\d+\.?\d*|\.\d+)(e[+-]?\d+)?/.exec(s.slice(i));
+      if (m) { i += m[0].length; return parseFloat(m[0]); }
+      var name = null; for (var k = 0; k < NAMES.length && !name; k++) if (s.substr(i, NAMES[k].length) === NAMES[k]) name = NAMES[k];
+      if (!name) throw c ? 'Can’t read “' + c + '” there.' : 'The expression ends too soon.';
+      i += name.length;
+      if (name === 'pi') return Math.PI; if (name === 'e') return Math.E; if (name === 'ans') return ans;
+      if (peek() === '(') { i++; v = expr(); close(); } else v = unary();
+      return apply(name, v);
+    }
+    function postfix() { var v = primary(); while (peek() === '!') { i++; v = fact(v); } return v; }
+    function power() { var b = postfix(); if (peek() === '^') { i++; return Math.pow(b, unary()); } return b; }
+    function unary() { if (peek() === '-') { i++; return -unary(); } if (peek() === '+') { i++; return unary(); } return power(); }
+    function term() {
+      var v = unary(), c, d;
+      for (;;) {
+        c = peek();
+        if (c === '*') { i++; v *= unary(); }
+        else if (c === '/') { i++; d = unary(); if (d === 0) throw 'Division by zero.'; v /= d; }
+        else if (c && /[0-9.(a-z]/.test(c)) v *= power();
+        else return v;
+      }
+    }
+    function expr() { var v = term(); for (;;) { if (peek() === '+') { i++; v += term(); } else if (peek() === '-') { i++; v -= term(); } else return v; } }
+    var out = expr();
+    if (i < s.length) throw peek() === ')' ? 'There is a closing parenthesis with no opening one.' : 'Can’t read “' + peek() + '” there.';
+    if (!isFinite(out)) throw 'That result is not a real number.';
+    return out;
+  }
+  function calcFmt(v) {
+    var a = Math.abs(v); if (a < 1e-12) return '0';
+    if (a >= 1e10 || a < 1e-6) return v.toExponential(6).replace(/\.?0+e/, 'e').replace('e+', 'e');
+    return String(parseFloat(v.toPrecision(10)));
+  }
+  function calculator() {
+    if (!$('[data-calc]')) return;
+    var KEY = 'statics-l1-calc-v1', st = load(KEY), deg = st.deg !== 0, hist = st.hist || [], ans = st.ans || 0, fresh = false, opener = null;
+    var K = [
+      ['sin', 'sin('], ['cos', 'cos('], ['tan', 'tan('], ['(', '('], [')', ')'],
+      ['sin⁻¹', 'asin(', 'inverse sine'], ['cos⁻¹', 'acos(', 'inverse cosine'], ['tan⁻¹', 'atan(', 'inverse tangent'], ['√', '√(', 'square root'], ['xʸ', '^', 'to the power of'],
+      ['x²', '^2', 'squared'], ['n!', '!', 'factorial'], ['π', 'π', 'pi'], ['ln', 'ln(', 'natural log'], ['log', 'log(', 'log base 10'],
+      ['7', '7'], ['8', '8'], ['9', '9'], ['÷', '÷', 'divided by', 'op'], ['C', 'CLR', 'clear', 'op'],
+      ['4', '4'], ['5', '5'], ['6', '6'], ['×', '×', 'times', 'op'], ['⌫', 'DEL', 'delete last character', 'op'],
+      ['1', '1'], ['2', '2'], ['3', '3'], ['−', '−', 'minus', 'op'], ['Ans', 'Ans', 'last answer', 'op'],
+      ['0', '0'], ['.', '.', 'decimal point'], ['×10ⁿ', '×10^', 'times ten to the power of'], ['+', '+', 'plus', 'op'], ['=', 'EQ', 'equals', 'eq']
+    ];
+    var panel = document.createElement('section'); panel.className = 'calc no-print'; panel.hidden = true; panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', 'Scientific calculator');
+    panel.innerHTML = '<div class="calc-head"><span class="calc-title">Calculator</span><button type="button" class="btn alt calc-mode"></button><button type="button" class="btn alt calc-x">Close</button></div>' +
+      '<label class="sr" for="calc-in">Expression</label><input id="calc-in" type="text" inputmode="none" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type or use the keys">' +
+      '<output class="calc-out" for="calc-in" aria-live="polite">0</output><div class="calc-keys">' +
+      K.map(function (k, n) { return '<button type="button" class="btn ' + (k[3] === 'eq' ? 'calc-eq' : (k[3] === 'op' || n < 15 ? 'alt' : 'num')) + '" data-k="' + n + '"' + (k[2] ? ' aria-label="' + k[2] + '"' : '') + '>' + k[0] + '</button>'; }).join('') +
+      '</div><div class="calc-hist"><p class="plabel">Recent results. Select one to reuse it.</p><ol></ol></div>';
+    var inp = $('#calc-in', panel), out = $('.calc-out', panel), mode = $('.calc-mode', panel), hl = $('.calc-hist ol', panel), head = $('.calc-head', panel);
+    function persist() { save(KEY, { deg: deg ? 1 : 0, hist: hist, ans: ans }); }
+    function showMode() { mode.textContent = deg ? 'Angles: degrees' : 'Angles: radians'; mode.setAttribute('aria-label', (deg ? 'Angles in degrees' : 'Angles in radians') + '. Select to switch.'); }
+    function showHist() { $('.calc-hist', panel).hidden = !hist.length; hl.innerHTML = hist.map(function (h, n) { return '<li><button type="button" class="chip" data-h="' + n + '"><span></span> = <b></b></button></li>'; }).join(''); $$('li', hl).forEach(function (li, n) { $('span', li).textContent = hist[n].e; $('b', li).textContent = hist[n].r; }); }
+    function insert(t) {
+      if (fresh) { inp.value = /^[×÷+−^!]/.test(t) ? 'Ans' : ''; fresh = false; }
+      var a = inp.selectionStart == null ? inp.value.length : inp.selectionStart, b = inp.selectionEnd == null ? a : inp.selectionEnd;
+      inp.value = inp.value.slice(0, a) + t + inp.value.slice(b); inp.focus(); try { inp.setSelectionRange(a + t.length, a + t.length); } catch (e) { /* not supported */ }
+    }
+    function equals() {
+      var e = inp.value.trim();
+      try {
+        var v = calcEval(e, deg, ans), r = calcFmt(v); ans = v; out.textContent = '= ' + r; out.className = 'calc-out';
+        if (!hist.length || hist[0].e !== e || hist[0].r !== r) { hist.unshift({ e: e, r: r }); hist = hist.slice(0, 8); }
+        fresh = true; persist(); showHist();
+      } catch (err) { out.textContent = typeof err === 'string' ? err : 'Can’t read that expression.'; out.className = 'calc-out err'; }
+    }
+    $('.calc-keys', panel).addEventListener('click', function (ev) {
+      var b = ev.target.closest('button'); if (!b) return; var k = K[+b.getAttribute('data-k')][1];
+      if (k === 'EQ') equals();
+      else if (k === 'CLR') { inp.value = ''; out.textContent = '0'; out.className = 'calc-out'; fresh = false; inp.focus(); }
+      else if (k === 'DEL') { fresh = false; inp.value = inp.value.slice(0, -1); inp.focus(); }
+      else insert(k);
+    });
+    inp.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); equals(); } });
+    inp.addEventListener('input', function () { fresh = false; });
+    hl.addEventListener('click', function (ev) { var b = ev.target.closest('button'); if (!b) return; var r = hist[+b.getAttribute('data-h')].r; if (fresh) inp.value = ''; fresh = false; insert(r.charAt(0) === '-' ? '(' + r + ')' : r); });
+    mode.addEventListener('click', function () { deg = !deg; showMode(); persist(); if (inp.value.trim() && fresh) equals(); });
+    function mount() { (document.fullscreenElement || document.body).appendChild(panel); }
+    function setOpen(on) {
+      if (on) { mount(); panel.hidden = false; inp.focus(); } else { panel.hidden = true; if (opener && document.contains(opener)) opener.focus(); }
+      $$('[data-calc]').forEach(function (b) { b.setAttribute('aria-expanded', on ? 'true' : 'false'); });
+    }
+    $('.calc-x', panel).addEventListener('click', function () { setOpen(false); });
+    panel.addEventListener('keydown', function (ev) { if (ev.key === 'Escape') { ev.stopPropagation(); setOpen(false); } });
+    document.addEventListener('click', function (ev) { var b = ev.target.closest ? ev.target.closest('[data-calc]') : null; if (!b) return; opener = b; setOpen(panel.hidden); });
+    document.addEventListener('fullscreenchange', function () { if (!panel.hidden) mount(); });
+    var drag = null;
+    head.addEventListener('pointerdown', function (ev) { if (ev.target.closest('button')) return; var r = panel.getBoundingClientRect(); drag = { x: ev.clientX - r.left, y: ev.clientY - r.top }; try { head.setPointerCapture(ev.pointerId); } catch (e) { /* older browsers */ } });
+    head.addEventListener('pointermove', function (ev) {
+      if (!drag) return; var r = panel.getBoundingClientRect();
+      panel.style.left = clamp(ev.clientX - drag.x, 0, Math.max(0, window.innerWidth - r.width)) + 'px'; panel.style.top = clamp(ev.clientY - drag.y, 0, Math.max(0, window.innerHeight - 48)) + 'px';
+      panel.style.right = 'auto'; panel.style.bottom = 'auto';
+    });
+    head.addEventListener('pointerup', function () { drag = null; }); head.addEventListener('pointercancel', function () { drag = null; });
+    showMode(); showHist();
+  }
+
   /* ---------- Knowledge checks ---------- */
   var QRV = window.STATICS_QREVIEW || {};
   var QUIZ = window.STATICS_QUIZ || {}, PKEY = 'statics-l1-checks-v1', done = load(PKEY);
@@ -2088,7 +2234,7 @@ window.STATICS_REVIEW = {
   $$('[data-widget="bar"]').forEach(barWidget);
   $$('.stepper').forEach(stepper);
   $$('.prob').forEach(problem);
-  lectureView();
+  lectureView(); calculator();
   $$('[data-quiz]').forEach(quiz);
   $$('[data-sort]').forEach(sortTask);
   problemChips(); updateProgress(); lab();
